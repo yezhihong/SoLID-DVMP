@@ -1,0 +1,160 @@
+\section{Projection of the Measurement}
+\subsection{Kinematic Coverage}
+Fig.~\ref{p_theta} shows the acceptance of the momenta and polar angles for electrons and photons which are from the DVCS process and can be simultaneously detected in SoLID. The kinematic coverage of the DVCS events within the SoLID acceptance are given in Fig.~\ref{kin_cor} for the beam energy of 8.8~GeV and 11~GeV. These distributions were weighted by the cross sections calculated with the VGG model~\cite{vgg} and the spectrometer acceptance obtained from the GEANT4 simulation with the SIDIS configuration. As shown in these plots, the range of $Q^{2}$ is from 1.0~$GeV^{2}$ to 8.0~$GeV^{2}$, $x_{B}$ goes from 0.1 up to 0.75, and $t$ up to -2.0~$GeV^{2}$.  The distribution for neutrons is also given in Fig.~\ref{p_theta}. As we can see, almost 80\% of neutrons locate at $>40^{\circ}$ with very low momenta around 0.4~GeV/c. It is difficult to design a dedicated detector to measure these neutrons. In our proposed measurement, we will not detect the neutron events but only rely on the reconstructed missing mass to perform the DVCS event selection.
+\begin{figure}[!ht]
+  \begin{center}
+    \subfloat[$E_{beam}$=8.8~GeV]{
+      \includegraphics[type=pdf, ext=.pdf,read=.pdf,width=1.\textwidth]{./figures/neutron_dvcs_p_theta_E8_Log}
+    }
+    \\
+    \subfloat[$E_{beam}$=11~GeV]{
+      \includegraphics[type=pdf, ext=.pdf,read=.pdf,width=1.\textwidth]{./figures/neutron_dvcs_p_theta_E11_Log}
+    }
+ \caption[The acceptance of the momenta and polar angles]{\footnotesize{The acceptance of the momenta and polar angles at $E_{beam}=8.8~GeV$ (a) and $11~GeV$ (b) for electrons (left) and photons (mid). The distribution of the undetected neutrons is also given in the right plot as a demonstration. Colors correspond to rates (Hz) in log scale.}}
+  \label{p_theta}
+  \end{center}
+\end{figure}
+\begin{figure}[!ht]
+  \begin{center}
+    \subfloat[$E_{beam}$=8.8~GeV]{
+      \includegraphics[type=pdf, ext=.pdf,read=.pdf,width=0.95\textwidth]{./figures/CLEO_Kin_Cor_E8_Log}
+    }
+    \\
+    \subfloat[$E_{beam}$=11~GeV]{
+      \includegraphics[type=pdf, ext=.pdf,read=.pdf,width=0.95\textwidth]{./figures/CLEO_Kin_Cor_E11_Log}
+    }
+ \caption[The coverage of important physics variables]{\footnotesize{The coverage of important physics variables at $E_{beam}=8.8~GeV$ (a) and $11~GeV$ (b). Colors correspond to rates (Hz) in log scale.}}
+  \label{kin_cor}
+  \end{center}
+\end{figure}
+\clearpage
+\subsection{Estimated Rates}
+Table~\ref{rate_table} lists the single electron and photon rates at the forward-angle and the large-angle, and the coincidence rate. The rates were calculated with the simulated events weighted by the target luminosity, the SoLID acceptances and cross sections. The electron beam energy at 8.8~GeV and 11.0~GeV are both calculated, respectively. The rates are the unpolarized event rates and are not corrected by the beam and target polarization, target dilution and so on. The total integrated physics rates are estimated to be around 38~Hz at 8.8~GeV and 22~Hz at 11~GeV, respectively. 
+\begin{table}[!ht]
+\centering
+\begin{tabular}{|c|c|c|}
+ \hline
+  $E_{0}$              &    8.8~GeV & 11~GeV\\
+ \hline
+                  \multicolumn{3}{|c|}{Single Rates (Hz)}     \\
+ \hline
+ e- (FAEC)      &  64.78 &36.17   \\
+ e- (LAEC)      &  2.57 &1.70   \\
+ $\gamma$ (FAEC)&  45.37 &40.54    \\
+ $\gamma$ (LAEC)&  31.05 &28.83    \\
+ \hline
+                  \multicolumn{3}{|c|}{Coincidence Rates (Hz)}                                     \\
+ \hline
+e-(FAEC)+$\gamma$(FAEC+LAEC) & 36.06  & 20.50   \\
+e-(LAEC)+$\gamma$(FAEC+LAEC) &  1.46  &  1.00   \\
+ \hline
+\end{tabular}
+\caption[Integrated rates for neutron-DVCS with transversely polarized $\mathrm{^{3}He}$]{\footnotesize{Integrated rates for neutron-DVCS with transversely polarized $\mathrm{^{3}He}$. The values are estimated based on cross sections predicted by the VGG model, the SoLID-SIDIS acceptance and the target luminosity.}}
+\label{rate_table}
+\end{table} 
+
+\subsection{Asymmetry Projections}
+To obtain a preliminary projection of the measurement, we currently assume the proposed experiment will share the beam time with the E12-10-006 which was approved to have 21 days at $E_{0}=8.8~GeV$ and 48 days at $E_{0}=11~GeV$. A more detailed beam-time estimation and possible additional beam-time request will be given in the actual proposal. The binning was performed for each target polarization setting (LTx or LTy) but with the combination of data at both energy settings. The simulated data was binned in 4-dimensions with a sequence of $Q^{2}$ (5 bins), $x_{B}$ (5 bins), $t$ (6 bins) and $\phi$ (12 bins), where the bin size for each variable is determined by the array given as following:
+\begin{align}
+ \label{bin_array1}
+ Q^{2}[6] &= \{1.0,1.5,2.0,3.0,4.5,7.0\}, ~~(5~bins)\\
+ x_{B}[6] &= \{0.1,0.2,0.3,0.4,0.5,0.7\}, ~~(5~bins)\\
+ t[7] &=\{-2.0,-0.7,-0.5,-0.4,-0.3,-0.2,-0.1\}, ~~(6~bins)\\
+ \phi[13] &=\{0,30,60,90,120,150,180,210,240,270,300,330,360\}, ~~(12~bins).
+\label{bin_array4}
+\end{align}
+
+The number of events ($N$) in each bin is calculated with the total simulated events after applying cuts on the corresponding ranges of these 4 variables. As shown in Eq.~\ref{ncount}, each event in one bin is then corrected by the weight of the cross section and the acceptance value of the electron and the photon. $N$ is further normalized by the phase-space ($PSF$), total generated events ($N_{gen}$), beam-time ($T_{8.8(11GeV)}$), the target luminosity ($L=10^{36} cm^{-2}s^{-1}$), and the overall detector efficiency ( $\epsilon_{eff}$):
+ \begin{equation}
+     N = (\sum_{i\in bin} \sigma^{avg}_{i}\cdot A^{e+\gamma}_{i}) \cdot (PSF/N_{gen}) \cdot T_{8.8(11GeV)} \cdot L \cdot \epsilon_{eff},
+     \label{ncount}
+ \end{equation}
+ where $\sigma^{avg}_{i}=(\sigma^{+\uparrow}_{i}+\sigma^{+\downarrow}_{i}+\sigma^{-\uparrow}_{i}+\sigma^{-\downarrow}_{i})/4$, is the average of the four cross sections in different beam and target polarization directions ($\pm$ represents the beam polarization and $\uparrow\downarrow$ denotes the target polarization). $A^{e+\gamma}_{i}$ is the product of the electron and photon acceptance weights for this event. The detector efficiency, $\epsilon_{eff}$, is fixed at 85\%. 
+
+ For four different combinations of the beam and spin polarization directions, their numbers of events in one bin were evaluated and given as $N^{+\uparrow}$, $N^{+\downarrow}$, $N^{-\uparrow}$, and $N^{-\downarrow}$. One can obtain the beam-spin asymmetry ($A_{BS}$), target-spin asymmetry ($A_{TS}$) and double-spin asymmetry ($A_{DS}$) written as:
+     \begin{align}
+            A_{BS} &= \frac{N^{+}-N^{-}}{N^{+}+N^{-}}\frac{1}{P_{e}}\\
+        A_{TS} &= \frac{N^{\uparrow}-N^{\downarrow}}{N^{\uparrow}+N^{\downarrow}}\frac{1}{f P_{T} P_{n}},\\   
+        A_{DS} &= \frac{(N^{+\uparrow}+N^{-\downarrow})-(N^{+\downarrow}+N^{-\uparrow})}{N^{+\uparrow}+N^{+\downarrow}+N^{-\uparrow}+N^{-\downarrow}}\frac{1}{f P_{T} P_{n} P_{e}},
+%                   
+%         A_{BS} &= \frac{N^{+}-N^{-}}{N^{+}+N^{-}}\frac{1}{P_{e}}=
+%                    \frac{(\bar{\sigma}_{i}^{+\uparrow} + \bar{\sigma}_{i}^{+\downarrow}) - (\bar{\sigma}_{i}^{-\uparrow} + \bar{\sigma}_{i}^{-\downarrow})}
+%                         {\bar{\sigma}_{i}^{+\uparrow} + \bar{\sigma}_{i}^{+\downarrow} + \bar{\sigma}_{i}^{-\uparrow} + \bar{\sigma}_{i}^{-\downarrow} }\frac{1}{P_{e}},\\
+%         A_{TS} &= \frac{N^{\uparrow}-N^{\downarrow}}{N^{\uparrow}+N^{\downarrow}}\frac{1}{f P_{T} P_{n}}=
+%                   \frac{(\bar{\sigma}_{i}^{+\uparrow} + \bar{\sigma}_{i}^{-\uparrow}) - (\bar{\sigma}_{i}^{+\downarrow}+\bar{\sigma}_{i}^{-\downarrow})}
+%                        {\bar{\sigma}_{i}^{+\uparrow} + \bar{\sigma}_{i}^{+\downarrow} + \bar{\sigma}_{i}^{-\uparrow} + \bar{\sigma}_{i}^{-\downarrow} }\frac{1}{f P_{T} P_{n}},\\   
+%         A_{DS} &= \frac{(N^{+\uparrow}+N^{-\downarrow})-(N^{+\downarrow}+N^{-\uparrow})}{N^{+\uparrow}+N^{+\downarrow}+N^{-\uparrow}+N^{-\downarrow}}\frac{1}{f P_{T} P_{n} P_{e}}=
+%                   \frac{(\bar{\sigma}_{i}^{+\uparrow} + \bar{\sigma}_{i}^{-\downarrow})- (\bar{\sigma}_{i}^{+\downarrow} + \bar{\sigma}_{i}^{-\uparrow})}
+%                   {\bar{\sigma}_{i}^{+\uparrow} + \bar{\sigma}_{i}^{+\downarrow} + \bar{\sigma}_{i}^{-\uparrow} + \bar{\sigma}_{i}^{-\downarrow} }\frac{1}{f P_{T} P_{n} P_{e}},
+     \end{align}
+where $P_{e}$ (beam polarization) and $P_{T}$ (target polarization) are set to be 90\% and 60\%, respectively. The dilution factor, $f$, is chosen to be 90\% based on the experience from the E06-110 data analysis, and $P_{n}$, the effective polarization of neutrons inside $\mathrm{^{3}He}$, is known to be about 86.5\%. 
+
+The absolute statistical uncertainty of the asymmetries are approximately given as:
+\begin{align}
+ \delta A_{BS} &=  \frac{1}{\sqrt{N}}\frac{\sqrt{1- (P_{e}A_{BS})^{2}}}{P_{e}}, \\
+ \delta A_{TS} &=  \frac{1}{\sqrt{N}}\frac{\sqrt{1- (fP_{T} P_{n}A_{BS})^{2}}}{f P_{T} P_{n}}, \\
+ \delta A_{DS} &=  \frac{1}{\sqrt{N}}\frac{\sqrt{1- (fP_{T} P_{n}P_{e}A_{BS})^{2}}}{ fP_{T} P_{n}P_{e}}
+\end{align}
+
+\begin{figure}[!ht]
+ \begin{center}
+    \subfloat[$Tx$ Polarization]{
+      \includegraphics[type=pdf, ext=.pdf,read=.pdf,width=0.8\textwidth]{./figures/E11p8_Tx_Q2_2_x_2_t_4_asym_new2}
+    }
+    \\
+    \subfloat[$Ty$ Polarization]{
+      \includegraphics[type=pdf, ext=.pdf,read=.pdf,width=0.8\textwidth]{./figures/E11p8_Ty_Q2_2_x_2_t_4_asym_new2}
+    }
+\caption[Asymmetry distributions with transversely polarized target at one typical bin,$<Q^{2}>\sim 2.4~GeV^{2}$, $<x_{B}>\sim 0.35$ and $<t>\sim -0.25$]{\footnotesize{Asymmetry distributions with transversely polarized target at one typical bin,$<Q^{2}>\sim 2.4~GeV^{2}$, $<x_{B}>\sim 0.35$ and $<t>\sim -0.25$. The plots from left to right give $A_{LU}$, $A_{UTy}$ and $A_{LTy}$ as functions of $\phi$, respectively. Data includes both the $E_{beam}=8.8~GeV$~and~$11~GeV$ settings.}}
+  \label{b11_Q2_3_tx}
+  \end{center}
+\end{figure}
+The full binning results are given in Appendix A. As an example, the zoom-in plots for one particular ($Q^{2}$, $x_{B}$, $-t$) setting are given in Fig.~\ref{b11_Q2_3_tx}. In general, the SoLID spectrometer provides extensive coverage and great statistics. %We will perform the extraction of the Compton form factors (CFFs) by fitting the binning results. In the actual proposal, we will present the distribution of CFFs which we can obtain from the proposed measurement.
+
+\section {Missing Mass and Background}
+ To make sure the exclusivity of the reaction, we need to reject the background events from other processes, such as the $e+n\rightarrow e+n'+\pi^{0}$ channel which is the major background source. In the new measurement, we will only detect scattered electrons and real photons from the DVCS reaction, and reconstruct the neutron missing mass to select the real DVCS events. The $\pi^{0}$ events will be mixed into the missing mass spectrum with the neutron mass plus the energy of one of two photons from $\pi^{0}$ decay. One typical way to remove the background is to apply a cut on the upstream tail of the spectrum and further subtract the residual by fitting the  $\pi^{0}$ tail that extends to the neutron spectrum. Such a method relies on good resolutions of the final particle detection and efficient $\pi^{0}$ reconstruction and fitting algorithms.
+ 
+ The momentum (or energy) and angular resolutions for electron measurement are determined by the GEM tracking reconstruction which is designed to achieve the following values:
+ \begin{equation*}
+    \delta P_{e}/P_{e} \sim 2\%, \delta \theta_{e} \sim 0.6~mrad, \delta\phi_{e} \sim 5~mrad,
+ \end{equation*}
+The resolutions of photon detection are determined by the cluster reconstruction of ECs (including FAEC and LAEC). The energy resolution is about $\sim 5\%$ in our current design. The angular resolutions are determined by the EC position resolutions and the target vertex position ($\delta z_{vertex}$) given by the electron tracking reconstruction, which are:
+\begin{equation}
+  \delta x_{EC} = 1~cm, \delta y_{EC} = 1~cm, \delta z_{vertex} = 0.5~cm.
+  \label{eq:pos}
+\end{equation}
+Since distances between the target to the LAEC and FAEC are 310~m and 790~m, respectively, the angular spreads of photons based the position resolutions in Eq.~\ref{eq:pos} are about $1.2~mrad$ on $\theta$ and $4.5~mrad$ on $\phi$. We noticed that the energy resolution is the dominant source of the uncertainty when comparing the change of the missing mass resolution by varying the photon's energy and angular resolutions.
+
+With the resolutions of detecting electrons and photons discussed above, we reconstructed the neutron missing mass spectrum, shown in Fig.~\ref{missingmass}. The Fermi motion of the neutron inside the nucleus was also considered but the effect is negligible compared with the detector resolutions. Due to lack of a model to predict the $e+n\rightarrow e+n'+\pi^{0}$ cross sections, we mixed the $\pi^{0}$ events only with a uniform distribution and scaled the relative amplitude compared with the DVCS events to match the preliminary results from the most recent Hall A DVCS data. The plots given here are served as a demonstration of the missing mass resolution with the current design of the SoLID detectors. With higher beam energy, the $\pi^{0}$ events tend to move further away from the DVCS peak, which makes the current estimation close to the realistic situation. From these two spectra, we noticed that the ability of detecting two photons will help us to suppress nearly half of the $\pi^{0}$ background. Meanwhile, the background tail mixed into the neutron peak is not significant and can be subtracted by fitting the background distribution. We believe that the background can be well controlled with the existing setup, but we are still evaluating the background situation and also plan to improve the detector resolutions. We are working with the Hall A DVCS collaboration to extract the $\pi^{0}$ events from their new data and will develop a phenomenological model to study the background. We will present a more realistic background study in the actual proposal.
+\begin{figure}[!ht]
+  \begin{center}
+    \subfloat[$E_{beam}$=8.8~GeV]{
+      \includegraphics[type=pdf, ext=.pdf,read=.pdf,width=0.64\textwidth]{./figures/neutron_DVCS_pi0_MM_8}
+    } \\
+           \subfloat[$E_{beam}$=11~GeV]{
+      \includegraphics[type=pdf, ext=.pdf,read=.pdf,width=0.64\textwidth]{./figures/neutron_DVCS_pi0_MM}
+    }
+  \caption[The neutron missing mass spectrum at $E_{beam}=8.8$ and $11~GeV$]{\footnotesize{The neutron missing mass spectrum at $E_{beam}= 8.8$ and $11~GeV$. The detector resolutions and the nucleon Fermi motion inside the nucleus were considered in the calculation. The $\pi^{0}$ background (red line) was normalized by roughly comparing with the preliminary result of the background study with recent 12~GeV Hall-A DVCS data. We also evaluate the $\pi^{0}$ combination (magenta line) after removing these events which we can detect by measuring both $\pi^{0}$ decayed photons. An updated version will be available once we have the $e^{-}n\rightarrow\pi^{0}$ exclusive cross section model.}}
+    \label{missingmass}
+  \end{center}
+\end{figure}
+
+The other major source of background will be single-photon production which can affect the online trigger rates but will be easily subtracted during the offline analysis. These events are produced when the electron beam passes through target material (e.g. Bremsstrahlung radiation), or through the secondary scattering when particles interact with the spectrometer, detectors and other materials along the trajectory. In the former case photons travel nearly along the very forward direction ($<4^{\circ}$) which is out of the SoLID acceptance. Photons in the later case usually carry very low energy and based on the background study of the SoLID-SIDIS experiment, a $\geq 1~GeV$ threshold setting on the photon trigger is sufficient to remove these background. One can increase the threshold during the experiment if the rate is still high since the main photon events are above $2~GeV$, as shown in Fig.~\ref{p_theta}. Residual single photon events can be removed during the offline analysis by cutting on the missing mass spectrum. We expect that this type of background can be well controlled.
+
+\section{Systematic Uncertainties}
+\begin{table}[!htp]
+\centering
+\begin{tabular}{|c|c|}
+\hline
+{\bf Sources}                  & {\bf Relative Value} \\\hline
+Beam Polarization              & $2\%$ \\\hline 
+Target Polarization            & $3\%$ \\\hline 
+Acceptance                     & $3\%$ \\\hline
+$\pi^{0}$ Contamination        & $<5\%$  \\\hline
+Other Contamination            & $<5\%$ \\\hline
+Radiation Correction           & $1\%$ \\\hline
+\end{tabular}
+\caption{\footnotesize{Expected systematic errors.}}\label{table:det_sys_err}
+\end{table}
+The detector related systematic errors are expected to be similar to the ones given in the E12-10-006 proposal as well as in other SIDIS experiments with SoLID, as shown in Table~\ref{table:det_sys_err}. The systematic error of the $\pi^{0}$ correction procedure and other background subtraction will be controlled at the 1\%$\sim$5\% level. %Meanwhile, it is still an ongoing effort to understand and estimate the systematic errors from fitting the CFFs with the asymmetries. 
+We expect to provide a full list of systematic errors in the proposal. 

@@ -1,0 +1,91 @@
+\documentclass{article}
+\usepackage{color,rotate,graphics,epsf,amssymb,latexsym,epsfig,graphicx,authblk}
+\usepackage{booktabs}
+\usepackage{epsfig}
+\usepackage{amsmath}
+\usepackage{rotating}
+\usepackage{caption}
+\usepackage{subfig}
+\usepackage{graphicx}
+\usepackage{booktabs}
+\usepackage{epstopdf}
+\usepackage{url} 
+\usepackage{listings}
+\usepackage{cite}
+\usepackage{upquote}
+\usepackage{xcolor}
+\usepackage{pdfpages}
+\usepackage[section]{placeins}
+\usepackage[margin=1in]{geometry}
+
+%This should be the last one
+\usepackage{hyperref}
+
+\catcode`\@=11
+%--------------------------------------------------------------
+%\textwidth 175mm \textheight 236mm \topmargin -1in \oddsidemargin -1in
+%\textwidth 5.5in \textheight 9in \topmargin -1in \oddsidemargin -1in
+%\evensidemargin 1in  
+%-------------------------------------------------------------
+
+\begin {document}
+%\vspace{2in}
+\title {\textbf{An Measurement of Deeply Virtual Compton Scattering with Transversely Polarized Neutron using the SoLID Spectrometer}\\
+  \emph{A new letter of intent to Jefferson Lab PAC43}
+}
+\author[1]{Alexandre Camsonne}
+%\author[1]{Jian-ping Chen}
+\author[2]{Haiyan Gao}
+\author[3]{Carlos Mu\~noz Camacho}
+\author[4]{Gu Chao}
+\author[4]{Kondo Gnanvo}
+\author[4]{Nilanga Liyanage}
+\author[3]{Marie Boer}
+%\author[3]{Eric Voutier}
+\author[2]{Zhihong Ye}
+\author[2]{Zhiwen Zhao}
+
+\author{and the Hall A SoLID collaboration}
+
+\affil[1] { Thomas Jefferson National Accelerator Facility}
+\affil[2] { Duke University }
+\affil[3] { Institut de Physique Nucleaire Orsay}
+\affil[4] { University of Virginia}
+\date{May 12, 2015}
+\maketitle
+%\newpage
+\begin{abstract} 
+We propose to perform, for the first time at JLab, the asymmetry measurements of the deeply virtual Compton scattering (DVCS) with transversely-polarized neutrons using the new solenodial large acceptance device (SoLID) in Hall-A. The spin azimuthal dependence of the asymmetries in various kinematic regions can be used to constrain the distributions of Compton form factors (CFFs), which correspond to the integrals of Generalized Parton Distributions (GPDs). The high luminosity and large acceptance features of the SoLID will provide precise information of the neutron GPDs, in particular the GPD $E^{n}$ which has not been well studied but crucial for the study of $J_{u}$ and $J_{d}$ in the Ji's sum rule via a flavor decomposition. We plan to use exact the same setup as the approved SIDIS experiments, but with a minimum modification of adding the photon-detection trigger.
+\end{abstract}
+
+\tableofcontents
+%\listoffigures
+%\listoftables
+
+%\section {Introduction}
+%\section {Motivation}
+\input{motivation.tex}
+
+%\section {Proposed Measurement}
+\input{measurement.tex}
+
+%\section {Experimental setup}
+\input{setup.tex}
+
+%\section {Projection}
+\input projection.tex
+
+\section{Summary}
+ We have presented a plan of using the SoLID to perform a precise measurement of the DVCS process with a longitudinally polarized electron beam at 8.8 and 11~GeV scattering off a transversely polarized $\mathrm{^{3}He}$ target. We will extract three sets of asymmetries (BSA, TSA and DSA) as functions of $Q^{2}$, $x_{B}$, $t$ and $\phi$ thanks to the high luminosity and large coverage features of the SoLID detectors. The full data sets with good statistics and well controlled systematic uncertainties will be used for the extraction of neutron GPDs, in particular the GPD ${E}^{n}$. Combined with the proton CFFs, the new data will be used to perform a flavor separation and extract the quark GPDs.
+ 
+ We have briefly described the experimental setup, presented the kinematic coverage and integrated rate of the DVCS events, as well as shown the projection of the asymmetries distributions by binning the simulation data. An overlook of the background situation was also given but required further study with a working model. We claimed that the experimental setup, which will also be used for several approved experiments, is straightforward and the modification of the existing configuration will be minimum to meet our requirement, although we have stronger demands on the detector resolutions. The SoLID collaboration has started to discuss the plan of the improvement and we will continue working on the actual proposal which will be submitted in the next PAC.
+
+\newpage
+\begin{thebibliography}{99}
+\input{prop_bib.tex}
+\end{thebibliography}
+ 
+\newpage
+%%\appendix
+%\input{appendix.tex}
+\end{document}
