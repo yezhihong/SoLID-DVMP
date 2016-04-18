@@ -85,6 +85,8 @@
 \newcommand{\ddxi}{\frac{\partial^2}{\partial \xi^2}}
 \newcommand{\du}{\frac{\partial}{\partial u}}
 
+\renewcommand{\labelenumi}{\alph{enumi}.} % Make numbering in the enumerate environment by letter rather than number (e.g. section 6)
+
 \def\Gtilde{\tilde{G}}
 \def \CO {{\cal O}}
 \def \CP {{\cal P}}
@@ -243,13 +245,14 @@ kinematic range over which reliable data can be acquired from electroproduction
 data.
 
 
+ 
+\newpage
+%%\appendix
+\input{appendix.tex}
 
 \newpage
 %\begin{thebibliography}{99}
 \input{prop_bib.tex}
 %\end{thebibliography}
- 
-\newpage
-%%\appendix
-%\input{appendix.tex}
+
 \end{document}
