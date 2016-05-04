@@ -18,6 +18,16 @@
   \label{kin_cor}
   \end{center}
 \end{figure}
+The kinematic coverage in $Q^{2}$ vs. $x_{B}$ is shown in Fig.~\ref{kin_cor},
+where two proton detection cases were given: $(a)$ by using only the SoLID
+detectors to detect protons at small angles ($8^{\circ}\sim24^{\circ}$) and
+adding a new proton recoil detector to detect the rest of the recoil protons at
+larger angle ($24^{\circ}\sim50^{\circ}$), or $(b)$ by only using only the 
+SoLID detectors. These distributions were weighted by the DEMP unpolarized
+cross sections and the SoLID acceptance obtained from the GEANT4 simulation
+with the SoLID-SIDIS configuration. As shown in these plots, the range of
+$Q^{2}$ is from 1.0~GeV$^{2}$ to 8.0~GeV$^{2}$, $x_{B}$ goes from 0.1 up to
+0.75.
 
 \begin{figure}[!ht]
  \begin{center}
@@ -38,17 +48,6 @@
   \label{p_theta}
   \end{center}
 \end{figure}
-The kinematic coverage in $Q^{2}$ vs. $x_{B}$ is shown in Fig.~\ref{kin_cor},
-where two proton detection cases were given: $(a)$ by using only the SoLID
-detectors to detect protons at small angles ($8^{\circ}\sim24^{\circ}$) and
-adding a new proton recoil detector to detect the rest of the recoil protons at
-larger angle ($24^{\circ}\sim50^{\circ}$), or $(b)$ by only using only the 
-SoLID detectors. These distributions were weighted by the DEMP unpolarized
-cross sections and the SoLID acceptance obtained from the GEANT4 simulation
-with the SoLID-SIDIS configuration. As shown in these plots, the range of
-$Q^{2}$ is from 1.0~GeV$^{2}$ to 8.0~GeV$^{2}$, $x_{B}$ goes from 0.1 up to
-0.75.
-
 Fig.~\ref{p_theta} shows the momentum and angular acceptance of electrons,
 $\pi^{-}$ and protons which form the DEMP events and can be detected with the
 SoLID detectors and (or) with the new PRD.  A cut of $Q^{2}>$4~GeV$^{2}$
@@ -66,7 +65,7 @@ angle.
  \hline
 \multicolumn{3}{|c|}{DEMP: $\vec{n}(e,e'\pi^{-}p)$ Triple-Coincidence (Hz)}\\
  \hline
- 17.79 (0.22)   &  0.53 (0.31) & 26.45 (7.66)   \\
+ 23.91 (6.21)   &  0.59 (0.28) & 24.50 (6.49)   \\
  \hline
 \multicolumn{3}{|c|}{SIDIS: $\vec{n}(e,e'\pi^{-})X$ Double-Coincidence (Hz)}\\
  \hline
@@ -85,9 +84,9 @@ Table~\ref{rate_table} lists the triple-coincidence rate of the DEMP
 events. The rates were calculated with the simulated events weighted by the
 target luminosity, the SoLID acceptances and unpolarized cross sections. The
 rates are not corrected by the beam and target polarization, target dilution
-and so on. The total integrated physics rate is estimated to be around 26~Hz at
-11~GeV, or 0.53 Hz at $Q^{2}>$4~GeV$^{2}$. If only using only the 
-SoLID detectors to detect protons, the rate drops to 0.31 Hz at
+and so on. The total integrated physics rate is estimated to be around 25~Hz at
+11~GeV, or 0.59 Hz at $Q^{2}>$4~GeV$^{2}$. If only using only the 
+SoLID detectors to detect protons, the rate drops to 0.28 Hz at
 $Q^{2}>$4~GeV$^{2}$.  For comparison, the table also gives the SIDIS rate
 which will be the online production trigger rates and is the main background of
 the DEMP events.
@@ -159,23 +158,22 @@ as discussed in Appendix-A. Because of not performing a L/T separation in this
 experiment, the asymmetry should be corrected by another dilution factor which
 is defined as:
 \begin{equation}
-  f_{L/T} =\frac{\epsilon\cdot\sigma_{L} }{\sigma_{T}+\epsilon\cdot\sigma_{L} },
+  f_{L/T} =\frac{\epsilon\sigma_{L} }{\sigma_{T}+\epsilon\cdot\sigma_{L} },
 \end{equation} 
-where $\epsilon=1/(1+\frac{2\nu}{Q^{2}}\tan^{2}(\theta))$. Additional dilution
-due to $\sigma_{TT}$ is assumed to be small.  Hence, $A_{UT} = f_{L/T}\cdot
-A_{UT}^{model}$.
+where $\epsilon=(1+\frac{2\nu^{2}}{Q^{2}}\tan^{2}(\theta))^{-1}$. Additional dilution
+due to $\sigma_{TT}$ is assumed to be small.  A factor of $-1$ is also applied after comparing Eq.~\ref{eqn:asy} and Eq.~\ref{eqn:sigtarg}. Hence, $A_{UT} = -f_{L/T}\cdot A_{UT}^{model}$.
 
 \begin{figure}[!ht]
  \begin{center}
          \subfloat[w/o PRD]{
                \includegraphics[type=pdf,
-        ext=.pdf,read=.pdf,width=0.45\textwidth]{./figures/bin_asym_t} }
+        ext=.pdf,read=.pdf,width=0.45\textwidth]{./figures/bin_asym_t_zoom} }
             \subfloat[w/ PRD]{
       \includegraphics[type=pdf,
-        ext=.pdf,read=.pdf,width=0.45\textwidth]{./figures/bin_asym_t_prd} }
+        ext=.pdf,read=.pdf,width=0.45\textwidth]{./figures/bin_asym_t_prd_zoom} }
       \caption{\footnotesize{Projection of target sing spin asymmetry
           ($A_{UT}$) in $-t$ binning for DEMP with transversely polarized
-          $\mathrm{^{3}He}$ at $E_{0}$=11~GeV. The error bars are the projected
+          $\mathrm{^{3}He}$ at $E_{0}$=11~GeV (directly compared with Fig.~\ref{fig:hermes_aut}). The error bars are the projected
           statistical uncertainties defined in Eq.~\ref{stat_err}. The
           asymmetry value in each bin is predicted with the model given in Appendix-A and is diluted due to not separating the L/T
           contributions. The left plot shows the projection w/o a new proton
@@ -191,15 +189,43 @@ statistical errors discussed above. Compared with the existing HERMES results
 (Fig.~\ref{fig:hermes_aut}), the new measurement could provide more precision
 data to be directly compared with theoretical predictions. The detailed
 information of each bin is listed in Table~\ref{asym_bin_table}.
+%	\begin{table}[!ht]
+%	\centering
+%        \small
+%	\begin{tabular}{|c|c|c|c|c|c|c|c|}
+%	  \hline
+%	w/o PRD   &  Bin\#1 & Bin\#2 & Bin\#3 & Bin\#4 & Bin\#5 & Bin\#6 & Bin\#7 \\
+%	\hline 
+%	    $<-t>$                &  0.13 & 0.20   & 0.30   & 0.39   & 0.49   & 0.63   & 0.89  \\
+%	   $<Q^{2}>$          & 4.22  & 4.67   & 5.23   & 5.78   & 6.26   & 6.81  & 7.59  \\
+%	   $<A_{UT}>$        &$-1.13\times 10^{-1}$   & $-2.14\times 10^{-1}$   & $-2.72\times 10^{-1}$    & $-2.95\times 10^{-1}$    & $-3.07\times 10^{-1}$    & $-2.94\times 10^{-1}$   & $-2.47\times 10^{-1}$   \\
+%           $\delta A_{UT}$  &  $6.75\times 10^{-3}$   & $3.70\times 10^{-3}$    &   $4.38\times 10^{-3}$  &  $5.85\times 10^{-3}$   &  $8.19\times 10^{-3}$   &   $9.05\times 10^{-3}$ &   $1.25\times 10^{-2}$ \\
+%           $N$                     & $6.07\times 10^{4}$   &$1.99\times 10^{5}$   & $1.41\times 10^{5}$   &  $7.87\times 10^{4}$  & $4.00\times 10^{4}$  &  $3.29\times 10^{4}$ &$1.75\times 10^{4}$  \\
+%	 \hline
+%			\multicolumn{3}{c}{ } \\
+%   	\hline 
+%	w/ PRD   &  Bin\#1 & Bin\#2 & Bin\#3 & Bin\#4 & Bin\#5 & Bin\#6 & Bin\#7 \\
+%	 \hline
+%	  $<-t>$                &  0.13 & 0.20   & 0.30   & 0.40   & 0.50   & 0.64   & 0.90  \\
+%	   $<Q^{2}>$          & 4.22  & 4.59   & 5.02   & 5.38   & 5.64   & 5.90  & 6.27  \\
+%	   $<A_{UT}>$        &$-1.31\times 10^{-1}$   & $-3.02\times 10^{-1}$   & $-4.12\times 10^{-1}$    & $-4.60\times 10^{-1}$    & $-4.75\times 10^{-1}$    & $-4.40\times 10^{-1}$   & $-2.93\times 10^{-1}$   \\
+%	   $\delta A_{UT}$  &  $6.49\times 10^{-3}$   & $3.11\times 10^{-3}$    &   $3.28\times 10^{-3}$  &  $3.93\times 10^{-3}$   &  $4.87\times 10^{-3}$   &   $4.51\times 10^{-3}$ &   $4.89\times 10^{-3}$ \\
+%	   $N$                     & $6.55\times 10^{4}$   &$2.78\times 10^{5}$   & $2.43\times 10^{5}$   &  $1.66\times 10^{5}$  & $1.08\times 10^{5}$  &  $1.27\times 10^{5}$ &$1.13\times 10^{5}$  \\
+%	 \hline
+%	\end{tabular}
+%	\caption[Detailed information of projected bins]{\footnotesize{Detailed information of projected bins from the new DEMP measurements with SoLID, while $<Q^{2}>$ and $<-t>$ are in the unit of $GeV^{2}$. The top (bottom) table is with respect to the case of proton detection w/o (w/) a new PRD.}}
+%	\label{asym_bin_table}
+%\end{table} 
 	\begin{table}[!ht]
 	\centering
+	  \small
 	\begin{tabular}{|c|c|c|c|c|c|c|c|}
 	  \hline
 	w/o PRD   &  Bin\#1 & Bin\#2 & Bin\#3 & Bin\#4 & Bin\#5 & Bin\#6 & Bin\#7 \\
 	\hline 
 	    $<-t>$                &  0.13 & 0.20   & 0.30   & 0.39   & 0.49   & 0.63   & 0.89  \\
 	   $<Q^{2}>$          & 4.22  & 4.67   & 5.23   & 5.78   & 6.26   & 6.81  & 7.59  \\
-	   $<A_{UT}>$        &$5.67\times 10^{-2}$   & $1.07\times 10^{-1}$   & $1.36\times 10^{-1}$    & $1.47\times 10^{-1}$    & $1.54\times 10^{-1}$    & $1.47\times 10^{-1}$   & $1.23\times 10^{-1}$   \\
+	   $<A_{UT}>$        &$-5.67\times 10^{-2}$   & $-1.07\times 10^{-1}$   & $-1.36\times 10^{-1}$    & $-1.47\times 10^{-1}$    & $-1.54\times 10^{-1}$    & $-1.47\times 10^{-1}$   & $-1.23\times 10^{-1}$   \\
 	   $\delta A_{UT}$  &  $6.76\times 10^{-3}$   & $3.73\times 10^{-3}$    &   $4.42\times 10^{-3}$  &  $5.92\times 10^{-3}$   &  $8.30\times 10^{-3}$   &   $9.15\times 10^{-3}$ &   $1.26\times 10^{-2}$ \\
 	   $N$                     & $6.07\times 10^{4}$   &$1.99\times 10^{5}$   & $1.41\times 10^{5}$   &  $7.87\times 10^{4}$  & $4.00\times 10^{4}$  &  $3.29\times 10^{4}$ &$1.75\times 10^{4}$  \\
 	 \hline
@@ -209,7 +235,7 @@ information of each bin is listed in Table~\ref{asym_bin_table}.
 	 \hline
 	  $<-t>$                &  0.13 & 0.20   & 0.30   & 0.40   & 0.50   & 0.64   & 0.90  \\
 	   $<Q^{2}>$          & 4.22  & 4.59   & 5.02   & 5.38   & 5.64   & 5.90  & 6.27  \\
-	   $<A_{UT}>$        &$6.53\times 10^{-2}$   & $1.51\times 10^{-1}$   & $2.06\times 10^{-1}$    & $2.30\times 10^{-1}$    & $2.38\times 10^{-1}$    & $2.20\times 10^{-1}$   & $1.47\times 10^{-1}$   \\
+	   $<A_{UT}>$        &$-6.53\times 10^{-2}$   & $-1.51\times 10^{-1}$   & $-2.06\times 10^{-1}$    & $-2.30\times 10^{-1}$    & $-2.38\times 10^{-1}$    & $-2.20\times 10^{-1}$   & $-1.47\times 10^{-1}$   \\
 	   $\delta A_{UT}$  &  $6.50\times 10^{-3}$   & $3.15\times 10^{-3}$    &   $3.36\times 10^{-3}$  &  $4.05\times 10^{-3}$   &  $5.02\times 10^{-3}$   &   $4.64\times 10^{-3}$ &   $4.95\times 10^{-3}$ \\
 	   $N$                     & $6.55\times 10^{4}$   &$2.78\times 10^{5}$   & $2.43\times 10^{5}$   &  $1.66\times 10^{5}$  & $1.08\times 10^{5}$  &  $1.27\times 10^{5}$ &$1.13\times 10^{5}$  \\
 	 \hline
@@ -281,23 +307,3 @@ we consider the fact that not every $``X''$ in SIDIS contains a proton, the
 remaining background should be negligible.
 
 Other random coincident background events will show up in the missing mass spectrum with more uniform distributions. We should be able to suppress most of them with tight missing momentum and missing mass cuts, and for these residuals that contaminate the real events, we are able to evaluate their asymmetries if nonzero, and apply corrections on the real asymmetry values. In general, we expect to have a clean measurement of the DEMP process because of all final particles being detected.
-
-
-\section{Systematic Uncertainties}
-\begin{table}[!htp]
-\centering
-\begin{tabular}{|c|c|}
-\hline
-{\bf Sources}            & {\bf Relative Value} \\\hline
-Beam Polarization        & $2\%$ \\\hline 
-Target Polarization      & $3\%$ \\\hline 
-Acceptance               & $3\%$ \\\hline
-Other Contamination      & $<5\%$ \\\hline
-Radiation Correction     & $1\%$ \\\hline
-\end{tabular}
-\caption{\footnotesize{Expected systematic errors.}}\label{table:det_sys_err}
-\end{table}
-The detector related systematic errors are expected to be similar to the ones
-given in the E12-10-006 proposal as well as in other SIDIS experiments with
-SoLID. Here we list several major sources of systematic uncertainties as shown
-in Table~\ref{table:det_sys_err}.
