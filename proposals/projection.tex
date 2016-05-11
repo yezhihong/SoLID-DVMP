@@ -96,13 +96,13 @@ the DEMP events.
  \begin{center}
        \subfloat[w/o PRD]{
       \includegraphics[type=pdf,
-        ext=.pdf,read=.pdf,width=0.5\textwidth]{./figures/E11_Q2_t_bin} }
+        ext=.pdf,read=.pdf,width=0.5\textwidth]{./figures/E11_Q2_t_bin_New} }
         \subfloat[w/ PRD]{
       \includegraphics[type=pdf,
-        ext=.pdf,read=.pdf,width=0.5\textwidth]{./figures/E11_Q2_t_bin_prd} }
+        ext=.pdf,read=.pdf,width=0.5\textwidth]{./figures/E11_Q2_t_bin_prd_New} }
    \caption[$Q^{2}$ vs. $-t$]{\footnotesize{$Q^{2}$ vs. $-t$ where the black
-       dash lines specify the boundaries of 7 $-t$ bins. The color panel
-       indicates the raw counts with 48 days of beam time at 11~GeV.}}
+       dash lines specify the boundaries of 7 $-t$ bins and the black dash-dot lines indicate the additional 2 $Q^{2}$ bins. 
+       The color panel indicates the raw counts with 48 days of beam time at 11~GeV.}}
   \label{Q2_t_bin}
   \end{center}
 \end{figure}
@@ -137,8 +137,13 @@ proposals. $N_{i}$ corresponds to the raw experimental count of electrons
 scattering on neutrons in $\mathrm{^{3}He}$ before taking into account the
 target polarization ($P\sim60\%$), the effective polarization of neutrons
 ($\eta_{n}\sim0.865$), and the dilution effect from other reaction channels
-when electrons scattering on $\mathrm{^{3}He}$ ($f \sim 0.9$). The statistical
-error of the target single spin asymmetry ($A_{UT}$) in each bin can be given
+when electrons scattering on $\mathrm{^{3}He}$ ($f \sim 0.9$). 
+
+In addition, we further divide each $-t$-bin into two $Q^{2}$ bins with similar statistics. 
+By doing that we are able to examine the $Q^{2}$-dependence of the asymmetries, 
+and also check the model dependence of other corrections that are directly related to the values of $Q^{2}$.
+
+The statistical error of the target single spin asymmetry ($A_{UT}$) in each bin can be given
 as:
   \begin{equation}
     \delta A_{UT} = \frac{1}{P\cdot\eta_{n}\cdot f} \sqrt{\frac{1-(P\cdot
@@ -161,19 +166,21 @@ is defined as:
   f_{L/T} =\frac{\epsilon\sigma_{L} }{\sigma_{T}+\epsilon\cdot\sigma_{L} },
 \end{equation} 
 where $\epsilon=(1+\frac{2\nu^{2}}{Q^{2}}\tan^{2}(\theta))^{-1}$. Additional dilution
-due to $\sigma_{TT}$ is assumed to be small.  A factor of $-1$ is also applied after comparing Eq.~\ref{eqn:asy} and Eq.~\ref{eqn:sigtarg}. Hence, $A_{UT} = -f_{L/T}\cdot A_{UT}^{model}$.
+due to $\sigma_{TT}$ is assumed to be small.  A factor of $-1$ is also applied after comparing Eq.~\ref{eqn:asy} and Eq.~\ref{eqn:sigtarg}. Hence, $A_{UT} = -f_{L/T}\cdot A_{L}^{\perp,model}$.
 
 \begin{figure}[!ht]
  \begin{center}
          \subfloat[w/o PRD]{
                \includegraphics[type=pdf,
-        ext=.pdf,read=.pdf,width=0.45\textwidth]{./figures/bin_asym_t_zoom} }
+        ext=.pdf,read=.pdf,width=0.45\textwidth]{./figures/bin_asym_t_new} }
             \subfloat[w/ PRD]{
       \includegraphics[type=pdf,
-        ext=.pdf,read=.pdf,width=0.45\textwidth]{./figures/bin_asym_t_prd_zoom} }
+        ext=.pdf,read=.pdf,width=0.45\textwidth]{./figures/bin_asym_t_prd_new} }
       \caption{\footnotesize{Projection of target sing spin asymmetry
-          ($A_{UT}$) in $-t$ binning for DEMP with transversely polarized
-          $\mathrm{^{3}He}$ at $E_{0}$=11~GeV (directly compared with Fig.~\ref{fig:hermes_aut}). The error bars are the projected
+          ($A_{UT}$) as a function of $-t$ for DEMP with transversely polarized
+          $\mathrm{^{3}He}$ at $E_{0}$=11~GeV (directly compared with Fig.~\ref{fig:hermes_aut}). 
+          The data in each $-t$ bin are further divided into two $Q^{2}$ bins with similar statistics. 
+          The error bars are the projected
           statistical uncertainties defined in Eq.~\ref{stat_err}. The
           asymmetry value in each bin is predicted with the model given in Appendix-A and is diluted due to not separating the L/T
           contributions. The left plot shows the projection w/o a new proton
@@ -187,20 +194,22 @@ due to $\sigma_{TT}$ is assumed to be small.  A factor of $-1$ is also applied a
 Fig.~\ref{asym_t} shows the distribution of $A_{UT}$ vs. $-t$ with projected
 statistical errors discussed above. Compared with the existing HERMES results
 (Fig.~\ref{fig:hermes_aut}), the new measurement could provide more precision
-data to be directly compared with theoretical predictions. The detailed
-information of each bin is listed in Table~\ref{asym_bin_table}.
+data to be directly compared with theoretical predictions. Extra binning on $Q^{2}$ enables us to 
+study the $Q^{2}$-dependence of asymmetries as well as to constraint some corrections during the asymmetry extraction. 
+The detailed information of each bin is listed in Table~\ref{asym_bin_table}.
+
 %	\begin{table}[!ht]
 %	\centering
-%        \small
+%	  \small
 %	\begin{tabular}{|c|c|c|c|c|c|c|c|}
 %	  \hline
 %	w/o PRD   &  Bin\#1 & Bin\#2 & Bin\#3 & Bin\#4 & Bin\#5 & Bin\#6 & Bin\#7 \\
 %	\hline 
 %	    $<-t>$                &  0.13 & 0.20   & 0.30   & 0.39   & 0.49   & 0.63   & 0.89  \\
 %	   $<Q^{2}>$          & 4.22  & 4.67   & 5.23   & 5.78   & 6.26   & 6.81  & 7.59  \\
-%	   $<A_{UT}>$        &$-1.13\times 10^{-1}$   & $-2.14\times 10^{-1}$   & $-2.72\times 10^{-1}$    & $-2.95\times 10^{-1}$    & $-3.07\times 10^{-1}$    & $-2.94\times 10^{-1}$   & $-2.47\times 10^{-1}$   \\
-%           $\delta A_{UT}$  &  $6.75\times 10^{-3}$   & $3.70\times 10^{-3}$    &   $4.38\times 10^{-3}$  &  $5.85\times 10^{-3}$   &  $8.19\times 10^{-3}$   &   $9.05\times 10^{-3}$ &   $1.25\times 10^{-2}$ \\
-%           $N$                     & $6.07\times 10^{4}$   &$1.99\times 10^{5}$   & $1.41\times 10^{5}$   &  $7.87\times 10^{4}$  & $4.00\times 10^{4}$  &  $3.29\times 10^{4}$ &$1.75\times 10^{4}$  \\
+%	   $<A_{UT}>$        &$-5.67\times 10^{-2}$   & $-1.07\times 10^{-1}$   & $-1.36\times 10^{-1}$    & $-1.47\times 10^{-1}$    & $-1.54\times 10^{-1}$    & $-1.47\times 10^{-1}$   & $-1.23\times 10^{-1}$   \\
+%	   $\delta A_{UT}$  &  $6.76\times 10^{-3}$   & $3.73\times 10^{-3}$    &   $4.42\times 10^{-3}$  &  $5.92\times 10^{-3}$   &  $8.30\times 10^{-3}$   &   $9.15\times 10^{-3}$ &   $1.26\times 10^{-2}$ \\
+%	   $N$                     & $6.07\times 10^{4}$   &$1.99\times 10^{5}$   & $1.41\times 10^{5}$   &  $7.87\times 10^{4}$  & $4.00\times 10^{4}$  &  $3.29\times 10^{4}$ &$1.75\times 10^{4}$  \\
 %	 \hline
 %			\multicolumn{3}{c}{ } \\
 %   	\hline 
@@ -208,44 +217,76 @@ information of each bin is listed in Table~\ref{asym_bin_table}.
 %	 \hline
 %	  $<-t>$                &  0.13 & 0.20   & 0.30   & 0.40   & 0.50   & 0.64   & 0.90  \\
 %	   $<Q^{2}>$          & 4.22  & 4.59   & 5.02   & 5.38   & 5.64   & 5.90  & 6.27  \\
-%	   $<A_{UT}>$        &$-1.31\times 10^{-1}$   & $-3.02\times 10^{-1}$   & $-4.12\times 10^{-1}$    & $-4.60\times 10^{-1}$    & $-4.75\times 10^{-1}$    & $-4.40\times 10^{-1}$   & $-2.93\times 10^{-1}$   \\
-%	   $\delta A_{UT}$  &  $6.49\times 10^{-3}$   & $3.11\times 10^{-3}$    &   $3.28\times 10^{-3}$  &  $3.93\times 10^{-3}$   &  $4.87\times 10^{-3}$   &   $4.51\times 10^{-3}$ &   $4.89\times 10^{-3}$ \\
+%	   $<A_{UT}>$        &$-6.53\times 10^{-2}$   & $-1.51\times 10^{-1}$   & $-2.06\times 10^{-1}$    & $-2.30\times 10^{-1}$    & $-2.38\times 10^{-1}$    & $-2.20\times 10^{-1}$   & $-1.47\times 10^{-1}$   \\
+%	   $\delta A_{UT}$  &  $6.50\times 10^{-3}$   & $3.15\times 10^{-3}$    &   $3.36\times 10^{-3}$  &  $4.05\times 10^{-3}$   &  $5.02\times 10^{-3}$   &   $4.64\times 10^{-3}$ &   $4.95\times 10^{-3}$ \\
 %	   $N$                     & $6.55\times 10^{4}$   &$2.78\times 10^{5}$   & $2.43\times 10^{5}$   &  $1.66\times 10^{5}$  & $1.08\times 10^{5}$  &  $1.27\times 10^{5}$ &$1.13\times 10^{5}$  \\
 %	 \hline
 %	\end{tabular}
 %	\caption[Detailed information of projected bins]{\footnotesize{Detailed information of projected bins from the new DEMP measurements with SoLID, while $<Q^{2}>$ and $<-t>$ are in the unit of $GeV^{2}$. The top (bottom) table is with respect to the case of proton detection w/o (w/) a new PRD.}}
 %	\label{asym_bin_table}
 %\end{table} 
+
+
 	\begin{table}[!ht]
 	\centering
 	  \small
 	\begin{tabular}{|c|c|c|c|c|c|c|c|}
+	 \multicolumn{8}{c}{ (a) w/o PRD} \\
 	  \hline
-	w/o PRD   &  Bin\#1 & Bin\#2 & Bin\#3 & Bin\#4 & Bin\#5 & Bin\#6 & Bin\#7 \\
+	      &  t-bin\#1 & t-bin\#2 & t-bin\#3 & t-bin\#4 & t-bin\#5 & t-bin\#6 & t-bin\#7 \\
 	\hline 
-	    $<-t>$                &  0.13 & 0.20   & 0.30   & 0.39   & 0.49   & 0.63   & 0.89  \\
-	   $<Q^{2}>$          & 4.22  & 4.67   & 5.23   & 5.78   & 6.26   & 6.81  & 7.59  \\
-	   $<A_{UT}>$        &$-5.67\times 10^{-2}$   & $-1.07\times 10^{-1}$   & $-1.36\times 10^{-1}$    & $-1.47\times 10^{-1}$    & $-1.54\times 10^{-1}$    & $-1.47\times 10^{-1}$   & $-1.23\times 10^{-1}$   \\
-	   $\delta A_{UT}$  &  $6.76\times 10^{-3}$   & $3.73\times 10^{-3}$    &   $4.42\times 10^{-3}$  &  $5.92\times 10^{-3}$   &  $8.30\times 10^{-3}$   &   $9.15\times 10^{-3}$ &   $1.26\times 10^{-2}$ \\
-	   $N$                     & $6.07\times 10^{4}$   &$1.99\times 10^{5}$   & $1.41\times 10^{5}$   &  $7.87\times 10^{4}$  & $4.00\times 10^{4}$  &  $3.29\times 10^{4}$ &$1.75\times 10^{4}$  \\
-	 \hline
-			\multicolumn{3}{c}{ } \\
-   	\hline 
-	w/ PRD   &  Bin\#1 & Bin\#2 & Bin\#3 & Bin\#4 & Bin\#5 & Bin\#6 & Bin\#7 \\
-	 \hline
-	  $<-t>$                &  0.13 & 0.20   & 0.30   & 0.40   & 0.50   & 0.64   & 0.90  \\
-	   $<Q^{2}>$          & 4.22  & 4.59   & 5.02   & 5.38   & 5.64   & 5.90  & 6.27  \\
-	   $<A_{UT}>$        &$-6.53\times 10^{-2}$   & $-1.51\times 10^{-1}$   & $-2.06\times 10^{-1}$    & $-2.30\times 10^{-1}$    & $-2.38\times 10^{-1}$    & $-2.20\times 10^{-1}$   & $-1.47\times 10^{-1}$   \\
-	   $\delta A_{UT}$  &  $6.50\times 10^{-3}$   & $3.15\times 10^{-3}$    &   $3.36\times 10^{-3}$  &  $4.05\times 10^{-3}$   &  $5.02\times 10^{-3}$   &   $4.64\times 10^{-3}$ &   $4.95\times 10^{-3}$ \\
-	   $N$                     & $6.55\times 10^{4}$   &$2.78\times 10^{5}$   & $2.43\times 10^{5}$   &  $1.66\times 10^{5}$  & $1.08\times 10^{5}$  &  $1.27\times 10^{5}$ &$1.13\times 10^{5}$  \\
-	 \hline
+	    $<-t>$                &  0.13 & 0.20   & 0.30   & 0.40   & 0.50   & 0.63   & 0.89  \\
+	      \hline
+   	  \multicolumn{8}{|c|}{$Q^{2}$ bin-set\#1 } \\
+   	    \hline
+   	   $<Q^{2}>$          & 4.12  & 4.44   & 4.92   & 5.40   & 5.87   & 6.43  & 7.31  \\
+   	   $<\sigma_{L}/\sigma_{T}>$ & 6.17 & 5.19 & 4.24 & 3.59 & 3.00 & 2.23 & 1.08 \\
+   	   $<f_{L/T}>$        & 0.79 & 0.77 & 0.74 & 0.71 & 0.67 & 0.60 & 0.41 \\
+	   $<A_{UT}>$        &$-7.20\times 10^{-2}$   & $-1.40\times 10^{-1}$   & $-1.70\times 10^{-2}$    & $-1.81\times 10^{-1}$    & $-1.90\times 10^{-1}$    & $-1.80\times 10^{-1}$   & $-1.19\times 10^{-1}$   \\
+	   $\delta A_{UT}$  &  $8.98\times 10^{-3}$   & $5.20\times 10^{-3}$    &   $6.10\times 10^{-3}$  &  $8.30\times 10^{-3}$    &  $1.19\times 10^{-2}$   &   $1.36\times 10^{-2}$ &   $1.91\times 10^{-2}$ \\
+	   $N$                     & $3.44\times 10^{4}$   &$1.02\times 10^{5}$   & $7.38\times 10^{4}$   &  $3.98\times 10^{4}$  & $1.93\times 10^{4}$  &  $1.48\times 10^{4}$ &$7.55\times 10^{3}$  \\
+  \hline
+   	  \multicolumn{8}{|c|}{$Q^{2}$ bin-set\#2 } \\
+  \hline 
+   	   $<Q^{2}>$          & 4.36  & 4.91   & 5.58   & 6.16   & 6.62   & 7.13  & 7.80  \\
+	   $<\sigma_{L}/\sigma_{T}>$ & 6.74 & 6.32 & 5.76 & 5.12 & 4.29 & 3.14 & 1.66 \\
+   	   $<f_{L/T}>$        & 0.80 & 0.79 & 0.78 & 0.76 & 0.73 & 0.66 & 0.51 \\
+	   $<A_{UT}>$        &$-3.69\times 10^{-2}$   & $-7.22\times 10^{-2}$   & $-9.85\times 10^{-2}$    & $-1.13\times 10^{-1}$    & $-1.20\times 10^{-1}$    & $-1.20\times 10^{-1}$   & $-1.08\times 10^{-1}$   \\
+	   $\delta A_{UT}$  &  $1.03\times 10^{-2}$   & $5.35\times 10^{-3}$    &   $6.42\times 10^{-3}$  &  $8.44\times 10^{-3}$   &  $1.16\times 10^{-2}$   &   $1.24\times 10^{-2}$ &   $1.67\times 10^{-2}$ \\
+	   $N$                     & $2.63\times 10^{4}$   &$9.70\times 10^{4}$   & $6.72\times 10^{4}$   &  $3.89\times 10^{4}$  & $2.07\times 10^{4}$  &  $1.81\times 10^{4}$ &$9.94\times 10^{3}$  \\
+     \hline
+	  \multicolumn{8}{c}{} \\
+	  \multicolumn{8}{c}{ (b) w/ PRD} \\
+	   \hline
+	     &  t-bin\#1 & t-bin\#2 & t-bin\#3 & t-bin\#4 & t-bin\#5 & t-bin\#6 & t-bin\#7 \\
+     	\hline 
+		    $<-t>$                &  0.13 & 0.20   & 0.30   & 0.40   & 0.50   & 0.64   & 0.90  \\
+	    \hline
+   	   \multicolumn{8}{|c|}{$Q^{2}$ bin-set\#1 } \\
+   	    \hline
+   	   $<Q^{2}>$          & 4.11  & 4.35   & 4.65   & 4.84   & 4.97   & 5.08  & 5.18  \\
+   	   $<\sigma_{L}/\sigma_{T}>$ & 6.12 & 4.88 & 3.60 & 2.60 & 1.86 & 1.18 & 0.52 \\
+   	   $<f_{L/T}>$        & 0.79 & 0.76 & 0.70 & 0.63 & 0.55 & 0.43 & 0.25 \\
+	   $<A_{UT}>$        &$-8.46\times 10^{-2}$   & $-2.02\times 10^{-1}$   & $-2.71\times 10^{-2}$    & $-2.99\times 10^{-1}$    & $-2.86\times 10^{-1}$    & $-2.34\times 10^{-1}$   & $-1.38\times 10^{-1}$   \\
+	   $\delta A_{UT}$  &  $8.62\times 10^{-3}$   & $4.29\times 10^{-3}$    &   $4.66\times 10^{-3}$  &  $5.85\times 10^{-3}$    &  $7.32times 10^{-3}$   &   $6.86\times 10^{-3}$ &   $7.91\times 10^{-3}$ \\
+	   $N$                     & $3.73\times 10^{4}$   &$1.49\times 10^{5}$   & $1.25\times 10^{5}$   &  $7.85\times 10^{4}$  & $5.04\times 10^{4}$  &  $5.78\times 10^{4}$ &$4.41\times 10^{4}$  \\
+  \hline
+     	   \multicolumn{8}{|c|}{$Q^{2}$ bin-set\#2 } \\
+  \hline 
+   	   $<Q^{2}>$          & 4.35  & 4.86   & 5.42   & 5.87   & 6.22   & 6.60  & 6.97  \\
+	   $<\sigma_{L}/\sigma_{T}>$ & 6.71 & 6.13 & 5.29 & 4.42 & 3.51 & 2.31 & 0.91 \\
+   	   $<f_{L/T}>$        & 0.80 & 0.79 & 0.77 & 0.74 & 0.69 & 0.59 & 0.35 \\
+	   $<A_{UT}>$        &$-3.98\times 10^{-2}$   & $-9.30\times 10^{-2}$   & $-1.37\times 10^{-1}$    & $-1.67\times 10^{-1}$    & $-1.95\times 10^{-1}$    & $-2.08\times 10^{-1}$   & $-1.52\times 10^{-1}$   \\
+	   $\delta A_{UT}$  &  $9.92\times 10^{-3}$   & $4.63\times 10^{-3}$    &   $4.83\times 10^{-3}$  &  $5.61\times 10^{-3}$   &  $6.91\times 10^{-3}$   &   $6.29\times 10^{-3}$ &   $6.35\times 10^{-3}$ \\
+	   $N$                     & $2.82\times 10^{4}$   &$1.29\times 10^{5}$   & $1.18\times 10^{5}$   &  $8.75\times 10^{4}$  & $5.74\times 10^{4}$  &  $6.90\times 10^{4}$ &$6.84\times 10^{4}$  \\
+ \hline
 	\end{tabular}
-	\caption[Detailed information of projected bins]{\footnotesize{Detailed information of projected bins from the new DEMP measurements with SoLID, while $<Q^{2}>$ and $<-t>$ are in the unit of $GeV^{2}$. The top (bottom) table is with respect to the case of proton detection w/o (w/) a new PRD.}}
+	\caption[Detailed information of projected bins]{\footnotesize{Detailed information of projected bins from the new DEMP measurements with SoLID, while $<Q^{2}>$ and $<-t>$ are in the unit of $GeV^{2}$. The top (bottom) table is with respect to the case of proton detection w/o (w/) a new PRD. The data are divided into 14 $-t$ bins in both $-t$ (7 bins) and $Q^{2}$ (2 bins). }}
 	\label{asym_bin_table}
 \end{table} 
 
-\section{Missing Mass and Background}
 
+\section{Missing Mass and Background}
 In the DEMP with a neutron, two charged particles, $\pi^{-}$ and $p$, can be cleanly measured by the detector system. 
 Moreover, the stuck proton will also be measured. 
 Hence, contamination from other reactions, including DEMP with other two protons in $^{3}He$, can be greatly eliminated.
