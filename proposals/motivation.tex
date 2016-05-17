@@ -1,8 +1,5 @@
 \section{Scientific Justification}
 
-%{\bf{GH: This section is closely based on the Hall C proposal
-%    PR12-12-005.  Suggestions for modification are welcome!}}
-
 \subsection{Generalized Parton Distributions and Contribution from the Pion
   Pole}
 
@@ -116,7 +113,6 @@ ansatz
 \end{equation}
 where $F_{\pi}(t)$ is the pion electromagnetic form factor, and $\phi_{\pi}$ is
 the pion distribution amplitude.
-
 $\tilde{E}$ cannot be related to already known parton distributions,
 and so experimental information about $\tilde{E}$ via DEMP 
 can provide new information on nucleon structure which is
@@ -147,8 +143,19 @@ A_L^{\perp}=(\int^{\pi}_0 d\beta \frac{d\sigma^{\pi}_L}{d\beta} -
 \end{equation}
 where $d\sigma^{\pi}_L$ is the exclusive charged pion electroproduction cross
 section using longitudinally polarized photons and $\beta$ is the angle between
-the nucleon polarization vector and the reaction plane (Fig.~\ref{fig:planes}).  
-Frankfurt et al. \cite{Fr99} have shown that this asymmetry must vanish if
+the nucleon polarization vector and the reaction plane
+(Fig.~\ref{fig:planes}). 
+
+This asymmetry is related to the parton-helicity-conserving part of the
+scattering process and is sensitive to the interference between $\tilde{H}$ and
+$\tilde{E}$ \cite{Fr99,Di05}:
+\begin{equation}
+A_L^{\perp}=\frac{\sqrt{-t'}}{m_p}
+\frac{\xi\sqrt{1-\xi^2}\ \mathrm{Im}(\tilde{E}^*\tilde{H})}
+{(1-\xi^2)\tilde{H}^2-\frac{t\xi^2}{4m_p}
+\tilde{E}^2-2\xi^2\mathrm{Re}(\tilde{E}^*\tilde{H})}.
+\end{equation}
+ Frankfurt et al. \cite{Fr99} have shown that this asymmetry must vanish if
 $\tilde{E}$ is zero.  If $\tilde{E}$ is not zero, the asymmetry will display a
 sin$\beta$ dependence.  Their predicted asymmetry using the $\tilde{E}$ ansatz
 from Ref. \cite{Va99} is shown in Fig. \ref{fig:frankfurt_atpi}.  This
@@ -174,7 +181,7 @@ amplitude into three parts -- the overlap integral between the photon and pion
 wave functions, the hard interaction, and the GPD -- will lead to a precocious
 scaling of $A_L^{\perp}$ as a function of $Q^2$ at moderate $Q^2\sim 2-4$
 GeV$^2$ \cite{Fr99}.  This precocious scaling arises from the fact that higher
-order corrections, which are expected to be significant at low $Q^2$, will
+twist corrections, which are expected to be significant at low $Q^2$, will
 likely cancel when one examines the ratio of two longitudinal observables.  In
 contrast, the onset of scaling for the absolute cross section is only expected
 for much larger values of $Q^2>10$ GeV$^2$.
@@ -314,6 +321,11 @@ transverse photons~\cite{Di05}.  As indicated in Fig. \ref{fig:hermes_aut}, the
 contribution from transverse photons tends to make the asymmetry smaller.  At
 the HERMES kinematics, the dilution caused by transverse photons is about
 50\%.
+Although the observed unseparated asymmetry is small, the HERMES data are
+consistent with GPD models based on the dominance of $\tilde{E}$ over
+$\tilde{H}$ at low $-t'$, due to the pion pole.  An improved measurement of the
+transverse target spin asymmetry, in particular the $\sin(\phi-\phi_S)$
+modulation, is clearly a high priority.
 
 \begin{figure}[hbt!]
 \begin{center}
@@ -358,12 +370,21 @@ In addition to allowing a measurement at $Q^2>4$ GeV$^2$, a measurement by
 SoLID of $A_{UT}^{sin(\phi-\phi_s)}$ will cover a fairly large range of $-t$,
 allowing the asymmetry to be mapped over its full range with good statistical
 uncertainties -- from its required zero-value in parallel kinematics, through
-its maximum, and then back to near-zero as $\sigma_T$ dominates $\sigma_L$ at
-larger $-t$.  The shape of the asymmetry curve versus $-t$, as well as its
-maximum value, are critical information for comparison to GPD-based models.  At
-a later date, the New Hampshire polarized target might enable a measurement of
-$A_L^{\perp}$ in Hall C.  The
-comparison of the maxima and $t$-dependences of both measurements will provide
-complementary data needed to extract $\tilde{E}$ information and better
-understand non-pole contributions complicating the extraction of the pion form
-factor from electroproduction data.
+its maximum, and then back to near-zero or even positive at larger $-t$.  
+The shape of the asymmetry curve versus
+$-t$, as well as its maximum value, are critical information for comparison to
+GPD-based models.  Simultaneously, the $\sin(\phi_S)$ moment can be extracted,
+which may be interpretable in terms of transversity GPDs.  The HERMES
+measurement showed this asymmetry to be large and apparently nonzero at $-t'=0$
+\cite{hermes10}, giving the first clear signal for strong contributions from
+transversely polarized photons at rather large values of $W$ and $Q^2$
+\cite{Go10}.  Any model that describes exclusive pion production will need to
+describe not only the leading-twist Fourier amplitude
+$A_{UT}^{sin(\phi-\phi_s)}$, but also these other contributions to the
+target-spin azimuthal asymmetry, providing additional GPD model constraints.
+
+%At a later date, the New Hampshire polarized target might enable a measurement
+%of $A_L^{\perp}$ in Hall C.  The comparison of the two measurements will
+%provide complementary data needed to extract $\tilde{E}$ information and better
+%understand non-pole contributions complicating the extraction of the pion form
+%factor from electroproduction data.
