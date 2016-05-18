@@ -6,11 +6,11 @@
  \begin{center}
      \subfloat[w/o PRD]{
       \includegraphics[type=pdf,
-        ext=.pdf,read=.pdf,width=0.35\textwidth]{./figures//E11_Q2_x_prd_fermi}
+        ext=.pdf,read=.pdf,width=0.45\textwidth]{./figures//E11_Q2_x_prd_fermi}
     }
      \subfloat[w PRD]{
       \includegraphics[type=pdf,
-        ext=.pdf,read=.pdf,width=0.35\textwidth]{./figures/E11_Q2_x_fermi}
+        ext=.pdf,read=.pdf,width=0.45\textwidth]{./figures/E11_Q2_x_fermi}
     }    
  \caption[The kinematic coverage at different acceptances.]{\footnotesize{The
      kinematic coverage at different acceptances at 11~GeV. The left plot
@@ -21,10 +21,14 @@ recoil protons with an additional proton detector. Colors correspond to rates
   \label{kin_cor}
   \end{center}
 \end{figure}
-To performance the simulation study and obtain the projected results, we used a DEMP generator, as discussed in Appendix-A, 
-and generated events within a kinematic phase space slightly larger than the SoLID-SIDIS acceptance. 
-The Fermi motion of the neutron in $\mathrm{^{3}He}$ and the radiative effect have already been taken in account in this generator.
-Then for every detected particles in each event, we added the acceptance profiles obtained from the GEANT4 simulation with the SoLID-SIDIS configuration. 
+
+To perform the simulation study and obtain the projected results, we used a
+DEMP generator, as discussed in Appendix-A, and generated events within a
+kinematic phase space slightly larger than the SoLID-SIDIS acceptance.  The
+Fermi motion of the neutron in $\mathrm{^{3}He}$ and the radiative effect have
+already been taken in account in this generator.  Then for every detected
+particle in each event, we added the acceptance profiles obtained from the
+GEANT4 simulation with the SoLID-SIDIS configuration.
 
 The kinematic coverage in $Q^{2}$ vs. $x_{B}$ is shown in Fig.~\ref{kin_cor},
 where two proton detection cases were given: $(a)$ using only the SoLID
@@ -32,25 +36,25 @@ detectors to detect protons at small angles ($8^{\circ}\sim24^{\circ}$) and
 $(b)$ adding a new proton recoil detector to detect the rest of the recoil
 protons at larger angle ($24^{\circ}\sim50^{\circ}$). These distributions were
 weighted by the DEMP unpolarized cross sections and the SoLID acceptance.
- As shown in these plots, the range of $Q^{2}$ is from 1.0~GeV$^{2}$ to
+As shown in these plots, the range of $Q^{2}$ is from 1.0~GeV$^{2}$ to
 8.0~GeV$^{2}$, $x_{B}$ goes from 0.1 up to 0.75.
 
 \begin{figure}[!ht]
  \begin{center}
-       \subfloat[w/o PRD]{
-      \includegraphics[type=pdf,
-        ext=.pdf,read=.pdf,width=0.35\textwidth]{./figures/E11_acc_epip_Q2gt4}
+   \subfloat[w/o PRD]{
+   \includegraphics[type=pdf,
+     ext=.pdf,read=.pdf,width=0.45\textwidth]{./figures/E11_acc_epip_Q2gt4}
     }
   \subfloat[w/ PRD]{
-      \includegraphics[type=pdf,
-        ext=.pdf,read=.pdf,width=0.35\textwidth]{./figures/E11_acc_epi_Q2gt4}
-    }  
-   \caption[The acceptance of the momenta and scattering angles for electrons,
-     $\pi^{-}$ and protons]{\footnotesize{The acceptance of the momenta and
-       polar angles w/o or w/ the PRD. In each panel, the top, middle and
-       bottom plots are for electrons, $\pi^{-}$ and protons, respectively. A
-       cut of $\mathrm{Q^{2}>4~GeV^{2}}$ is applied. Colors correspond to rates
-       (Hz) in log scale.}}
+    \includegraphics[type=pdf,
+     ext=.pdf,read=.pdf,width=0.45\textwidth]{./figures/E11_acc_epi_Q2gt4}
+   }  
+  \caption[The acceptance of the momenta and scattering angles for electrons,
+    $\pi^{-}$ and protons]{\footnotesize{The acceptance of the momenta and
+    polar angles w/o or w/ the PRD. In each panel, the top, middle and
+    bottom plots are for electrons, $\pi^{-}$ and protons, respectively. A
+    cut of $Q^{2}>4~\mathrm{GeV^{2}}$ is applied. Colors correspond to rates
+    (Hz) in log scale.}}
   \label{p_theta}
   \end{center}
 \end{figure}
@@ -58,7 +62,7 @@ weighted by the DEMP unpolarized cross sections and the SoLID acceptance.
 Fig.~\ref{p_theta} shows the momentum and angular acceptance of electrons,
 $\pi^{-}$ and protons which form the DEMP events and can be detected with the
 SoLID detectors and (or) with the new PRD.  A cut of $Q^2>$4~GeV$^2$
-is applied since this is the region of greatest physics itnerest.  The recoil
+is applied since this is the region of greatest physics interest.  The recoil
 protons shown in Fig.~\ref{p_theta} have low momenta ranging from 0.3~GeV/c up
 to 1.2~GeV/c and their rates are distributed nearly uniformly in scattering
 angle.
@@ -94,7 +98,7 @@ events. The rates were calculated with the simulated events weighted by the
 target luminosity, the SoLID acceptances and unpolarized cross sections. The
 rates are not corrected by the beam and target polarization, target dilution
 and so on. The total integrated physics rate is estimated to be around 25~Hz at
-11~GeV, or 0.59 Hz at $Q^{2}>$4~GeV$^{2}$. If only using only the 
+11~GeV, or 0.59 Hz at $Q^{2}>$4~GeV$^{2}$. If using only the 
 SoLID detectors to detect protons, the rate drops to 0.28 Hz at
 $Q^{2}>$4~GeV$^{2}$.  For comparison, the table also gives the SIDIS rate
 which will be the online production trigger rates and is the main background of
@@ -112,7 +116,7 @@ the DEMP events.
         ext=.pdf,read=.pdf,width=0.5\textwidth]{./figures/E11_Q2_t_bin_prd_Fermi} }
    \caption[$Q^{2}$ vs. $-t$]{\footnotesize{$Q^{2}$ vs. $-t$ where the black
 dash lines specify the boundaries of 7 $-t$ bins and the black dash-dot lines
-indicate the additional 2 $Q^{2}$ bins.  The color panel indicates the raw
+indicate the additional two $Q^{2}$ bins.  The color panel indicates the raw
 counts with 48 days of beam time at 11~GeV.}}
   \label{Q2_t_bin}
   \end{center}
@@ -120,10 +124,10 @@ counts with 48 days of beam time at 11~GeV.}}
 
 The proposed experiment will run in parallel with E12-10-006, which has already
 been approved to run 48 days at $E_{0}$=11~GeV.  As shown in
-Fig.~\ref{Q2_t_bin}, we defined 7 $-t$ bins of which the the boundaries are
+Fig.~\ref{Q2_t_bin}, we defined 7 $-t$ bins of which the boundaries are
 defined by the array:
  \begin{equation}
-   -t[8] = [0.0, 0.15, 0.25, 0.35, 0.45, 0.55, 0.75, 1.10]~~~~(in~\mathrm{GeV^{2}})
+   -t[8] = [0.0, 0.15, 0.25, 0.35, 0.45, 0.55, 0.75, 1.10]~~~~(\mathrm{in~GeV^{2}})
  \end{equation}
 The number of events ($N_{i}$) in the $i$th bin is calculated from the total
 simulated events after applying cuts on important kinematic variables,
@@ -144,7 +148,7 @@ luminosity ($L=10^{36}$~cm$^{-2}$s$^{-1}$), and the overall detector efficiency
 where $j$ is the $j$th event in the $i$th bin, $\sigma_{j}$ is the cross
 section of the $j$th event. $A^{e(\pi^{-},p)}_{j}$ is the acceptance weight of the
 electron (pion, proton) in this event. The detector efficiency,
-$\epsilon_{eff}$, is approximately fixed at 85\% which was used in SIDIS
+$\epsilon_{eff}$, is approximately fixed at 85\% as was used in SIDIS
 proposals. $N_{i}$ corresponds to the raw experimental count of electrons
 scattering on neutrons in $\mathrm{^{3}He}$ before taking into account the
 target polarization ($P\sim60\%$), the effective polarization of neutrons
@@ -152,9 +156,9 @@ target polarization ($P\sim60\%$), the effective polarization of neutrons
 when electrons scattering on $\mathrm{^{3}He}$ ($f \sim 0.9$). 
 
 In addition, we further divide each $-t$-bin into two $Q^{2}$ bins with similar
-statistics.  By doing that we are able to examine the $Q^{2}$-dependence of the
-asymmetries, and also check the model dependence of other corrections that are
-directly related to the values of $Q^{2}$.
+statistics.  By doing that, we are able to examine the $Q^{2}$-dependence of the
+asymmetries, and also check the model dependence of the other corrections that
+are directly related to the values of $Q^{2}$.
 
 The statistical error of the target single spin asymmetry ($A_{UT}$) in each
 bin can be given as:
@@ -166,14 +170,14 @@ bin can be given as:
 where $N^{+(-)}_{i}$ is the number of counts in each bin when the target
 polarization is up (down), and we easily have $N_{i}=N^{+}_{i}+N^{-}_{i}$;
 $<A_{UT}>$ is the average asymmetry in the bin, and experimentally, it can be
-extracted as following:
+extracted as the following:
 \begin{equation}
    <A_{UT}> = \frac{1}{P\cdot\eta_{n}\cdot f} \frac{N^{+}-N^{-}}{N^{+}+N^{-}}.
    \label{asym_exp}
 \end{equation}
 In this projection study, $A_{UT}$ is predicted with a phenomenological model,
 as discussed in Appendix-A. Because of not performing a L/T separation in this
-experiment, the asymmetry should be corrected by another dilution factor which
+experiment, the asymmetry should be corrected by another dilution factor, which
 is defined as:
 \begin{equation}
   f_{L/T} =\frac{\epsilon\sigma_{L} }{\sigma_{T}+\epsilon\cdot\sigma_{L} },
@@ -191,9 +195,9 @@ $A_{UT} = -f_{L/T}\cdot A_{L}^{\perp,model}$.
             \subfloat[w/ PRD]{
       \includegraphics[type=pdf,
         ext=.pdf,read=.pdf,width=0.45\textwidth]{./figures/bin_asym_t_prd_fermi} }
-      \caption{\footnotesize{Projection of target sing spin asymmetry
+      \caption{\footnotesize{Projection of target single spin asymmetry
           ($A_{UT}$) as a function of $-t$ for DEMP with transversely polarized
-          $\mathrm{^{3}He}$ at $E_{0}$=11~GeV (directly compared with
+          $\mathrm{^{3}He}$ at $E_{0}$=11~GeV (directly compare with
 Fig.~\ref{fig:hermes_aut}).  The data in each $-t$ bin are further divided into
 two $Q^{2}$ bins with similar statistics.  The error bars are the projected
 statistical uncertainties defined in Eq.~\ref{stat_err}. The asymmetry value in
@@ -201,8 +205,8 @@ each bin is predicted with the model given in Appendix-A and is diluted due to
 not separating the L/T contributions. The left plot shows the projection w/o a
 new proton recoil detector, while the right plot shows a better projected
 result with a new detector in addition. One can see the average asymmetries are
-also changed between two configurations and it is because the asymmetry
-strongly depends on $Q^{2}$ which changes w/ or w/o the PRD.}}
+also changed between two configurations because the asymmetry dilution
+strongly depends on $Q^{2}$, which changes w/ or w/o the PRD.}}
   \label{asym_t}
   \end{center}
 \end{figure}
@@ -244,67 +248,78 @@ information of each bin is listed in Table~\ref{asym_bin_table}.
 %\end{table} 
 
 
-	\begin{table}[!ht]
-	\centering
-	  \small
-	\begin{tabular}{|c|c|c|c|c|c|c|c|}
-	 \multicolumn{8}{c}{ (a) w/o PRD} \\
-	  \hline
-	      &  t-bin\#1 & t-bin\#2 & t-bin\#3 & t-bin\#4 & t-bin\#5 & t-bin\#6 & t-bin\#7 \\
-	\hline 
-	    $<-t>$                  &  0.13 &  0.20 & 0.30 & 0.39 & 0.49 & 0.63 & 0.88 \\
-	      \hline
-   	  \multicolumn{8}{|c|}{$Q^{2}$ bin-set\#1 } \\
-   	    \hline
-   	   $<Q^{2}>$          &  4.13 &  4.42 & 4.90 & 5.35 & 5.76 & 6.23 & 6.86 \\
-   	   $<\sigma_{L}/\sigma_{T}>$   &  6.43 &  5.13 & 3.90 & 3.09 & 2.43 & 1.65 & 0.69 \\
-   	   $<f_{L/T}>$          &  0.80 &  0.77 & 0.73 & 0.68 & 0.62 & 0.52 & 0.30 \\
-   	   $<A_{UT}>$     &  -6.93$\times 10^{-2}$ &  -1.36$\times 10^{-1}$ & -1.62$\times 10^{-1}$ & -1.66$\times 10^{-1}$ & -1.82$\times 10^{-1}$ & -1.87$\times 10^{-1}$ & -1.24$\times 10^{-1}$ \\               
-   	   $\delta A_{UT}$  &  9.23$\times 10^{-3}$ &  5.62$\times 10^{-3}$ & 7.16$\times 10^{-3}$ & 9.72$\times 10^{-3}$ & 1.39$\times 10^{-2}$ & 1.54$\times 10^{-2}$ & 2.24$\times 10^{-2}$ \\
-   	   $N$                      &  3.26$\times 10^{4}$ &  8.73$\times 10^{4}$ & 5.37$\times 10^{4}$ & 2.91$\times 10^{4}$ & 1.42$\times 10^{4}$ & 1.15$\times 10^{4}$ & 5.50$\times 10^{3}$ \\
-  \hline
-   	  \multicolumn{8}{|c|}{$Q^{2}$ bin-set\#2 } \\
-  \hline 
-   	   $<Q^{2}>$            &  4.39 &  4.93 & 5.58 & 6.13 & 6.59 & 7.09 & 7.73 \\
-	   $<\sigma_{L}/\sigma_{T}>$   &  7.19 &  6.38 & 5.51 & 4.63 & 3.70 & 2.57 & 1.21 \\
-   	   $<f_{L/T}>$          &  0.81 &  0.80 & 0.78 & 0.74 & 0.70 & 0.61 & 0.42 \\
-   	   
-   	  $<A_{UT}>$   &  -4.38$\times 10^{-2}$ &  -7.63$\times 10^{-2}$ & -1.03$\times 10^{-1}$ & -1.19$\times 10^{-1}$ & -1.29$\times 10^{-1}$ & -1.24$\times 10^{-1}$ & -9.51$\times 10^{-2}$ \\
-  $\delta A_{UT}$   &  1.13$\times 10^{-2}$ &  5.82$\times 10^{-3}$ & 6.83$\times 10^{-3}$ & 9.05$\times 10^{-3}$ & 1.21$\times 10^{-2}$ & 1.32$\times 10^{-2}$ & 1.94$\times 10^{-2}$ \\
-   $N$    &  2.17$\times 10^{4}$ &  8.19$\times 10^{4}$ & 5.94$\times 10^{4}$ & 3.38$\times 10^{4}$ & 1.88$\times 10^{4}$ & 1.59$\times 10^{4}$ & 7.32$\times 10^{3}$ \\
-
-   	     
-     \hline
-	  \multicolumn{8}{c}{} \\
-	  \multicolumn{8}{c}{ (b) w/ PRD} \\
-	   \hline
+\begin{table}[!ht]
+\centering
+ \small
+\begin{tabular}{|c|c|c|c|c|c|c|c|}
+\multicolumn{8}{c}{ (a) w/o PRD} \\
+\hline
+       &  t-bin\#1 & t-bin\#2 & t-bin\#3 & t-bin\#4 & t-bin\#5 & t-bin\#6 & t-bin\#7 \\
+\hline $<-t>$ &  0.13 &  0.20 & 0.30 & 0.39 & 0.49 & 0.63 & 0.88 \\
+\hline
+\multicolumn{8}{|c|}{$Q^{2}$ bin-set\#1 } \\
+\hline
+$<Q^{2}>$      &  4.13 &  4.42 & 4.90 & 5.35 & 5.76 & 6.23 & 6.86 \\
+$<\sigma_{L}/\sigma_{T}>$   &  6.43 &  5.13 & 3.90 & 3.09 & 2.43 & 1.65 & 0.69 \\
+$<f_{L/T}>$    &  0.80 &  0.77 & 0.73 & 0.68 & 0.62 & 0.52 & 0.30 \\
+$<A_{UT}>$     &  -6.93$\times 10^{-2}$ &  -1.36$\times 10^{-1}$ & -1.62$\times 10^{-1}$ &
+ -1.66$\times 10^{-1}$ & -1.82$\times 10^{-1}$ & -1.87$\times 10^{-1}$ & -1.24$\times 10^{-1}$ \\               
+$\delta A_{UT}$&  9.23$\times 10^{-3}$ &  5.62$\times 10^{-3}$ & 7.16$\times 10^{-3}$ & 
+9.72$\times 10^{-3}$ & 1.39$\times 10^{-2}$ & 1.54$\times 10^{-2}$ &  2.24$\times 10^{-2}$ \\
+$N$           &  3.26$\times 10^{4}$ &  8.73$\times 10^{4}$ & 5.37$\times 10^{4}$ 
+& 2.91$\times 10^{4}$ & 1.42$\times 10^{4}$ & 1.15$\times 10^{4}$ & 5.50$\times 10^{3}$ \\
+\hline
+\multicolumn{8}{|c|}{$Q^{2}$ bin-set\#2 } \\
+\hline 
+$<Q^{2}>$     &  4.39 &  4.93 & 5.58 & 6.13 & 6.59 & 7.09 & 7.73 \\
+$<\sigma_{L}/\sigma_{T}>$&  7.19 &  6.38 & 5.51 & 4.63 & 3.70 & 2.57 & 1.21 \\
+$<f_{L/T}>$   &  0.81 &  0.80 & 0.78 & 0.74 & 0.70 & 0.61 & 0.42 \\
+$<A_{UT}>$    &  -4.38$\times 10^{-2}$ &  -7.63$\times 10^{-2}$ & -1.03$\times 10^{-1}$ & 
+-1.19$\times 10^{-1}$ & -1.29$\times 10^{-1}$ & -1.24$\times 10^{-1}$ & -9.51$\times 10^{-2}$ \\
+$\delta A_{UT}$&  1.13$\times 10^{-2}$ &  5.82$\times 10^{-3}$ & 6.83$\times 10^{-3}$ 
+& 9.05$\times 10^{-3}$ & 1.21$\times 10^{-2}$ & 1.32$\times 10^{-2}$ & 1.94$\times 10^{-2}$ \\
+$N$          &  2.17$\times 10^{4}$ &  8.19$\times 10^{4}$ & 5.94$\times 10^{4}$ &
+  3.38$\times 10^{4}$ & 1.88$\times 10^{4}$ & 1.59$\times 10^{4}$ & 7.32$\times 10^{3}$ \\
+\hline
+\multicolumn{8}{c}{} \\
+\multicolumn{8}{c}{ (b) w/ PRD} \\
+\hline
 	     &  t-bin\#1 & t-bin\#2 & t-bin\#3 & t-bin\#4 & t-bin\#5 & t-bin\#6 & t-bin\#7 \\
-     	\hline 
-		    $<-t>$                &  0.13 & 0.20   & 0.30   & 0.40   & 0.50   & 0.64   & 0.90  \\
-	    \hline
-   	   \multicolumn{8}{|c|}{$Q^{2}$ bin-set\#1 } \\
-   	    \hline
+\hline 
+$<-t>$       &  0.13 & 0.20   & 0.30   & 0.40   & 0.50   & 0.64   & 0.90  \\
+\hline
+\multicolumn{8}{|c|}{$Q^{2}$ bin-set\#1 } \\
+\hline
 $<Q^{2}>$   &  4.12 &  4.34 & 4.59 & 4.74 & 4.83 & 4.86 & 4.84 \\
-$<\sigma_{L}/\sigma_{T}>$    &  6.41 &  4.90 & 3.37 & 2.32 & 1.62 & 1.02 & 0.46 \\
+$<\sigma_{L}/\sigma_{T}>$&  6.41 &  4.90 & 3.37 & 2.32 & 1.62 & 1.02 & 0.46 \\
 $<f_{L/T}>$   &  0.80 &  0.76 & 0.69 & 0.60 & 0.52 & 0.40 & 0.23 \\
-$<A_{UT}>$ &  -8.46$\times 10^{-2}$ &  -2.03$\times 10^{-1}$ & -2.78$\times 10^{-1}$ & -2.96$\times 10^{-1}$ & -2.73$\times 10^{-1}$ & -2.17$\times 10^{-1}$ & -1.26$\times 10^{-1}$ \\
-$\delta A_{UT}$  &  8.57$\times 10^{-3}$ &  4.58$\times 10^{-3}$ & 5.30$\times 10^{-3}$ & 6.58$\times 10^{-3}$ & 8.24$\times 10^{-3}$ & 7.97$\times 10^{-3}$ & 9.57$\times 10^{-3}$ \\
-$N$     &  3.77$\times 10^{4}$ &  1.31$\times 10^{5}$ & 9.61$\times 10^{4}$ & 6.22$\times 10^{4}$ & 3.98$\times 10^{4}$ & 4.30$\times 10^{4}$ & 3.02$\times 10^{4}$ \\   
-    \hline
-     	   \multicolumn{8}{|c|}{$Q^{2}$ bin-set\#2 } \\
-  \hline 
+$<A_{UT}>$ &  -8.46$\times 10^{-2}$ &  -2.03$\times 10^{-1}$ & -2.78$\times 10^{-1}$ & 
+-2.96$\times 10^{-1}$ & -2.73$\times 10^{-1}$ & -2.17$\times 10^{-1}$ & -1.26$\times 10^{-1}$ \\
+$\delta A_{UT}$&  8.57$\times 10^{-3}$ &  4.58$\times 10^{-3}$ & 5.30$\times 10^{-3}$ & 
+6.58$\times 10^{-3}$ & 8.24$\times 10^{-3}$ & 7.97$\times 10^{-3}$ & 9.57$\times 10^{-3}$ \\
+$N$     &  3.77$\times 10^{4}$ &  1.31$\times 10^{5}$ & 9.61$\times 10^{4}$ &
+6.22$\times 10^{4}$ & 3.98$\times 10^{4}$ & 4.30$\times 10^{4}$ & 3.02$\times 10^{4}$ \\   
+\hline
+\multicolumn{8}{|c|}{$Q^{2}$ bin-set\#2 } \\
+\hline 
 $<Q^{2}>$   &  4.40 &  4.88 & 5.39 & 5.77 & 6.07 & 6.35 & 6.66 \\
 $<\sigma_{L}/\sigma_{T}>$   &  7.19 &  6.15 & 4.96 & 3.84 & 2.88 & 1.81 & 0.69 \\
-$<f_{L/T}>$     &  0.81 &  0.79 & 0.76 & 0.71 & 0.65 & 0.53 & 0.30 \\
-$<A_{UT}>$   &  -5.24$\times 10^{-2}$ &  -1.04$\times 10^{-1}$ & -1.54$\times 10^{-1}$ & -1.88$\times 10^{-1}$ & -2.10$\times 10^{-1}$ & -2.04$\times 10^{-1}$ & -1.33$\times 10^{-1}$ \\
-$\delta A_{UT}$   &  1.07$\times 10^{-2}$ &  4.86$\times 10^{-3}$ & 4.86$\times 10^{-3}$ & 5.57$\times 10^{-3}$ & 6.88$\times 10^{-3}$ & 6.62$\times 10^{-3}$ & 7.64$\times 10^{-3}$ \\
-$N$    &  2.42$\times 10^{4}$ &  1.17$\times 10^{5}$ & 1.17$\times 10^{5}$ & 8.85$\times 10^{4}$ & 5.78$\times 10^{4}$ & 6.24$\times 10^{4}$ & 4.73$\times 10^{4}$ \\
-     \hline
-	\end{tabular}
-	\caption[Detailed information of projected bins]{\footnotesize{Detailed information of projected bins from the new DEMP measurements with SoLID, while $<Q^{2}>$ and $<-t>$ are in the unit of $GeV^{2}$. The top (bottom) table is with respect to the case of proton detection w/o (w/) a new PRD. The data are divided into 14 $-t$ bins in both $-t$ (7 bins) and $Q^{2}$ (2 bins).}}
-	\label{asym_bin_table}
+$<f_{L/T}>$  &  0.81 &  0.79 & 0.76 & 0.71 & 0.65 & 0.53 & 0.30 \\
+$<A_{UT}>$   &  -5.24$\times 10^{-2}$ &  -1.04$\times 10^{-1}$ & -1.54$\times 10^{-1}$ 
+& -1.88$\times 10^{-1}$ & -2.10$\times 10^{-1}$ & -2.04$\times 10^{-1}$ & -1.33$\times 10^{-1}$ \\
+$\delta A_{UT}$&  1.07$\times 10^{-2}$ &  4.86$\times 10^{-3}$ & 4.86$\times 10^{-3}$ & 
+5.57$\times 10^{-3}$ & 6.88$\times 10^{-3}$ & 6.62$\times 10^{-3}$ & 7.64$\times 10^{-3}$ \\
+$N$         &  2.42$\times 10^{4}$ &  1.17$\times 10^{5}$ & 1.17$\times 10^{5}$& 8.85$\times 10^{4}$ 
+& 5.78$\times 10^{4}$ & 6.24$\times 10^{4}$ & 4.73$\times 10^{4}$ \\
+\hline
+\end{tabular}
+\caption[Detailed information of projected bins]{\footnotesize{Detailed
+information of projected bins from the new DEMP measurements with SoLID, while
+$<Q^{2}>$ and $<-t>$ are in the unit of GeV$^{2}$. The top (bottom) table is
+with respect to the case of proton detection w/o (w/) a new PRD. The data are
+divided into 14 $-t$ bins in both $-t$ (7 bins) and $Q^{2}$ (2 bins).}}
+\label{asym_bin_table}
 \end{table} 
-
 
 \subsection{Missing Mass and Background}
 
@@ -337,23 +352,23 @@ assumption likely results in the SIDIS background being significantly
 overestimated.
 
 \begin{figure}[!ht]
- \begin{center}
-     \subfloat[w/o PRD]{
-      \includegraphics[type=pdf,ext=.pdf,read=.pdf,width=0.5\textwidth]{./figures/Missing_P_Fermi} }
-    \subfloat[w/ PRD]{
-      \includegraphics[type=pdf,ext=.pdf,read=.pdf,width=0.5\textwidth]{./figures/Missing_P_PRD_Fermi} } 
-   \caption[Missing Momentum]{\footnotesize{Missing momentum spectra of DEMP
-and SIDIS events. The missing momentum distributes are well separated between
-two processes and one can apply a cut at $P_{miss}<1.2~GeV/c$ (indicated by the
-black dash line) to remove most of SIDIS events.}}
+\begin{center}
+\subfloat[w/o PRD]{
+\includegraphics[type=pdf,ext=.pdf,read=.pdf,width=0.5\textwidth]{./figures/Missing_P_Fermi}}
+\subfloat[w/ PRD]{
+\includegraphics[type=pdf,ext=.pdf,read=.pdf,width=0.5\textwidth]{./figures/Missing_P_PRD_Fermi}} 
+\caption[Missing Momentum]{\footnotesize{Missing momentum spectra of DEMP
+and SIDIS events. The missing momentum distributions are well separated between
+the two processes and one can apply a cut at $P_{miss}<1.2$~GeV/c (indicated by the
+black dashed line) to remove most of the SIDIS events.}}
   \label{missing_mom}
   \end{center}
 \end{figure}
 
-Shown in Fig.~\ref{missing_mom}, we reconstruct the missing momenta of both
-processes. One immediately sees that the missing momentum distributions of two
-processes are well separated. The SIDIS background can be largely rejected when
-we apply a cut, $P_{miss}<1.2~GeV/c$.
+Shown in Fig.~\ref{missing_mom}, is a reconstruction of the missing momenta of
+both processes. One immediately sees that the missing momentum distributions of
+two processes are well separated. The SIDIS background can be largely rejected
+when we apply a cut, $P_{miss}<1.2$~GeV/c.
 
 \begin{figure}[!ht]
  \begin{center}
@@ -366,12 +381,13 @@ we apply a cut, $P_{miss}<1.2~GeV/c$.
    \caption[Missing Mass]{\footnotesize{Missing mass spectra of DEMP and SIDIS
 events. Top (bottom) panel shows the missing mass distribution of DEMP events
 w/o (w/) proton detection by a new PRD.  The left (right) plot of each panel 
- shows the background contamination from SIDIS events before (after) the missing
-momentum cut shown in Fig.~\ref{missing_mom}. The broadening effect of the missing
- mass due to only the Fermi motion is indicated by the magenta curve. The SIDIS background is already
-small compared with DEMP events before optimizing the cut. The actual SIDIS background should be much
-smaller, since we overestimated the SIDIS rate by assuming all target fragments
-("X") in the SIDIS process contain protons.}}
+shows the background contamination from SIDIS events before (after) the
+missing momentum cut shown in Fig.~\ref{missing_mom}. The broadening effect of
+the missing mass due to only the Fermi motion is indicated by the magenta
+curve. The SIDIS background is already small compared with DEMP events before
+optimizing the cut. The actual SIDIS background should be much smaller, since
+we overestimated the SIDIS rate by assuming all target fragments ("X") in the
+SIDIS process contain protons.}}
   \label{missing_mass}
   \end{center}
 \end{figure}
@@ -389,7 +405,7 @@ spectrum with more uniform distributions. We should be able to suppress most of
 them with tight missing momentum and missing mass cuts, and for these residuals
 that contaminate the real events, we are able to evaluate their asymmetries if
 nonzero, and apply corrections on the real asymmetry values. In general, we
-expect to have a clean measurement of the DEMP process because of all final
+expect to have a clean measurement of the DEMP process because all of the final
 particles being detected.
 
 \subsection{Systematic Uncertainties}
@@ -401,8 +417,8 @@ particles being detected.
 {\bf Sources}            & {\bf Relative Value} \\\hline
 Beam Polarization        & $2\%$ \\\hline 
 Target Polarization      & $3\%$ \\\hline 
-Dilution Factor          &  $1\%$ \\\hline 
-Nuclear Effect           &  $<4\%$ \\\hline 
+Dilution Factor          & $1\%$ \\\hline 
+Nuclear Effect           & $<4\%$ \\\hline 
 Acceptance               & $3\%$ \\\hline
 Radiation Correction     & $2\%$ \\\hline
 Background Contamination & $<5\%$ \\\hline
