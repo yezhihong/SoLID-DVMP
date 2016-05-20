@@ -111,12 +111,16 @@ ansatz
 \begin{equation}
 \tilde{E}^{ud}(x,\xi,t) = F_{\pi}(t)\frac{\theta (\xi>|x|)}{2\xi
 }\phi_{\pi}(\frac{x+\xi}{2\xi}),
+\label{eqn:Etilde}
 \end{equation}
 where $F_{\pi}(t)$ is the pion electromagnetic form factor, and $\phi_{\pi}$ is
-the pion distribution amplitude.
-$\tilde{E}$ cannot be related to already known parton distributions,
-and so experimental information about $\tilde{E}$ via DEMP 
-can provide new information on nucleon structure which is
+the pion distribution amplitude.  For the kinematic region accessible until the
+construction of the EIC, the best estimate of $\tilde{E}$ is obtained if one
+replaces the perturbative (or one-gluon exchange) expression for $F_{\pi}$ with
+a parameterization based on the experimental form factor \cite{Go10}.
+Regardless of which expression is used, $\tilde{E}$ cannot be related to
+already known parton distributions, and so experimental information about
+$\tilde{E}$ via DEMP can provide new information on nucleon structure which is
 unlikely to be available from any other source.
 
 \begin{figure}[hbt!]
@@ -157,7 +161,7 @@ A_L^{\perp}=\frac{\sqrt{-t'}}{m_p}
 {(1-\xi^2)\tilde{H}^2-\frac{t\xi^2}{4m_p}
 \tilde{E}^2-2\xi^2\mathrm{Re}(\tilde{E}^*\tilde{H})}.
 \end{equation}
- Frankfurt et al. \cite{Fr99} have shown that this asymmetry must vanish if
+Frankfurt et al. \cite{Fr99} have shown that this asymmetry must vanish if
 $\tilde{E}$ is zero.  If $\tilde{E}$ is not zero, the asymmetry will display a
 sin$\beta$ dependence.  Their predicted asymmetry using the $\tilde{E}$ ansatz
 from Ref. \cite{Va99} is shown in Fig. \ref{fig:frankfurt_atpi}.  This
@@ -296,7 +300,8 @@ criterion $W^2>10$ GeV$^2$.  The six Fourier amplitudes in terms of the
 azimuthal angles $\phi$, $\phi_s$ of the pion-momentum and proton-polarization
 vectors relative to the lepton scattering plane were determined.  Of these, at
 leading twist only the $\sin(\phi-\phi_s)_{UT}$ Fourier amplitude receives a
-contribution from longitudinal photons.  If one assumes that longitudinal
+contribution from longitudinal photons.  
+If one assumes that longitudinal
 contributions dominate, these $A_{UT}^{sin(\phi-\phi_s)}$ values can be
 compared to GPD models for $\tilde{E}$, $\tilde{H}$.
 
@@ -317,15 +322,21 @@ photons.  This figure is taken from Ref. \protect{\cite{Go10}}.}}
 Because transverse photon amplitudes are suppressed by $1/Q$, at very high
 $Q^2$ it is safe to assume that all observed meson production is due to
 longitudinal photons.  At the lower $Q^2$ typical of the JLab and HERMES
-programs, however, this is not the case.  Calculations by Goloskokov and Kroll
+programs, however, this is not the case.  Handbag-approach
+calculations by Goloskokov and Kroll
 \cite{Go10} indicate much of the unseparated cross section measured by HERMES
 \cite{hermes10} is due to contributions from transversely polarized photons.
 In addition, there are contributions to $A_{UT}^{sin(\phi-\phi_s)}$ from the
 interference between two amplitudes, both for longitudinal photons, as well as
-transverse photons~\cite{Di05}.  As indicated in Fig. \ref{fig:hermes_aut}, the
-contribution from transverse photons tends to make the asymmetry smaller.  At
-the HERMES kinematics, the dilution caused by transverse photons is about
-50\%.
+transverse photons~\cite{Di05}.
+At the amplitude level, the transverse suppression is given by $\mu/Q$, where
+$\mu\sim 2$ GeV is a mass parameter given by the pion mass enhanced by the
+large ratio between the pion mass and the sum of the $u$ and $d$ current quark
+masses (chiral condensate).  For experimentally accessible $Q^2$, hardly any
+suppression of the twist-3 contribution is expected.  As indicated in
+Fig. \ref{fig:hermes_aut}, the contribution from transverse photons tends to
+make the asymmetry smaller.  At the HERMES kinematics, the dilution caused by
+transverse photons is about 50\%.
 Although the observed unseparated asymmetry is small, the HERMES data are
 consistent with GPD models based on the dominance of $\tilde{E}$ over
 $\tilde{H}$ at low $-t'$, due to the pion pole.  An improved measurement of the
@@ -359,7 +370,7 @@ previously \cite{clas}, but this measurement will allow for smaller statistical
 uncertainties, due to SoLID's higher luminosity capabilities.
 
 Handbag model calculations by Goloskokov and Kroll \cite{GoPC} shed further
-light on the expected asymmetry dilution.  The lower left panel of
+light on the expected asymmetry dilution.  The bottom panel of
 Fig. \ref{fig:golo_aut} shows their predictions for the cross section
 components in exclusive charged pion production.  Although their calculations
 tend to underestimate the $\sigma_L$ values measured in the JLab $F_{\pi}-2$
@@ -392,15 +403,31 @@ uncertainties -- from its required zero-value in parallel kinematics, through
 its maximum, and then back to near-zero or even positive at larger $-t$.  
 The shape of the asymmetry curve versus
 $-t$, as well as its maximum value, are critical information for comparison to
-GPD-based models.  Simultaneously, the $\sin(\phi_S)$ moment can be extracted,
-which may be interpretable in terms of transversity GPDs.  The HERMES
-measurement showed this asymmetry to be large and apparently nonzero at $-t'=0$
-(Fig.~\ref{fig:hermes_phiS}), giving the first clear signal for strong
-contributions from transversely polarized photons at rather large values of $W$
-and $Q^2$ \cite{Go10}.  Any model that describes exclusive pion production will
-need to describe not only the leading-twist Fourier amplitude
-$A_{UT}^{sin(\phi-\phi_s)}$, but also these other contributions to the
-target-spin azimuthal asymmetry, providing additional GPD model constraints.
+GPD-based models.
+
+Simultaneously, the $\sin(\phi_S)_{UT}$ moment can be extracted, which may be
+interpretable in terms of transversity GPDs.  Any model that describes
+exclusive pion production will need to describe not only the leading-twist
+Fourier amplitude $A_{UT}^{sin(\phi-\phi_s)}$, but also these other
+contributions to the target-spin azimuthal asymmetry, providing additional GPD
+model constraints.  Independent of a specific dynamical interpretation
+(e.g. the handbag approach), the $A_{UT}^{sin(\phi_S)}$ asymmetry will say
+something on the strength of the contributions from transverse photons at
+small $-t$:
+\begin{equation}
+A_{UT}^{sin(\phi_S)}\sim\mathrm{Im}[M^*_{0+++}M_{0-0+} - M^*_{0-++}M_{0+0+}],
+\end{equation}
+where the helicities are in the order: pion neutron photon proton
+\cite{Go10}.  Thus, in contrast to the $\sin(\phi-\phi_S)$ modulation, which
+has contributions from LL and TT interferences, the $sin(\phi_s)$ modulation
+measures only the LT interference.  The first term is proportional to $t'$, as
+is forced by angular momentum conservation, while the second one is not forced
+to vanish \cite{GoPC}.  Indeed, HERMES measured the $\sin(\phi_s)$ modulation
+to be large and apparently nonzero at $-t'=0$ (Fig.~\ref{fig:hermes_phiS}).
+Hence, both the amplitudes $M_{0-++}$ and $M_{0+0+}$ must be large, giving the
+first clear signal for strong contributions from transversely polarized photons
+at rather large values of $W$ and $Q^2$ \cite{Go10}.  This is very interesting
+in its own right.
 
 %At a later date, the New Hampshire polarized target might enable a measurement
 %of $A_L^{\perp}$ in Hall C.  The comparison of the two measurements will

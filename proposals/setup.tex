@@ -107,9 +107,8 @@ target system, including a multi-foil $^{12}$C for optics study, a BeO target
 for beam tuning, and a reference target cell for dilution study and other
 calibration purposes.
   
-\subsection {SoLID Spectrometer and Detectors} 
-
-\begin{figure}[!ht]
+  \subsection {SoLID Spectrometer and Detectors} 
+\begin{figure}[!h]
  \begin{center}
   \includegraphics[width=0.6\textwidth]{./figures/SoLID_SIDIS_setup.pdf}
    \caption[The Detector Layout of the SoLID-SIDIS
@@ -163,7 +162,7 @@ of each detector is given in the SoLID preliminary conceptual design report
 Table~\ref{table:key_par_sidis_dvcs} summarizes the key parameters of the
 detector system in the SIDIS configuration for both the SIDIS and DEMP
 measurements.
-\begin{table}\centering
+\begin{table} \centering
 \begin{tabular}{|c|c|c|c|c|}
 \hline
 Experiments                & SIDIS                    & DEMP  \\\hline
@@ -202,20 +201,6 @@ Key requirements           &  Radiation hardness      & Proton Detection	\\
 
 %\newpage
 \subsection{Recoil Proton Identification}
-
-\begin{figure}[!ht]
- \begin{center}
-  \includegraphics[width=0.8\textwidth]{./figures/time_diff.pdf}
-   \caption[Time-of-time]{\footnotesize{The time differences (in $ns$) between
-       electrons and other charged particles, i.e. pions (red solid line),
-       kaons (blue dashed line) and proton (black dash-dotted line), and their
-       distributions as functions of particles' momentum at three different
-       timing detectors, including the forward-angle (FA) MRPC and the large-angle
-       (LA) SPD.}}
-   \label{tof_diff}
- \end{center}
-\end{figure}
-
 The cleanest way to identify the DEMP events is to detect all particles in the
 final state. The SoLID-SIDIS detector system has the capability of measuring
 electrons and pions, while protons can be isolated from other charged particles
@@ -232,7 +217,7 @@ $0^{\circ}$ to $50^{\circ}$. The FA-MRPC covers angles from
 $8^{\circ}$ to $14.8^{\circ}$, and the angular range of the LASPD is from
 $16^{\circ}$ to $24^{\circ}$.  Hence we simulated
 events of electrons, pions, kaons and protons with the momentum from
-0.3~GeV/c up to 1.2~GeV/c, and calculated the time when they reach three
+0.3~GeV/c up to 1.2~GeV/c, and calculated the time when they reach two different
 detectors with linear trajectories and at fixed angles.
 
 The results are shown in Fig.~\ref{tof_diff}. To clearly identify two types of
@@ -246,7 +231,20 @@ from other lighter particles.  At the LA-SPD, which is about 3 meters away from
 the target, the time difference between protons and kaons is still more than
 1~ns, which doesn't demand precise timing resolution.
 
-In general, the misidentified events can be mostly removed by cutting on the
+\begin{figure}[!ht]
+ \begin{center}
+  \includegraphics[width=0.8\textwidth]{./figures/time_diff.pdf}
+   \caption[Time-of-time]{\footnotesize{The time differences (in $ns$) between
+       electrons and other charged particles, i.e. pions (red solid line),
+       kaons (blue dashed line) and proton (black dash-dotted line), and their
+       distributions as functions of particles' momentum at two different
+       timing detectors, including the forward-angle (FA) MRPC and the large-angle
+       (LA) SPD.}}
+   \label{tof_diff}
+ \end{center}
+\end{figure}
+
+In general, the misidentified proton events can be mostly removed by cutting on the
 reconstructed missing quantities, e.g. angles, momenta and masses. The residual
 background will also be largely suppressed in the target-spin asymmetry
 extraction.
@@ -259,7 +257,7 @@ detectors, such as LGC, HGC and ECs, during the offline analysis to select
 $\pi^{\pm}$ out from other hadrons. The DEMP events will be identified with the
 triple-coincidence of the scattered electron, $\pi^{-}$ and proton, while the
 proton identification has been discussed above. We will use the same online
-trigger as the SIDIS one, and hence the new experiment will share the same
+trigger as the SIDIS one, and hence the new experiment will share exactly the same
 data-set as E12-10-006. The actual design of the SIDIS triggers will be far
 more complicated, and the detailed discussion of the trigger and DAQ designs is
 given in the SoLID pCDR~\cite{solid_pcdr}.

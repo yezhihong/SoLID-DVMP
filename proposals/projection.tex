@@ -1,19 +1,4 @@
 \section{Projected Results}
-
-\subsection{Kinematic Coverage}
-
-\begin{figure}[!ht]
- \begin{center}
-      \includegraphics[type=pdf,
-        ext=.pdf,read=.pdf,width=0.45\textwidth]{./figures//E11_Q2_x_fermi}
-  
- \caption[The kinematic coverage at different acceptances.]{\footnotesize{The
-     kinematic coverage at different acceptances at 11~GeV. Colors correspond to rates
-(Hz) in log scale.}}
-  \label{kin_cor}
-  \end{center}
-\end{figure}
-
 To perform the simulation study and obtain the projected results, we used a
 DEMP generator, as discussed in Appendix-A, and generated events within a
 kinematic phase space slightly larger than the SoLID-SIDIS acceptance.  The
@@ -22,8 +7,20 @@ already been taken in account in this generator.  Then for every detected
 particle in each event, we added the acceptance profiles obtained from the
 GEANT4 simulation with the SoLID-SIDIS configuration.
 
+\subsection{Kinematic Coverage}
+\begin{figure}[!ht]
+ \begin{center}
+      \includegraphics[type=pdf,
+        ext=.pdf,read=.pdf,width=0.45\textwidth]{./figures//E11_Q2_x_fermi}
+  
+   \caption[The kinematic coverage at different acceptances.]{\footnotesize{The
+     kinematic coverage at different acceptances at 11~GeV. Colors correspond to rates
+(Hz) in log scale.}}
+  \label{kin_cor}
+  \end{center}
+\end{figure}
 The kinematic coverage in $Q^{2}$ vs. $x_{B}$ is shown in Fig.~\ref{kin_cor},
-using only the SoLID detectors to detect protons at small angles ($8^{\circ}\sim24^{\circ}$). These distributions were
+using the existing SoLID detectors to detect protons at $8^{\circ}\sim24^{\circ}$. These distributions were
 weighted by the DEMP unpolarized cross sections and the SoLID acceptance.
 As shown in these plots, the range of $Q^{2}$ is from 1.0~GeV$^{2}$ to
 8.0~GeV$^{2}$, $x_{B}$ goes from 0.1 up to 0.75.
@@ -228,9 +225,8 @@ divided into 14 $-t$ bins in both $-t$ (7 bins) and $Q^{2}$ (2 bins).}}
 
 \subsection{Missing Mass and Background}
 
-In the DEMP reaction on a neutron, two charged particles, $\pi^{-}$ and $p$,
-can be cleanly measured by the detector system.  Moreover, the stuck proton
-will also be measured.  Hence, contamination from other reactions, including
+In the DEMP reaction on a neutron, all three charged particles in the final state, $e$, $\pi^{-}$ and $p$,
+can be cleanly measured by the detector system.  Hence, contamination from other reactions, including
 DEMP with other two protons in $^{3}He$, can be greatly eliminated.  The
 dominant background of the DEMP measurement comes from the SIDIS reactions of
 electrons scattering on the neutron and two protons in $\mathrm{^{3}He}$. In
@@ -293,7 +289,7 @@ SIDIS process contain protons.}}
 We then reconstructed the missing mass spectra of the DEMP and SIDIS events w/
 and w/o the missing momentum cuts, as shown in Fig.~\ref{missing_mass}. Before
 applying the missing momentum cut, the SIDIS background overwhelms the DEMP
-peak (note that the SIDIS rate is likely overestimated). After applying the
+peak (note that, however, the SIDIS rate is likely overestimated). After applying the
 cut, the DEMP peak dominates and the SIDIS background is largely suppressed. If
 we consider the fact that not every $"X''$ in SIDIS contains a proton, the
 remaining background should be negligible.
