@@ -1,0 +1,5 @@
+--- Total DVMP Rate (Q2>1)=2.66075
+--- Total DVMP Rate (Q2>4)=0.234597
+--- Total DVMP Rate (all proton)=40.5711
+--- Total DVMP Rate (all proton & Q2>4)=1.15274
+

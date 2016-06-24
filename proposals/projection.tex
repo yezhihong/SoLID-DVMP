@@ -1,9 +1,11 @@
 \section{Projected Results}
-To perform the simulation study and obtain the projected results, we developed a
-DEMP generator, as discussed in Appendix-A, and used it to generate events within a
-kinematic phase space slightly larger than the SoLID-SIDIS acceptance.  The
+
+To perform the simulation study and obtain the projected results, we developed
+a DEMP generator, as discussed in Appendix-A, and used it to generate events
+within a kinematic phase space slightly larger than the SoLID-SIDIS acceptance.
+The
 Fermi motion of the neutron in $\mathrm{^{3}He}$ and the radiative effects have
-already been taken in account in this generator.  Then for every detected
+been taken in account in this generator.  Then for every detected
 particle in each event, we added the acceptance profiles obtained from the
 GEANT4 simulation with the SoLID-SIDIS configuration.
 
@@ -11,42 +13,39 @@ GEANT4 simulation with the SoLID-SIDIS configuration.
 \begin{figure}[!ht]
  \begin{center}
       \includegraphics[type=pdf,
-        ext=.pdf,read=.pdf,width=0.45\textwidth]{./figures//E11_Q2_x_fermi}
+        ext=.pdf,read=.pdf,width=0.45\textwidth]{./figures//E11_Q2_x_epip}
   
    \caption[The kinematic coverage at different acceptances.]{\footnotesize{The
-     kinematic coverage at different acceptances at 11~GeV. Colors are proportional to rates
-(Hz) in log scale.}}
+kinematic coverage at different acceptances at 11~GeV.}}
   \label{kin_cor}
   \end{center}
 \end{figure}
 The kinematic coverage in $Q^{2}$ vs. $x_{B}$ is shown in Fig.~\ref{kin_cor},
-using the existing SoLID detectors to detect protons at $8^{\circ}\sim24^{\circ}$. These distributions were
-weighted by the DEMP unpolarized cross sections and the SoLID acceptance.
-As shown in these plots, the range of $Q^{2}$ is from 1.0~GeV$^{2}$ to
-8.0~GeV$^{2}$, $x_{B}$ goes from 0.1 up to 0.75.
-
+using the existing SoLID detectors to detect protons at
+$8^{\circ}\sim24^{\circ}$. These distributions were
+weighted by the DEMP unpolarized cross sections and the SoLID acceptance profiles for electrons, pions and protons.
 \begin{figure}[!ht]
  \begin{center}
    \includegraphics[type=pdf,
      ext=.pdf,read=.pdf,width=0.45\textwidth]{./figures/E11_acc_epip_Q2gt4}
    \caption[The acceptance of the momenta and scattering angles for electrons,
     $\pi^{-}$ and protons]{\footnotesize{The acceptance of the momenta and
-    polar angles. The top, middle and
-    bottom plots are for electrons, $\pi^{-}$ and protons, respectively. A
-    cut of $Q^{2}>4~\mathrm{GeV^{2}}$ is applied. Colors are proportional to rates
-    (Hz) in log scale.}}
+polar angles. The top, middle and bottom plots are for electrons, $\pi^{-}$ and
+protons, respectively. A cut of $Q^{2}>4~\mathrm{GeV^{2}}$ is applied.}}
   \label{p_theta}
   \end{center}
 \end{figure}
 
 Fig.~\ref{p_theta} shows the momentum and angular acceptance of electrons,
 $\pi^{-}$ and protons which form the DEMP events and can be detected with the
-SoLID detectors.  A cut of $Q^2>$4~GeV$^2$ is applied since this is the region of greatest physics interest.  The recoil
+SoLID detectors.  A cut of $Q^2>$4~GeV$^2$ is applied, since this is the region
+of greatest physics interest.  The recoil
 protons shown in Fig.~\ref{p_theta} have low momenta ranging from 0.3~GeV/c up
 to 1.2~GeV/c and their rates are distributed nearly uniformly in scattering
 angle.
 
-\subsection{Estimated Rates}
+\subsection{Estimated Rates
+\label{sec:rates}}
 
 \begin{table}[!ht]
 \centering
@@ -56,7 +55,7 @@ angle.
  \hline
 \multicolumn{2}{|c|}{DEMP: $\vec{n}(e,e'\pi^{-}p)$ Triple-Coincidence (Hz)}\\
  \hline
- 41.03   &  1.00  \\
+ 2.66 (40.57)   &  0.23 (1.15) \\
  \hline
 \multicolumn{2}{|c|}{SIDIS: $\vec{n}(e,e'\pi^{-})X$ Double-Coincidence (Hz)}\\
  \hline
@@ -65,7 +64,7 @@ angle.
 \end{tabular}
 \caption[Triple-Coincidence rates for
   neutron-DEMP]{\footnotesize{Triple-Coincidence rates for DEMP events compared
-    with the SIDIS rates.  The online production
+    with the SIDIS rates. The numbers in brackets are the DEMP rates when all protons detected. The online production
     trigger will be the SIDIS double-coincidence trigger of which rates are
     also given.}}
 \label{rate_table}
@@ -73,22 +72,20 @@ angle.
 
 Table~\ref{rate_table} lists the triple-coincidence rate of the DEMP
 events. The rates were calculated with the simulated events weighted by the
-target luminosity, the SoLID acceptances and unpolarized cross sections. 
-The "raw" rates are not corrected by the beam and target polarization, target dilution
-and so on.  We estimated the physics rate very conservatively, due to the uncertainty of the model used in the generator
-~\footnote{We discovered right before the PAC44 deadline that we may have under-estimated the total production rate,
-but we are unable to provide a more reasonable value due to a very limited amount of time remained. We presented here a worse scenario and will update the rates before it is reviewed by the SoLID committee and the PAC committee.}.The overall physics is around 41~Hz at $Q^{2}>$1~GeV$^{2}$,
- or 1.0 Hz at $Q^{2}>$4~GeV$^{2}$. For comparison, the table also gives the SIDIS rate
+target luminosity, the SoLID acceptances and unpolarized cross sections.  The
+``raw'' rates are not corrected by the beam and target polarization, target
+dilution and so on.  Our conservatively estimated rate is around 2.66~Hz at $Q^{2}>$1~GeV$^{2}$, or 0.23 Hz
+at $Q^{2}>$4~GeV$^{2}$. For comparison, the table also gives the SIDIS rate
 which will be the online production trigger rates and is the main background of
-the DEMP events. 
+the DEMP events.
 
 \subsection{Asymmetry Projections}
 \begin{figure}[!ht]
  \begin{center}
       \includegraphics[type=pdf,
-        ext=.pdf,read=.pdf,width=0.5\textwidth]{./figures/E11_Q2_t_bin_Fermi} 
+        ext=.pdf,read=.pdf,width=0.5\textwidth]{./figures/E11_Q2_t_bin_023Hz} 
     \caption[$Q^{2}$ vs. $-t$]{\footnotesize{$Q^{2}$ vs. $-t$ where the black
-dash lines specify the boundaries of 7 $-t$ bins and the black dash-dot lines
+dashed lines specify the boundaries of 7 $-t$ bins and the black dash-dot lines
 indicate the additional two $Q^{2}$ bins. }}
   \label{Q2_t_bin}
   \end{center}
@@ -99,7 +96,7 @@ been approved to run 48 days at $E_{0}$=11~GeV.  As shown in
 Fig.~\ref{Q2_t_bin}, we defined 7 $-t$ bins of which the boundaries are
 defined by the array:
  \begin{equation}
-   -t[8] = [0.0, 0.15, 0.25, 0.35, 0.45, 0.55, 0.75, 1.10]~~~~(\mathrm{in~GeV^{2}})
+-t[8] = [0.0, 0.15, 0.25, 0.35, 0.45, 0.55, 0.75, 1.10]~~~~(\mathrm{in~GeV^{2}})
  \end{equation}
 The number of events ($N_{i}$) in the $i$th bin is calculated from the total
 simulated events after applying cuts on important kinematic variables,
@@ -162,16 +159,16 @@ $A_{UT} = -f_{L/T}\cdot A_{L}^{\perp,model}$.
 \begin{figure}[!ht]
  \begin{center}
                \includegraphics[type=pdf,
-        ext=.pdf,read=.pdf,width=0.7\textwidth]{./figures/bin_asym_t_11m_fermi} 
+        ext=.pdf,read=.pdf,width=0.65\textwidth]{./figures/bin_asym_t_fermi_023Hz} 
       
       \caption{\footnotesize{Projection of target single spin asymmetry
           ($A_{UT}$) as a function of $-t$ for DEMP with transversely polarized
-          $\mathrm{^{3}He}$ at $E_{0}$=11~GeV (directly compare with
+$\mathrm{^{3}He}$ at $E_{0}$=11~GeV (directly compare with
 Fig.~\ref{fig:hermes_aut}).  The data in each $-t$ bin are further divided into
-two $Q^{2}$ bins with similar statistics.  The error bars include only the projected
-statistical uncertainties defined in Eq.~\ref{stat_err}. The asymmetry value in
-each bin is predicted with the model given in Appendix-A and is diluted due to
-not separating the L/T contributions. }}
+two $Q^{2}$ bins with similar statistics.  The error bars include only the
+projected statistical uncertainties defined in Eq.~\ref{stat_err}. The
+asymmetry value in each bin is predicted with the model given in Appendix-A and
+is diluted due to not separating the L/T contributions.}}
   \label{asym_t}
   \end{center}
 \end{figure}
@@ -182,47 +179,49 @@ statistical errors discussed above. Compared with the existing HERMES results
 data to be directly compared with theoretical predictions. Extra binning on
 $Q^{2}$ enables us to study the $Q^{2}$-dependence of asymmetries as well as to
 constraint some corrections during the asymmetry extraction.  The detailed
-information of each bin is listed in Table~\ref{asym_bin_table}. 
-Please note that once we update the event rate, the statistical uncertainties can be further improved since we currently quoted a very conservative rate.
-
+information of each bin is listed in Table~\ref{asym_bin_table}.  
 \begin{table}[!ht]
 \centering
  \small
 \begin{tabular}{|c|c|c|c|c|c|c|c|}
 \hline
-       &  t-bin\#1 & t-bin\#2 & t-bin\#3 & t-bin\#4 & t-bin\#5 & t-bin\#6 & t-bin\#7 \\
-\hline $<-t>$ &  0.13 &  0.20 & 0.30 & 0.39 & 0.49 & 0.63 & 0.88 \\
+ \multicolumn{8}{|c|}{$Q^{2}$ bin-set\#1 } \\
+\hline
+      &  t-bin\#1 & t-bin\#2 & t-bin\#3 & t-bin\#4 & t-bin\#5 & t-bin\#6 & t-bin\#7 \\
+  \hline
+$<-t>$    &  0.13 &  0.20 & 0.30 & 0.39 & 0.49 & 0.63 & 0.91 \\
+$<Q^{2}>$   &  4.10 &  4.35 & 4.74 & 5.14 & 5.58 & 6.10 & 6.95 \\
+$<\sigma_{L}/\sigma_{T}>$    &  6.26 &  4.84 & 3.57 & 2.80 & 2.23 & 1.54 & 0.63 \\
+$<f_{L/T}>$   &  0.79 &  0.76 & 0.70 & 0.65 & 0.59 & 0.49 & 0.28 \\
+$<A_{UT}>$ &  -1.18$\times 10^{-1}$ &  -2.24$\times 10^{-1}$ & -2.71$\times 10^{-1}$ & -2.84$\times 10^{-1}$ & -2.76$\times 10^{-1}$ & -2.38$\times 10^{-1}$ & -1.36$\times 10^{-1}$ \\
+$\delta A_{UT}$  &  1.36$\times 10^{-2}$ &  6.10$\times 10^{-3}$ & 6.16$\times 10^{-3}$ & 7.79$\times 10^{-3}$ & 1.09$\times 10^{-2}$ & 1.19$\times 10^{-2}$ & 1.57$\times 10^{-2}$ \\
+\hline
 
-\hline
-\multicolumn{8}{|c|}{$Q^{2}$ bin-set\#1 } \\
-\hline
-$<Q^{2}>$   &  4.13 &  4.42 & 4.89 & 5.33 & 5.74 & 6.22 & 6.83 \\
-$<\sigma_{L}/\sigma_{T}>$    &  6.43 &  5.11 & 3.89 & 3.07 & 2.42 & 1.64 & 0.69 \\
-$<f_{L/T}>$   &  0.80 &  0.77 & 0.72 & 0.68 & 0.62 & 0.52 & 0.30 \\
-$<A_{UT}>$ &  -7.16$\times 10^{-02}$ &  -1.41$\times 10^{-01}$ & -1.75$\times 10^{-01}$ & -1.86$\times 10^{-1}$ & -1.95$\times 10^{-1}$ & -1.88$\times 10^{-1}$ & -1.26$\times 10^{-1}$ \\
-$\delta A_{UT}$  &  5.06$\times 10^{-3}$ &  3.00$\times 10^{-3}$ & 3.75$\times 10^{-3}$ & 5.15$\times 10^{-3}$ & 7.42$\times 10^{-3}$ & 8.30$\times 10^{-3}$ & 1.24$\times 10^{-2}$ \\
-
-\hline
 \multicolumn{8}{|c|}{$Q^{2}$ bin-set\#2 } \\
-\hline 
-$<Q^{2}>$   &  4.39 &  4.93 & 5.58 & 6.14 & 6.59 & 7.10 & 7.72 \\
-$<\sigma_{L}/\sigma_{T}>$   &  7.23 &  6.39 & 5.52 & 4.67 & 3.72 & 2.59 & 1.19 \\
-$<f_{L/T}>$     &  0.81 &  0.80 & 0.78 & 0.75 & 0.70 & 0.62 & 0.42 \\
-$<A_{UT}>$   &  -3.94$\times 10^{-2}$ &  -7.57$\times 10^{-2}$ & -1.03$\times 10^{-1}$ & -1.19$\times 10^{-1}$ & -1.28$\times 10^{-1}$ & -1.22$\times 10^{-1}$ & -9.51$\times 10^{-2}$ \\
-$\delta A_{UT}$   &  6.09$\times 10^{-3}$ &  3.16$\times 10^{-3}$ & 3.75$\times 10^{-3}$ & 4.97$\times 10^{-3}$ & 6.66$\times 10^{-3}$ & 7.18$\times 10^{-3}$ & 1.04$\times 10^{-2}$ \\
+\hline
+      &  t-bin\#1 & t-bin\#2 & t-bin\#3 & t-bin\#4 & t-bin\#5 & t-bin\#6 & t-bin\#7 \\
+  \hline
+$<-t>$     &  0.13 &  0.20 & 0.30 & 0.40 & 0.50 & 0.63 & 0.91 \\
+$<Q^{2}>$   &  4.32 &  4.83 & 5.42 & 5.95 & 6.41 & 6.93 & 7.69 \\
+$<\sigma_{L}/\sigma_{T}>$   &  6.88 &  6.01 & 5.04 & 4.19 & 3.35 & 2.31 & 1.03 \\
+$<f_{L/T}>$     &  0.80 &  0.79 & 0.76 & 0.72 & 0.68 & 0.59 & 0.38 \\
+$<A_{UT}>$   &  -7.12$\times 10^{-2}$ &  -1.37$\times 10^{-1}$ & -1.80$\times 10^{-1}$ & -2.00$\times 10^{-1}$ & -2.07$\times 10^{-1}$ & -1.93$\times 10^{-1}$ & -1.31$\times 10^{-1}$ \\
+$\delta A_{UT}$   &  1.55$\times 10^{-2}$ &  6.54$\times 10^{-3}$ & 6.81$\times 10^{-3}$ & 8.33$\times 10^{-3}$ & 1.07$\times 10^{-2}$ & 1.13$\times 10^{-2}$ & 1.59$\times 10^{-2}$ \\
 \hline
 \end{tabular}
 \caption[Detailed information of projected bins]{\footnotesize{Detailed
 information of projected bins from the new DEMP measurements with SoLID, while
 $<Q^{2}>$ and $<-t>$ are in the unit of GeV$^{2}$. The data are
-divided into 14 $-t$ bins in both $-t$ (7 bins) and $Q^{2}$ (2 bins).}}
+divided into 14 $-t$ bins in both $-t$ (7 bins) and $Q^{2}$ (2 bins).  The
+projected uncertainties are statistical only.}}
 \label{asym_bin_table}
 \end{table} 
 
 \subsection{Missing Mass and Background}
 
-In the DEMP reaction on a neutron, all three charged particles in the final state, $e^{-}$, $\pi^{-}$ and $p$,
-can be cleanly measured by the detector system.  Hence, contamination from other reactions, including
+In the DEMP reaction on a neutron, all three charged particles in the final
+state, $e^{-}$, $\pi^{-}$ and $p$, can be cleanly measured by the SoLID detector
+system.  Hence, contamination from other reactions, including
 DEMP with other two protons in $^{3}He$, can be greatly eliminated.  The
 dominant background of the DEMP measurement comes from the SIDIS reactions of
 electrons scattering on the neutron and two protons in $\mathrm{^{3}He}$. In
@@ -244,40 +243,44 @@ can provide a momentum resolution of $2\%/\sqrt{E}$, a polar angle
 resolution of 0.6~mrad, an azimuthal angle resolution of 5~mrad and a
 vertex target position of 0.5~cm. It is difficult to estimate what
 percentage of the SIDIS target fragments contain protons, so we assumed
-the target fragments ($"X''$) all contain one or more protons. Such an
+the target fragments ($``X''$) all contain one or more protons. Such an
 assumption likely results in the SIDIS background being significantly
 overestimated.
 
 \begin{figure}[!ht]
 \begin{center}
-\includegraphics[type=pdf,ext=.pdf,read=.pdf,width=0.5\textwidth]{./figures/Missing_P_Fermi_Rad_1Hz}
-\caption[Missing Momentum]{\footnotesize{Missing momentum spectra of DEMP
-and SIDIS events. The missing momentum distributions are well separated between
-the two processes and one can apply a cut at $P_{miss}<1.2$~GeV/c (indicated by the
-black dashed line) to remove most of the SIDIS events.}}
+\includegraphics[type=pdf,ext=.pdf,read=.pdf,width=0.5\textwidth]
+{./figures/Missing_P_Fermi_Rad_023Hz}
+\caption[Missing Momentum]{\footnotesize{Missing momentum spectra of DEMP and
+SIDIS events in the worse scenario where we assume all SIDIS events contain protons in the final state. 
+The missing momentum distributions are well separated between the
+two processes and one can apply a cut at $P_{miss}<1.2$~GeV/c (indicated by the
+black dashed line) to remove most of the SIDIS events. }}
   \label{missing_mom}
   \end{center}
 \end{figure}
 
-Shown in Fig.~\ref{missing_mom}, is a reconstruction of the missing momenta of
-both processes. One immediately sees that the missing momentum distributions of
-two processes are well separated. The SIDIS background can be largely rejected
+Fig.~\ref{missing_mom} shows a reconstruction of the missing momenta of both
+processes. One immediately sees that the missing momentum distributions of two
+processes are well separated.  The SIDIS background can be largely rejected
 when we apply a cut, $P_{miss}<1.2$~GeV/c.
 
 \begin{figure}[!ht]
  \begin{center}
       \includegraphics[type=pdf,
-        ext=.pdf,read=.pdf,width=0.85\textwidth]{./figures/Missing_Mass_Fermi_Rad_1Hz} \\
+        ext=.pdf,read=.pdf,width=0.85\textwidth]
+{./figures/Missing_Mass_Fermi_Rad_023Hz} \\
    \caption[Missing Mass]{\footnotesize{Missing mass spectra of DEMP and SIDIS
-events. Top (bottom) panel shows the missing mass distribution of DEMP events. 
- The left (right) plot of each panel 
-shows the background contamination from SIDIS events before (after) the
-missing momentum cut shown in Fig.~\ref{missing_mom}. The broadening effect of
-the missing mass due to the Fermi motion and the energy loss is indicated by the magenta
-curve. The SIDIS background is already small compared with DEMP events before
-optimizing the cut. The actual SIDIS background should be much smaller, since
-we overestimated the SIDIS rate by assuming all target fragments ("X") in the
-SIDIS process contain protons.}}
+events in the worse scenario where we assume all SIDIS events contain protons in the final state. 
+Top (bottom) panel shows the missing mass distribution of DEMP events.
+The left (right) plot of each panel shows the background contamination from
+SIDIS events before (after) the missing momentum cut shown in
+Fig.~\ref{missing_mom}. The broadening effect of the missing mass due to the
+Fermi motion and the energy loss is indicated by the magenta curve. The SIDIS
+background is already small compared with DEMP events before optimizing the
+cut. The actual SIDIS background should be much smaller, since we overestimated
+the SIDIS rate by assuming all target fragments $"X"$') in the SIDIS process
+contain protons.}}
   \label{missing_mass}
   \end{center}
 \end{figure}
@@ -285,10 +288,10 @@ SIDIS process contain protons.}}
 We then reconstructed the missing mass spectra of the DEMP and SIDIS events w/
 and w/o the missing momentum cuts, as shown in Fig.~\ref{missing_mass}. Before
 applying the missing momentum cut, the SIDIS background overwhelms the DEMP
-peak (note that, however, the SIDIS rate is likely overestimated). After applying the
-cut, the DEMP peak dominates and the SIDIS background is largely suppressed. If
-we consider the fact that not every $"X''$ in SIDIS contains a proton, the
-remaining background should be negligible.
+peak (note that, however, the SIDIS rate is likely overestimated). After
+applying the cut, the DEMP peak dominates and the SIDIS background is largely
+suppressed. If we consider the fact that not every $``X''$ in SIDIS contains a
+proton, the remaining background should be negligible.
 
 Other random coincident background events will show up in the missing mass
 spectrum with more uniform distributions. We should be able to suppress most of
