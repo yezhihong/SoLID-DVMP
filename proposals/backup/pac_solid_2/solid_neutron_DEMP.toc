@@ -1,0 +1,24 @@
+\contentsline {section}{\numberline {1}Scientific Justification}{4}{section.1}
+\contentsline {subsection}{\numberline {1.1}Generalized Parton Distributions and Contribution from the Pion Pole}{4}{subsection.1.1}
+\contentsline {subsection}{\numberline {1.2}Single spin asymmetry in exclusive pion electroproduction}{6}{subsection.1.2}
+\contentsline {subsection}{\numberline {1.3}The Complementarity of Separated and Unseparated Asymmetry Measurements}{8}{subsection.1.3}
+\contentsline {section}{\numberline {2}Experimental Method}{11}{section.2}
+\contentsline {subsection}{\numberline {2.1}Transversely Polarized $\mathrm {^{3}He}$ Target}{12}{subsection.2.1}
+\contentsline {subsection}{\numberline {2.2}SoLID Spectrometer and Detectors}{13}{subsection.2.2}
+\contentsline {subsection}{\numberline {2.3}Proton Identification}{15}{subsection.2.3}
+\contentsline {subsection}{\numberline {2.4}Trigger Design}{16}{subsection.2.4}
+\contentsline {section}{\numberline {3}Projected Results}{17}{section.3}
+\contentsline {subsection}{\numberline {3.1}Kinematic Coverage}{17}{subsection.3.1}
+\contentsline {subsection}{\numberline {3.2}Estimated Rates}{18}{subsection.3.2}
+\contentsline {subsection}{\numberline {3.3}Asymmetry Projections}{18}{subsection.3.3}
+\contentsline {section}{\numberline {4}Missing Mass and Background}{21}{section.4}
+\contentsline {section}{\numberline {5}Systematic Uncertainties}{23}{section.5}
+\contentsline {section}{\numberline {6}Summary}{24}{section.6}
+\contentsline {section}{\numberline {A}Monte Carlo Model of Deep Exclusive $\pi ^{-}$ Production From The Neutron}{25}{appendix.A}
+\contentsline {subsection}{\numberline {A.1}Data Constraints}{25}{subsection.A.1}
+\contentsline {subsection}{\numberline {A.2}Model for Higher $Q^2$ Kinematics}{26}{subsection.A.2}
+\contentsline {subsection}{\numberline {A.3}Parameterization of $\sigma _{L}$, $\sigma _{T}$, $\sigma _{LT}$, $\&$ $\sigma _{TT}$}{26}{subsection.A.3}
+\contentsline {subsection}{\numberline {A.4}Single Spin Asymmetry (SSA) $\bf {A_{L}^{\perp }}$ }{27}{subsection.A.4}
+\contentsline {section}{\numberline {B}Proton Recoil Detector}{28}{appendix.B}
+\contentsline {subsection}{\numberline {B.1}Requirements and Conceptual Design}{28}{subsection.B.1}
+\contentsline {subsection}{\numberline {B.2}Scintillating Fiber Tracker}{29}{subsection.B.2}

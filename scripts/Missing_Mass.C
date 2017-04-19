@@ -85,13 +85,13 @@ void Missing_Mass(){
     //CLEO Acceptance
     SIDIS_Acceptance *accpt = new SIDIS_Acceptance();
        
-    //const Double_t EBeam = 11.0;
-    //const double Ratio = 20.7598; //11GeV
-    //TFile* f1=new TFile("./RootFiles/SoLID_Excl_Targ_N_Ee_11_Events_20e6.root","r"); 
+    const Double_t EBeam = 11.0;
+    const double Ratio = 20.7598; //11GeV
+    TFile* f1=new TFile("./RootFiles/SoLID_Excl_Targ_N_Ee_11_Events_20e6.root","r"); 
 	
-    const Double_t EBeam = 8.80;
-    const double Ratio = 25.1826; //8.8GeV
-    TFile* f1=new TFile("./RootFiles/SoLID_Excl_Targ_N_Ee_8P8_Events_20e6.root","r"); 
+    //const Double_t EBeam = 8.80;
+    //const double Ratio = 25.1826; //8.8GeV
+    //TFile* f1=new TFile("./RootFiles/SoLID_Excl_Targ_N_Ee_8P8_Events_20e6.root","r"); 
     
     int energy_flag =int(EBeam);//GeV
 	/*Define DVMP Rootfile and variables{{{*/
@@ -229,15 +229,31 @@ void Missing_Mass(){
 				pim_forward_acceptance=1.0; 
 			if(pim_large_acceptance>1.) 
 				pim_large_acceptance=1.0; 
-            
+
+            //double pro_forward_acceptance = accpt->GetAcc("p","forward", Proton_Mom_Col, Proton_Theta_Col);
+            //double pro_large_acceptance = accpt->GetAcc("p","large", Proton_Mom_Col, Proton_Theta_Col);
+            //if(Proton_Theta_Col>14.8||Proton_Theta_Col<8.0||Proton_Mom_Col<0.||Proton_Mom_Col>11.)//GeV, CLEO
+                //pro_forward_acceptance=0.0;
+			//if(Proton_Theta_Col<16.0||Proton_Theta_Col>24.0||Proton_Mom_Col<0.||Proton_Mom_Col>11.)//GeV, CLEO
+				//pro_large_acceptance=0.0; 
+			//if(pro_forward_acceptance>1.) 
+				//pro_forward_acceptance=1.0; 
+			//if(pro_large_acceptance>1.) 
+				//pro_large_acceptance=1.0; 
+
+            double pro_forward_acceptance = 1.0;
+            double pro_large_acceptance = 1.0;
+             
             double event_weight=ZASigmaPara*PSF/N_Total*nBcm2*Lumi ;   //in Hz
 
 			double ele_acceptance=(ele_forward_acceptance+ele_large_acceptance);
 			//double pim_acceptance=(pim_large_acceptance+pim_forward_acceptance);
 			double pim_acceptance=pim_forward_acceptance;
-			double forward_acceptance=ele_forward_acceptance*pim_acceptance;
-			double large_acceptance=ele_large_acceptance*pim_acceptance;
-			double total_acceptance=ele_acceptance*pim_acceptance;
+			double pro_acceptance=pro_forward_acceptance+pro_large_acceptance;
+
+			double forward_acceptance=ele_forward_acceptance*pim_acceptance*pro_acceptance;
+			double large_acceptance=ele_large_acceptance*pim_acceptance*pro_acceptance;
+			double total_acceptance=ele_acceptance*pim_acceptance*pro_acceptance;
             /*}}}*/
             total_rate_dvmp += event_weight * total_acceptance;
 

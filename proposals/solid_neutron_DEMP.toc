@@ -1,0 +1,23 @@
+\contentsline {section}{\numberline {1}Scientific Justification}{5}{section.1}
+\contentsline {subsection}{\numberline {1.1}Generalized Parton Distributions and Contribution from the Pion Pole}{5}{subsection.1.1}
+\contentsline {subsection}{\numberline {1.2}Single spin asymmetry in exclusive pion electroproduction}{7}{subsection.1.2}
+\contentsline {subsection}{\numberline {1.3}The Complementarity of Separated and Unseparated Asymmetry Measurements}{9}{subsection.1.3}
+\contentsline {section}{\numberline {2}Experimental Method}{14}{section.2}
+\contentsline {subsection}{\numberline {2.1}Transversely Polarized $\mathrm {^{3}He}$ Target}{14}{subsection.2.1}
+\contentsline {subsection}{\numberline {2.2}SoLID Spectrometer and Detectors}{15}{subsection.2.2}
+\contentsline {subsection}{\numberline {2.3}Recoil Proton Identification}{16}{subsection.2.3}
+\contentsline {subsection}{\numberline {2.4}Trigger Design}{18}{subsection.2.4}
+\contentsline {section}{\numberline {3}Projected Results}{19}{section.3}
+\contentsline {subsection}{\numberline {3.1}Kinematic Coverage}{19}{subsection.3.1}
+\contentsline {subsection}{\numberline {3.2}Estimated Rates }{19}{subsection.3.2}
+\contentsline {subsection}{\numberline {3.3}Asymmetry Projections}{20}{subsection.3.3}
+\contentsline {subsection}{\numberline {3.4}Missing Mass and Background}{22}{subsection.3.4}
+\contentsline {subsection}{\numberline {3.5}Systematic Uncertainties}{24}{subsection.3.5}
+\contentsline {section}{\numberline {4}Summary}{25}{section.4}
+\contentsline {section}{\numberline {A}Monte Carlo model of Deep Exclusive $\pi ^{-}$ Production from the Neutron in $^{3}He$ }{26}{appendix.A}
+\contentsline {subsection}{\numberline {A.1}Data Constraints }{26}{subsection.A.1}
+\contentsline {subsection}{\numberline {A.2}Model for Higher $Q^2$ Kinematics }{27}{subsection.A.2}
+\contentsline {subsection}{\numberline {A.3}Parametrization of $\sigma _{L}$, $\sigma _{T}$, $\sigma _{LT}$, $\&$ $\sigma _{TT}$ }{27}{subsection.A.3}
+\contentsline {subsection}{\numberline {A.4}Single Spin Asymmetry (SSA) $\bf {A_{L}^{\perp }}$ }{28}{subsection.A.4}
+\contentsline {subsection}{\numberline {A.5} Target Neutron Fermi Momentum }{29}{subsection.A.5}
+\contentsline {subsection}{\numberline {A.6}Energy Loss}{29}{subsection.A.6}
