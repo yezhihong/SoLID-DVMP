@@ -50,7 +50,7 @@ const double MeV2GeV=0.001;
 using namespace std;
 
 const double Deg2Rad = TMath::DegToRad();
-//const double Rad2Deg = TMath::RadToDeg();
+const double Rad2Deg = TMath::RadToDeg();
 /*Detector Resolutions{{{*/
 const double Sigma_Dp_E = 0.02; //2%, energy resolution for electron from GEM tracking
 const double Sigma_Theta_E = 0.6/1000.; //0.6mrad, Angular resolution for electron, determined by GEM tracking
@@ -76,25 +76,29 @@ int main(){
     const TString Target = "He3";
     const TString particle="pim";
     double EBeam = 11.0;
+    const Int_t time = 48 * 24 * 3600;
 
     //CLEO Acceptance
     SIDIS_Acceptance *accpt = new SIDIS_Acceptance();
 
     TString filename, new_filename;
     TChain *t1 = new TChain("t1");
-    //for(int i=0;i<10;i++){
-    for(int i=1;i<2;i++){
-        //filename = Form("./demp_rootfiles/DEMP_Ee_11_Events_1000000_File_%d.root",i);
-        filename = Form("./demp_rootfiles/DEMP_Ee_11_Events_100000000_File_%d.root",i);
-        cout<<"--- Reading in file = "<<filename.Data()<<endl;
+    
+    //const int fileNO = 1000;
+    const int fileNO = 999;
+    //for(int i=0;i<fileNO;i++){
+    for(int i=1;i<fileNO;i++){
+        filename = Form("./RootFiles_Up_Simple/DEMP_Ee_11_Events_100000_File_%d.root", i);
+        //filename = Form("./RootFiles_Down_Simple/DEMP_Ee_11_Events_100000_File_%d.root", i);
+        cout<<"--- Reading in file = "<<filename.Data()<<"\r";
         t1->Add(filename.Data());
     }
-    new_filename = "./rootfiles/new_DEMP_Ee_11_4.root";
-    cout<<"---  Saving in file = "<<new_filename.Data()<<endl;
-    TFile* f2=new TFile(new_filename.Data(),"recreate"); 
-
+    int N_entries = t1->GetEntries();
+    cout<<"--- Total Events = "<< N_entries<<endl;
+   
     /*Define Variables, Branches{{{*/
-    Double_t NRecorded, NGenerated, W,Qsq, t, t_Para, Epsilon, x, y, z;/*{{{*/
+    Int_t NRecorded, NGenerated; 
+    Double_t W,Qsq, t, t_Para, Epsilon, x, y, z;/*{{{*/
     Double_t t_corr, Qsq_corr, W_corr, x_corr, y_corr, z_corr;
     Double_t tgt_theta, tgt_phi, tgt_ene, tgt_mom, tgt_px, tgt_py, tgt_pz;
     Double_t beam_theta, beam_phi, beam_ene, beam_mom, beam_px, beam_py, beam_pz;
@@ -265,6 +269,11 @@ int main(){
     /*}}}*/
     /*}}}*/
 
+    new_filename = "./rootfiles/DEMP_Ee_11_4_up_simple.root";
+    //new_filename = "./rootfiles/DEMP_Ee_11_4_down_simple.root";
+    cout<<"---  Saving in file = "<<new_filename.Data()<<endl;
+    TFile* f2=new TFile(new_filename.Data(),"recreate"); 
+   
     /*Define new Tree and new Branch{{{*/
     double ele_acc_f, ele_acc_l, pim_acc_f,pim_acc_l, pro_acc_f,pro_acc_l;
     double MM, MM_res,dilute,weight;
@@ -274,7 +283,6 @@ int main(){
 
     //TTree *t2 = t1->CloneTree(0);
     TTree *t2 = new TTree("T","a new tree");
-    Long64_t N_entries = t2->GetEntries();
 
     t2->Branch("NRecorded",       &NRecorded,     "NRecorded/I");/*{{{*/
     t2->Branch("NGenerated",       &NGenerated,     "NGenerated/I");
@@ -485,7 +493,7 @@ int main(){
             double ePy_res = ele_mom_res * sin(ele_theta_res)*sin(ele_phi_res); 
             double ePz_res = ele_mom_res * cos(ele_theta_res);
             double eE_res = sqrt(ele_mom_res*ele_mom_res + eMass*eMass);
-
+            ele_phi_res *=Rad2Deg; ele_theta_res *= Rad2Deg;
             P_e_res->SetPxPyPzE(ePx_res, ePy_res, ePz_res, eE_res);	/*}}}*/
 
             //Pion/*{{{*/
@@ -497,7 +505,7 @@ int main(){
             double pim_Py_res = pim_mom_res * sin(pim_theta_res)*sin(pim_phi_res); 
             double pim_Pz_res = pim_mom_res * cos(pim_theta_res);
             double pimE_res = sqrt(pim_mom_res*pim_mom_res + piMass*piMass);
-
+            pim_phi_res *=Rad2Deg; pim_theta_res *= Rad2Deg;
             P_pim_res->SetPxPyPzE(pim_Px_res, pim_Py_res, pim_Pz_res, pimE_res);	/*}}}*/
 
             //Proton/*{{{*/
@@ -509,16 +517,16 @@ int main(){
             double pro_Py_res = pro_mom_res * sin(pro_theta_res)*sin(pro_phi_res); 
             double pro_Pz_res = pro_mom_res * cos(pro_theta_res);
             double proE_res = sqrt(pro_mom_res*pro_mom_res + piMass*piMass);
-
+            pro_phi_res *=Rad2Deg; pro_theta_res *= Rad2Deg;
             P_pro_res->SetPxPyPzE(pro_Px_res, pro_Py_res, pro_Pz_res, proE_res);	/*}}}*/
             /*}}}*/
 
             /*Get acceptance of e and pi-{{{*/
             //Make sure to use the corrected quantities for multipile scattering and eloss effects
             //Do not use the smeared quantities since we are about whether particles are in the accepntace or not, but not how good we measure
+            /*Elec Acc {{{*/
             ele_acc_f = accpt->GetAcc("e-","forward", ele_corr_mom, ele_corr_theta);
             ele_acc_l = accpt->GetAcc("e-","large", ele_corr_mom, ele_corr_theta);
-
             if(ele_corr_mom<1.0||ele_corr_theta>14.8||ele_corr_theta<8.0)//GeV, CLEO
                 ele_acc_f=0.0;//Farward-Angle EC Cut at 1 GeV
             if(ele_corr_mom<3.5||ele_corr_theta<16.0||ele_corr_theta>24)//GeV,CLEO
@@ -528,17 +536,42 @@ int main(){
             if(ele_acc_l>1.) 
                 ele_acc_l=1.0; 
 
+            //ele_acc_f = accpt->GetAcc("e-","forward", ele_mom, ele_theta);
+            //ele_acc_l = accpt->GetAcc("e-","large", ele_mom, ele_theta);
+            //if(ele_mom<1.0||ele_theta>14.8||ele_theta<8.0)//GeV, CLEO
+                //ele_acc_f=0.0;//Farward-Angle EC Cut at 1 GeV
+            //if(ele_mom<3.5||ele_theta<16.0||ele_theta>24)//GeV,CLEO
+                //ele_acc_l=0.0; //Larger-Angle EC Cut at 3 GeV
+            //if(ele_acc_f>1.) 
+                //ele_acc_f=1.0; 
+            //if(ele_acc_l>1.) 
+                //ele_acc_l=1.0; /*}}}*/
+            
+            /*Pion Acc{{{*/
             pim_acc_f = accpt->GetAcc("pi-","forward", pim_corr_mom, pim_corr_theta);
             pim_acc_l = accpt->GetAcc("pi-","large", pim_corr_mom, pim_corr_theta);
             if(pim_corr_theta>14.8||pim_corr_theta<8.0||pim_corr_mom<0.||pim_corr_mom>11.)//GeV, CLEO
-                pim_acc_f=0.0;
+            pim_acc_f=0.0;
             if(pim_corr_theta<16.0||pim_corr_theta>24.0||pim_corr_mom<0.||pim_corr_mom>11.)//GeV, CLEO
-                pim_acc_l=0.0; 
+            pim_acc_l=0.0; 
             if(pim_acc_f>1.) 
-                pim_acc_f=1.0; 
+            pim_acc_f=1.0; 
             if(pim_acc_l>1.) 
-                pim_acc_l=1.0; 
+            pim_acc_l=1.0; 
 
+            //pim_acc_f = accpt->GetAcc("pi-","forward", pim_mom, pim_theta);
+            //pim_acc_l = accpt->GetAcc("pi-","large", pim_mom, pim_theta);
+            //if(pim_theta>14.8||pim_theta<8.0||pim_mom<0.||pim_mom>11.)//GeV, CLEO
+                //pim_acc_f=0.0;
+            //if(pim_theta<16.0||pim_theta>24.0||pim_mom<0.||pim_mom>11.)//GeV, CLEO
+                //pim_acc_l=0.0; 
+            //if(pim_acc_f>1.) 
+                //pim_acc_f=1.0; 
+            //if(pim_acc_l>1.) 
+                //pim_acc_l=1.0; 
+            /*}}}*/
+
+            /*Proton Acc {{{*/
             //The momentum cut is applied by EC while for proton, we don't reply on EC to tell the acceptance.
             //What I assume here is that we can detecto all energy range of protons,
             //unlike electrons which need to be separated from pions
@@ -558,6 +591,18 @@ int main(){
             if(pro_acc_l>1.) 
                 pro_acc_l=1.0; 
 
+            //pro_acc_f = 1.0;
+            //pro_acc_l = 1.0;
+            //if(pro_theta>14.8||pro_theta<8.0||pro_mom<0.||pro_mom>11.)//GeV, CLEO
+                //pro_acc_f=0.0;
+            //if(pro_theta<16.0||pro_theta>24.0||pro_mom<0.||pro_mom>11.)//GeV, CLEO
+                //pro_acc_l=0.0; 
+            //if(pro_acc_f>1.) 
+                //pro_acc_f=1.0; 
+            //if(pro_acc_l>1.) 
+                //pro_acc_l=1.0; 
+            /*}}}*/
+
             double ele_acceptance=(ele_acc_f+ele_acc_l);
             //double pim_acceptance=(pim_acc_l+pim_acc_f);
             double pim_acceptance=pim_acc_f;
@@ -567,8 +612,8 @@ int main(){
             /*}}}*/
 
             dilute = Epsilon*Sig_L/(Epsilon*Sig_L + Sig_T);
-            total_rate_dvmp += EventWeight* total_acceptance;
-            weight = EventWeight * total_acceptance;//XS*Lumi*PSF*Acc, give the real rates
+            weight = EventWeight * total_acceptance/fileNO * time;//XS*Lumi*PSF*Acc, give the real rates
+            total_rate_dvmp += weight/time;
 
             /*Missing Mass w/o resolutions{{{*/
             P_E0->SetPxPyPzE(0.,0.,EBeam, EBeam);
@@ -578,9 +623,9 @@ int main(){
             P_pro->SetPxPyPzE(pro_px,pro_py,pro_pz,pro_ene);	
 
             int err = CheckLaws(P_t, P_E0, P_e, P_pim, P_pro);//Check whether momentum and energy conserve first
-            //if (err < 1e-33){
-            //cerr<<"---- Momentum and Energy Conservation Laws are broken!! Something is wrong!!!"<<endl;
-            //}
+            if (err < 1e-33){
+            cerr<<"---- Momentum and Energy Conservation Laws are broken!! Something is wrong!!!"<<endl;
+            }
 
             MM = GetMM(P_t, P_E0, P_e, P_pim);	
             if(ele_theta>7.5&&ele_theta<24.5&&ele_mom>1.&&ele_mom<11

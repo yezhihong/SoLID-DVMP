@@ -96,9 +96,9 @@ Int_t makebin(){
     TString prefix = "";
     TString finalfile = "";
     if(target_direction==1)
-        finalfile = Form("../rootfiles/new_DEMP_Ee_11_4_up.root");
+        finalfile = Form("../rootfiles/DEMP_Ee_11_4_up_simple.root");
     if(target_direction==2)
-        finalfile = Form("../rootfiles/new_DEMP_Ee_11_4_down.root");
+        finalfile = Form("../rootfiles/DEMP_Ee_11_4_down_simple.root");
 
     TFile *file = new TFile(finalfile.Data(),"r");
     TTree *t0 = (TTree*) file->Get("T");
@@ -130,7 +130,7 @@ Int_t makebin(){
     ofstream outf(new_filename);
 
     const Int_t time = 48 * 24 * 3600;
-    const Double_t Norm_Fact = time * (pow(target_factor * dilute_factor,2) * det_eff);
+    const Double_t Norm_Fact = (pow(target_factor * dilute_factor,2) * det_eff);
     const Int_t tbin = 7;
     const Double_t t_cut[8] = {0.05, 0.15, 0.25, 0.35, 0.45, 0.55, 0.75, 1.2};
     const TString cut0=Form("(weight*%f)",Norm_Fact);//weight= (Sig_UU+Sig_UT)*Lumi*PSF * Acc
@@ -148,7 +148,11 @@ Int_t makebin(){
         cerr<<"--- CutAsym = "<<cutAsym.Data()<<endl;
         TCut cut = (TCut) (cutXS);
 
-        TFile *outroot = new TFile(Form("histo_bin%d.root",i),"recreate");
+        if(target_direction==1)
+            histoname = Form("./database/histo_up_bin%d.root",i);
+        if(target_direction==2)
+            histoname = Form("./database/histo_down_bin%d.root",i);
+        TFile *outroot = new TFile(histoname.Data(),"recreate");
         /*Histograms{{{*/
         //Q2
         TH1D *h1Q2  =new TH1D("h1Q2","h1Q2",500,0.,10.);
@@ -173,10 +177,10 @@ Int_t makebin(){
         TH1D *h1Wt = new TH1D("h1Wt","h1Wt",500,0.0,0.01);
         
  
-        TH1D *h1PhiS = new TH1D("h1PhiS","phi_S",PhiBin,0.0,360.);
-        TH1D *h1PhiH = new TH1D("h1PhiH","phi_H",PhiBin,0.0,360.);
-        TH2D *h2Phi = new TH2D("h2Phi","phi_S:phi_h",PhiBin,0.0,360.,PhiBin,0,360);
-        TH2D *h2PhiAsym = new TH2D("h2PhiAsym","phi_S:phi_h",PhiBin,0.0,360.,PhiBin,0,360);
+        TH1D *h1PhiS = new TH1D("h1PhiS","#phi_{S}",PhiBin,0.0,360.);
+        TH1D *h1PhiH = new TH1D("h1PhiH","#phi",PhiBin,0.0,360.);
+        TH2D *h2Phi = new TH2D("h2Phi","#phi_{S}:#phi",PhiBin,0.0,360.,PhiBin,0,360);
+        TH2D *h2PhiAsym = new TH2D("h2PhiAsym","#phi_{S}:#phi",PhiBin,0.0,360.,PhiBin,0,360);
         /*}}}*/
 
         /*t Binning{{{*/
@@ -187,9 +191,9 @@ Int_t makebin(){
         c1->cd(4); h1t->SetLineColor(1); t0->Draw("t>>h1t",cut);
         c1->cd(5); h1TSA->SetLineColor(1);t0->Draw("-dilute*SSAsym>>h1TSA",cut);
         c1->cd(6); t0->Draw("log10(Sigma_Lab)>>h1XS","");
-        c1->cd(7); t0->Draw("phi_S>>h1PhiS",cut,"");
-        c1->cd(8); t0->Draw("phi_h>>h1PhiH",cut,"");
-        c1->cd(9); t0->Draw("phi_S:phi_h>>h2Phi",cut,"colz");
+        c1->cd(7); t0->Draw("PhiS>>h1PhiS",cut,"");
+        c1->cd(8); t0->Draw("Phi>>h1PhiH",cut,"");
+        c1->cd(9); t0->Draw("PhiS:Phi>>h2Phi",cut,"colz");
         c1->Print(Form("./figure/plot_%d.png",i));
         c1->Print(Form("./figure/plot_%d.pdf",i));
 
@@ -199,7 +203,7 @@ Int_t makebin(){
         c1->cd(6); h1R->SetLineColor(i); t0->Draw("Sig_L/Sig_T>>h1R",cut);
         c1->cd(7); h1F->SetLineColor(i); t0->Draw("dilute>>h1F",cut);
         c1->cd(8); h1Wt->SetLineColor(1); t0->Draw("weight>>h1Ep",cut);
-        c1->cd(9); t0->Draw("phi_S:phi_h>>h2PhiAsym",cutAsym,"colz");
+        c1->cd(9); t0->Draw("PhiS:Phi>>h2PhiAsym",cutAsym,"colz");
 
         N_raw = h1x->GetSum()/Norm_Fact * time;
         N_out = h1x->GetSum();
