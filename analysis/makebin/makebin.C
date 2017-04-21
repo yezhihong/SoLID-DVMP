@@ -83,6 +83,9 @@ Int_t makebin(){
 
     Int_t target_direction=1; 
     cout<<"--- Target Direction (1->Up, 2->Down): "; cin>>target_direction;
+    TString targetname="";
+    if(target_direction==1) targetname="up";
+    if(target_direction==2) targetname="down";
 
     const Double_t dilute_factor = 0.9;
     const Double_t target_polarization = 0.6; //60% polarization
@@ -94,11 +97,7 @@ Int_t makebin(){
     /*}}}*/
 
     TString prefix = "";
-    TString finalfile = "";
-    if(target_direction==1)
-        finalfile = Form("../rootfiles/DEMP_Ee_11_4_up_simple.root");
-    if(target_direction==2)
-        finalfile = Form("../rootfiles/DEMP_Ee_11_4_down_simple.root");
+    TString finalfile = Form("../rootfiles/DEMP_Ee_11_4_%s_simple.root",  targetname.Data());
 
     TFile *file = new TFile(finalfile.Data(),"r");
     TTree *t0 = (TTree*) file->Get("T");
@@ -120,20 +119,20 @@ Int_t makebin(){
         Q2_Cut="1";
 
     TString filename = "";
-    if(target_direction==1)
-        filename = Form("%s_asym_%d_up.dat",target.Data(),Q2BIN);
-    if(target_direction==2)
-        filename = Form("%s_asym_%d_down.dat",target.Data(),Q2BIN);
+    filename = Form("%s_asym_%s_%d.dat",target.Data(),  targetname.Data(),Q2BIN);
 
     prefix = Form("./database/");
     TString new_filename = prefix + filename;
     ofstream outf(new_filename);
 
     const Int_t time = 48 * 24 * 3600;
-    const Double_t Norm_Fact = (pow(target_factor * dilute_factor,2) * det_eff);
-    const Int_t tbin = 7;
-    const Double_t t_cut[8] = {0.05, 0.15, 0.25, 0.35, 0.45, 0.55, 0.75, 1.2};
-    const TString cut0=Form("(weight*%f)",Norm_Fact);//weight= (Sig_UU+Sig_UT)*Lumi*PSF * Acc
+    //const Double_t Norm_Fact = (pow(target_factor * dilute_factor,2) * det_eff);
+    const Double_t det_eff_total = pow(sqrt(det_eff), 3);
+    const Int_t tbin = 8;
+    const Double_t t_cut[9] = {0.0, 0.25, 0.35, 0.45, 0.55, 0.70, 0.9, 1.3, 2.0};
+    //const TString cut0=Form("(weight*%f)",Norm_Fact);//weight= (Sig_UU+Sig_UT)*Lumi*PSF * Acc
+    //note that weight_ut (and any modulation contains the factor of 0.865 effective polarization of neutron in He3)
+    const TString cut0=Form("((weight_uu+weight_ut*%2.1f*%2.1f)*%3.2f)", target_polarization, dilute_factor, det_eff_total);//weight= (Sig_UU+Sig_UT)*Lumi*PSF * Acc, 
     TString cutXS,cutAsym;
     const Int_t PhiBin = 12;
  
@@ -144,14 +143,11 @@ Int_t makebin(){
         TString cutKin = Form("(Epsilon>0.55&&Epsilon<0.75&&W>2&&Qsq>4&&t>%3.2f&&t<%3.2f&&(%s))", t_min,t_max, Q2_Cut.Data());
         cutXS = cut0 + "*" + cutKin;
         cutAsym= cut0 + "*" + cutKin;
-        cerr<<"--- CutXS   = "<<cutXS.Data()<<endl;
-        cerr<<"--- CutAsym = "<<cutAsym.Data()<<endl;
+        cerr<<endl<<"--- CutXS   = "<<cutXS.Data()<<endl;
+        //cerr<<"--- CutAsym = "<<cutAsym.Data()<<endl;
         TCut cut = (TCut) (cutXS);
 
-        if(target_direction==1)
-            histoname = Form("./database/histo_up_bin%d.root",i);
-        if(target_direction==2)
-            histoname = Form("./database/histo_down_bin%d.root",i);
+        histoname = Form("./database/histo_%s_bin%d.root",  targetname.Data(),i);
         TFile *outroot = new TFile(histoname.Data(),"recreate");
         /*Histograms{{{*/
         //Q2
@@ -194,10 +190,10 @@ Int_t makebin(){
         c1->cd(7); t0->Draw("PhiS>>h1PhiS",cut,"");
         c1->cd(8); t0->Draw("Phi>>h1PhiH",cut,"");
         c1->cd(9); t0->Draw("PhiS:Phi>>h2Phi",cut,"colz");
-        c1->Print(Form("./figure/plot_%d.png",i));
-        c1->Print(Form("./figure/plot_%d.pdf",i));
+        c1->Print(Form("./figure/plot_%s_%d.png",  targetname.Data(),i));
+        c1->Print(Form("./figure/plot_%s_%d.pdf",  targetname.Data(),i));
 
-        c3->cd(); h2Phi->Draw("LEGO2"); c3->Print(Form("./figure/PhiS_h_%d.png",i));
+        c3->cd(); h2Phi->Draw("LEGO2"); c3->Print(Form("./figure/PhiS_h_%s_%d.png",targetname.Data(), i));
         
         c1->cd(5); h1Ep->SetLineColor(1); t0->Draw("Epsilon>>h1Ep",cut);
         c1->cd(6); h1R->SetLineColor(i); t0->Draw("Sig_L/Sig_T>>h1R",cut);
@@ -205,7 +201,8 @@ Int_t makebin(){
         c1->cd(8); h1Wt->SetLineColor(1); t0->Draw("weight>>h1Ep",cut);
         c1->cd(9); t0->Draw("PhiS:Phi>>h2PhiAsym",cutAsym,"colz");
 
-        N_raw = h1x->GetSum()/Norm_Fact * time;
+        N_raw = h1x->GetSum()/det_eff_total * time;
+        //N_raw = h1x->GetSum()/Norm_Fact * time;
         N_out = h1x->GetSum();
         Asym = h1TSA->GetMean();
         if(N_out>10)
