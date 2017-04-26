@@ -4,12 +4,12 @@
 //    ---  Zhihong Ye 04/26/2017    //
 //////////////////////////////////////
 #include "FitMinuit.h"
-
+//Fake Asymmetries for testing only
 const double A1 = -0.3;//1m1
-const double A2 = 0.0;//2m1
-const double A3 = 0.0;//3m1
+const double A2 = -0.2;//2m1
+const double A3 = -0.1;//3m1
 const double A4 = 0.1;//0p1
-const double A5 = 0.0;//1p1
+const double A5 = 0.15;//1p1
 
 /*Main{{{*/
 Int_t main()
@@ -95,13 +95,11 @@ void DoMinuit(double *par)
             pMinuit->DefineParameter(ii,namePar[ii], inPar[ii], step[ii], minVal[ii], maxVal[ii]);
 	}
 
-	//Fix parameters
+	//Fix parameters, starting from 1 not 0
+	//arglist[0] = 2;   pMinuit->mnexcm("FIX ", arglist ,1,ierflg);
 	//arglist[0] = 3;   pMinuit->mnexcm("FIX ", arglist ,1,ierflg);
-	//arglist[0] = 3;   pMinuit->mnexcm("FIX ", arglist ,1,ierflg);
-	arglist[0] = 2;   pMinuit->mnexcm("FIX ", arglist ,1,ierflg);
-	arglist[0] = 3;   pMinuit->mnexcm("FIX ", arglist ,1,ierflg);
 	//arglist[0] = 4;   pMinuit->mnexcm("FIX ", arglist ,1,ierflg);
-	arglist[0] = 5;   pMinuit->mnexcm("FIX ", arglist ,1,ierflg);
+	//arglist[0] = 5;   pMinuit->mnexcm("FIX ", arglist ,1,ierflg);
 
 	arglist[0] = 1;
 	pMinuit->mnexcm("SET ERR", arglist,1,ierflg);
@@ -164,7 +162,6 @@ Double_t func(Double_t phiH, Double_t phiS, Double_t *par){
     double asym_3m1 = par[2];
     double asym_0p1 = par[3];
     double asym_1p1 = par[4];
-    //double asym_2p1 = par[5];
 
     double f = 1.0 + POL * (
             asym_1m1*sin(1.*phiH - phiS) 
@@ -172,7 +169,6 @@ Double_t func(Double_t phiH, Double_t phiS, Double_t *par){
             + asym_3m1*sin(3.*phiH - phiS) 
             + asym_0p1*sin(0.*phiH + phiS) 
             + asym_1p1*sin(1.*phiH + phiS) 
-            //+ asym_2p1*sin(2.*phiH + phiS) 
             );
 
     return f;
@@ -184,7 +180,7 @@ void LoadData( Int_t I=0){
 
    Double_t phi_h, phi_s;
    Double_t weight, weight_uu, weight_ut;
-   Double_t weight_1m1,weight_2m1,weight_3m1,weight_0p1,weight_1p1;//weight_2p1;
+   Double_t weight_1m1,weight_2m1,weight_3m1,weight_0p1,weight_1p1;
   
   //Target Polarization is up/*{{{*/
    TFile *fu = new TFile(Form("../rootfiles/dvmp_up_t%d.root", I));
@@ -200,7 +196,6 @@ void LoadData( Int_t I=0){
    Tu->SetBranchAddress("weight_3m1", &weight_3m1);
    Tu->SetBranchAddress("weight_0p1", &weight_0p1);
    Tu->SetBranchAddress("weight_1p1", &weight_1p1);
-   //Tu->SetBranchAddress("weight_2p1", &weight_2p1);
 
    Int_t Nu = Tu->GetEntries();
    for(int i=0;i<Nu; i++){
@@ -208,13 +203,13 @@ void LoadData( Int_t I=0){
      phi_h *= Deg2Rad;
      phi_s *= Deg2Rad;
 
+     //fake weights based on fake asymmetries for testing
      weight_1m1 = A1 * sin(1.0*phi_h - phi_s );
      weight_2m1 = A2 * sin(2.0*phi_h - phi_s );
      weight_3m1 = A3 * sin(3.0*phi_h - phi_s );
      weight_0p1 = A4 * sin(0.0*phi_h + phi_s );
      weight_1p1 = A5 * sin(1.0*phi_h + phi_s );
-     //weight_2p1 = A6 * sin(2.0*phi_h + phi_s );
-     weight_ut = weight_uu * (1.0+weight_1m1+weight_2m1+weight_3m1+weight_0p1+weight_1p1);//+weight_2p1);
+     weight_ut = weight_uu * (1.0+weight_1m1+weight_2m1+weight_3m1+weight_0p1+weight_1p1);
 
      vPhiH_U.push_back(phi_h);
      vPhiS_U.push_back(phi_s);
@@ -225,7 +220,6 @@ void LoadData( Int_t I=0){
      vWeight_3M1_U.push_back(weight_3m1);
      vWeight_0P1_U.push_back(weight_0p1);
      vWeight_1P1_U.push_back(weight_1p1);
-     //vWeight_2P1_U.push_back(weight_2p1);
    }
    fu->Close();/*}}}*/
 
@@ -243,7 +237,6 @@ void LoadData( Int_t I=0){
    Td->SetBranchAddress("weight_3m1", &weight_3m1);
    Td->SetBranchAddress("weight_0p1", &weight_0p1);
    Td->SetBranchAddress("weight_1p1", &weight_1p1);
-   //Td->SetBranchAddress("weight_2p1", &weight_2p1);
 
    Int_t Nd = Td->GetEntries();
    for(int i=0;i<Nd; i++){
@@ -252,13 +245,13 @@ void LoadData( Int_t I=0){
      phi_h *= Deg2Rad;
      phi_s *= Deg2Rad;
       
+     //fake weights based on fake asymmetries for testing
      weight_1m1 = A1 * sin(1.0*phi_h - phi_s );
      weight_2m1 = A2 * sin(2.0*phi_h - phi_s );
      weight_3m1 = A3 * sin(3.0*phi_h - phi_s );
      weight_0p1 = A4 * sin(0.0*phi_h + phi_s );
      weight_1p1 = A5 * sin(1.0*phi_h + phi_s );
-     //weight_2p1 = A6 * sin(2.0*phi_h + phi_s );
-     weight_ut = weight_uu * (1.0+weight_1m1+weight_2m1+weight_3m1+weight_0p1+weight_1p1);//+weight_2p1);
+     weight_ut = weight_uu * (1.0+weight_1m1+weight_2m1+weight_3m1+weight_0p1+weight_1p1);
      
      vPhiH_D.push_back(phi_h);
      vPhiS_D.push_back(phi_s);
@@ -269,7 +262,6 @@ void LoadData( Int_t I=0){
      vWeight_3M1_D.push_back(weight_3m1);
      vWeight_0P1_D.push_back(weight_0p1);
      vWeight_1P1_D.push_back(weight_1p1);
-     //vWeight_2P1_D.push_back(weight_2p1);
    }
    fd->Close();/*}}}*/
 
