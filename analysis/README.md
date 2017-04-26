@@ -34,6 +34,6 @@
  * Do this excersice for the target with UP and DOWN polarizations, separately
 
 ## Reconstruct "Experimental" Asymmetry and perform fitting to extract angular modulations.
-### The code "./roofit_extr/asym_extr.C" does the job with the RooFit package.
- * Currently it is a binned Maximin-Likelihood Minuit method
+### The code "./asym_extr/FitMinuit.C" does the job with the TMinuitpackage.
+ * It is a unbinned Maximin-Likelihood Minuit method
   
