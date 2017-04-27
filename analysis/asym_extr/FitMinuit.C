@@ -5,9 +5,9 @@
 //////////////////////////////////////
 #include "FitMinuit.h"
 //Fake Asymmetries for testing only
-const double A1 = -0.3;//1m1
+const double A1 = -0.1;//1m1
 const double A2 = -0.2;//2m1
-const double A3 = -0.1;//3m1
+const double A3 = -0.3;//3m1
 const double A4 = 0.1;//0p1
 const double A5 = 0.15;//1p1
 
@@ -18,7 +18,7 @@ Int_t main()
 	gStyle->SetOptStat(0);
 
         Int_t I = 0;
-        cout<<"--- Which t-bin? (1--7)"; cin >> I;
+        cout<<"--- Which t-bin? (1--7)  "; cin >> I;
 
         //Load Data from MC Rootfiles
 	LoadData(I);
@@ -127,10 +127,16 @@ void DoMinuit(double *par)
 		par[ii] = outPar[ii];
 	}
 	//Put the results into a file
+        cout<<endl<<"-----------------------------------------------------------------------"<<endl;
+        cout<<"-----------------------------------------------------------------------"<<endl;
+	cerr<<Form("        Set:  A1=%6.3f,  A2=%6.3f,  A3=%6.3f,  A4=%6.3f,  A5=%6.3f", 
+                A1, A2, A3, A4, A5)<<endl;
 	cerr<<Form("Asymmetries:  A1=%6.3f,  A2=%6.3f,  A3=%6.3f,  A4=%6.3f,  A5=%6.3f", 
                 par[0], par[1], par[2], par[3], par[4])<<endl;
 	cerr<<Form("     Errors: dA1=%6.3f, dA2=%6.4f, dA3=%6.4f, dA4=%6.4f, dA5=%6.4f", 
                 err[0], err[1], err[2], err[3], err[4])<<endl;
+        cout<<"-----------------------------------------------------------------------"<<endl;
+        cout<<"-----------------------------------------------------------------------"<<endl<<endl;
 
 }
 /*}}}*/
