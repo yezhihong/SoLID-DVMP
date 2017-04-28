@@ -42,8 +42,8 @@ using namespace std;
 
 void myUML(Int_t& npar, Double_t* deriv, Double_t& f, Double_t *par, Int_t flag);
 Double_t func(Double_t, Double_t , Double_t *par);
-void LoadData(Int_t I);
-void DoMinuit(double *par);
+void LoadData(Int_t, Int_t);
+void DoMinuit(double *par, Int_t, Int_t, Int_t);
 
 static const Double_t POL = 1.0;
 static const Double_t pi = 3.1415926;

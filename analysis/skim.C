@@ -75,7 +75,7 @@ Int_t makebin(){
     if(pol==2) pol_name="down";
 
     TString prefix = "";
-    TString finalfile = Form("../rootfiles/DEMP_Ee_11_4_%s_simple.root", pol_name.Data());
+    TString finalfile = Form("./rootfiles/DEMP_Ee_11_4_%s_simple.root", pol_name.Data());
     TFile *file = new TFile(finalfile.Data(),"r");
     TTree *t0 = (TTree*) file->Get("T");
     int N_entries = t0->GetEntries();
@@ -105,6 +105,7 @@ Int_t makebin(){
     double ele_mom_res, ele_theta_res, ele_phi_res;
     double pim_mom_res, pim_theta_res, pim_phi_res;
     double pro_mom_res, pro_theta_res, pro_phi_res;
+    Int_t Q2BIN;
     /*}}}*/
     
     /*Define old Tree and old Branch{{{*/
@@ -279,13 +280,13 @@ Int_t makebin(){
     t0->SetBranchAddress("MM",            &MM);
     t0->SetBranchAddress("MM_res", &MM_res);
     
-    t0->SetBranchAddress("time",            &time);
-    t0->SetBranchAddress("fileNO",            &fileNO);
-    t0->SetBranchAddress("total_acceptance",            &total_acceptance);/*}}}*/
+    //t0->SetBranchAddress("time",            &time);
+    //t0->SetBranchAddress("fileNO",            &fileNO);
+    //t0->SetBranchAddress("total_acceptance",            &total_acceptance);[>}}}<]
     /*}}}*/
 
     /*Define #1 new Tree and new Branch{{{*/
-    TFile *f1 = new TFile(Form("../rootfiles/dvmp_%s_t1.root", pol_name.Data()), "recreate");
+    TFile *f1 = new TFile(Form("./rootfiles/dvmp_%s_t1_newt.root", pol_name.Data()), "recreate");
     TTree *t1 = new TTree("T","a new tree");
 
     t1->Branch("NRecorded",       &NRecorded,     "NRecorded/I");/*{{{*/
@@ -461,13 +462,14 @@ Int_t makebin(){
     t1->Branch("MM_res", &MM_res, "MM_res/D");/*}}}*/
     
     t1->Branch("time",            &time,            "time/D");
-    t1->Branch("fileNO",            &fileNO,            "fileNO/I");
+    //t1->Branch("fileNO",            &fileNO,            "fileNO/I");
     t1->Branch("total_acceptance",            &total_acceptance,            "total_acceptance/D");
+    t1->Branch("Q2BIN", &Q2BIN, "Q2BIN/I");
     //t1->Branch("",            &,            "/D");
     /*}}}*/
 
     /*Define #2 new Tree and new Branch{{{*/
-    TFile *f2 = new TFile(Form("../rootfiles/dvmp_%s_t3.root", pol_name.Data()), "recreate");
+    TFile *f2 = new TFile(Form("./rootfiles/dvmp_%s_t2_newt.root", pol_name.Data()), "recreate");
     TTree *t2 = new TTree("T","a new tree");
 
     t2->Branch("NRecorded",       &NRecorded,     "NRecorded/I");/*{{{*/
@@ -643,13 +645,14 @@ Int_t makebin(){
     t2->Branch("MM_res", &MM_res, "MM_res/D");/*}}}*/
     
     t2->Branch("time",            &time,            "time/D");
-    t2->Branch("fileNO",            &fileNO,            "fileNO/I");
+    //t2->Branch("fileNO",            &fileNO,            "fileNO/I");
     t2->Branch("total_acceptance",            &total_acceptance,            "total_acceptance/D");
+    t2->Branch("Q2BIN", &Q2BIN, "Q2BIN/I");
     //t2->Branch("",            &,            "/D");
     /*}}}*/
     
     /*Define #3 new Tree and new Branch{{{*/
-    TFile *f3 = new TFile(Form("../rootfiles/dvmp_%s_t3.root", pol_name.Data()), "recreate");
+    TFile *f3 = new TFile(Form("./rootfiles/dvmp_%s_t3_newt.root", pol_name.Data()), "recreate");
     TTree *t3 = new TTree("T","a new tree");
 
     t3->Branch("NRecorded",       &NRecorded,     "NRecorded/I");/*{{{*/
@@ -825,13 +828,14 @@ Int_t makebin(){
     t3->Branch("MM_res", &MM_res, "MM_res/D");/*}}}*/
     
     t3->Branch("time",            &time,            "time/D");
-    t3->Branch("fileNO",            &fileNO,            "fileNO/I");
+    //t3->Branch("fileNO",            &fileNO,            "fileNO/I");
     t3->Branch("total_acceptance",            &total_acceptance,            "total_acceptance/D");
+    t3->Branch("Q2BIN", &Q2BIN, "Q2BIN/I");
     //t3->Branch("",            &,            "/D");
     /*}}}*/
 
     /*Define #4 new Tree and new Branch{{{*/
-    TFile *f4 = new TFile(Form("../rootfiles/dvmp_%s_t4.root", pol_name.Data()), "recreate");
+    TFile *f4 = new TFile(Form("./rootfiles/dvmp_%s_t4_newt.root", pol_name.Data()), "recreate");
     TTree *t4 = new TTree("T","a new tree");
 
     t4->Branch("NRecorded",       &NRecorded,     "NRecorded/I");/*{{{*/
@@ -1007,13 +1011,14 @@ Int_t makebin(){
     t4->Branch("MM_res", &MM_res, "MM_res/D");/*}}}*/
     
     t4->Branch("time",            &time,            "time/D");
-    t4->Branch("fileNO",            &fileNO,            "fileNO/I");
+    //t4->Branch("fileNO",            &fileNO,            "fileNO/I");
     t4->Branch("total_acceptance",            &total_acceptance,            "total_acceptance/D");
+    t4->Branch("Q2BIN", &Q2BIN, "Q2BIN/I");
     //t4->Branch("",            &,            "/D");
     /*}}}*/
     
     /*Define #5 new Tree and new Branch{{{*/
-    TFile *f5 = new TFile(Form("../rootfiles/dvmp_%s_t5.root", pol_name.Data()), "recreate");
+    TFile *f5 = new TFile(Form("./rootfiles/dvmp_%s_t5_newt.root", pol_name.Data()), "recreate");
     TTree *t5 = new TTree("T","a new tree");
 
     t5->Branch("NRecorded",       &NRecorded,     "NRecorded/I");/*{{{*/
@@ -1189,13 +1194,14 @@ Int_t makebin(){
     t5->Branch("MM_res", &MM_res, "MM_res/D");/*}}}*/
     
     t5->Branch("time",            &time,            "time/D");
-    t5->Branch("fileNO",            &fileNO,            "fileNO/I");
+    //t5->Branch("fileNO",            &fileNO,            "fileNO/I");
     t5->Branch("total_acceptance",            &total_acceptance,            "total_acceptance/D");
+    t5->Branch("Q2BIN", &Q2BIN, "Q2BIN/I");
     //t5->Branch("",            &,            "/D");
     /*}}}*/
 
     /*Define #6 new Tree and new Branch{{{*/
-    TFile *f6 = new TFile(Form("../rootfiles/dvmp_%s_t6.root", pol_name.Data()), "recreate");
+    TFile *f6 = new TFile(Form("./rootfiles/dvmp_%s_t6_newt.root", pol_name.Data()), "recreate");
     TTree *t6 = new TTree("T","a new tree");
 
     t6->Branch("NRecorded",       &NRecorded,     "NRecorded/I");/*{{{*/
@@ -1371,13 +1377,14 @@ Int_t makebin(){
     t6->Branch("MM_res", &MM_res, "MM_res/D");/*}}}*/
     
     t6->Branch("time",            &time,            "time/D");
-    t6->Branch("fileNO",            &fileNO,            "fileNO/I");
+    //t6->Branch("fileNO",            &fileNO,            "fileNO/I");
     t6->Branch("total_acceptance",            &total_acceptance,            "total_acceptance/D");
+    t6->Branch("Q2BIN", &Q2BIN, "Q2BIN/I");
     //t6->Branch("",            &,            "/D");
     /*}}}*/
     
     /*Define #7 new Tree and new Branch{{{*/
-    TFile *f7 = new TFile(Form("../rootfiles/dvmp_%s_t7.root", pol_name.Data()), "recreate");
+    TFile *f7 = new TFile(Form("./rootfiles/dvmp_%s_t7_newt.root", pol_name.Data()), "recreate");
     TTree *t7 = new TTree("T","a new tree");
 
     t7->Branch("NRecorded",       &NRecorded,     "NRecorded/I");/*{{{*/
@@ -1553,17 +1560,219 @@ Int_t makebin(){
     t7->Branch("MM_res", &MM_res, "MM_res/D");/*}}}*/
     
     t7->Branch("time",            &time,            "time/D");
-    t7->Branch("fileNO",            &fileNO,            "fileNO/I");
+    //t7->Branch("fileNO",            &fileNO,            "fileNO/I");
     t7->Branch("total_acceptance",            &total_acceptance,            "total_acceptance/D");
+    t7->Branch("Q2BIN", &Q2BIN, "Q2BIN/I");
     //t7->Branch("",            &,            "/D");
     /*}}}*/
     
-    const Int_t tbin = 7;
-    const Double_t t_cut[8] = {0.05, 0.15, 0.25, 0.35, 0.45, 0.55, 0.75, 1.2};
-  
+    /*Define #8 new Tree and new Branch{{{*/
+    TFile *f8 = new TFile(Form("./rootfiles/dvmp_%s_t8_newt.root", pol_name.Data()), "recreate");
+    TTree *t8 = new TTree("T","a new tree");
+
+    t8->Branch("NRecorded",       &NRecorded,     "NRecorded/I");/*{{{*/
+    t8->Branch("NGenerated",       &NGenerated,     "NGenerated/I");
+
+    t8->Branch("Epsilon", &Epsilon, "Epsilon/D" );
+    t8->Branch("Qsq", &Qsq ,"Qsq/D");
+    t8->Branch("t", &t ,"t/D");
+    t8->Branch("W", &W ,"W/D");
+    t8->Branch("x", &x ,"x/D");
+    t8->Branch("y", &y ,"y/D");
+    t8->Branch("z", &z ,"z/D");
+
+    t8->Branch("Qsq_corr", &Qsq_corr ,"Qsq_corr/D");
+    t8->Branch("t_corr", &t_corr ,"t_corr/D");
+    t8->Branch("W_corr", &W_corr ,"W_corr/D");
+    t8->Branch("x_corr", &x_corr ,"x_corr/D");
+    t8->Branch("y_corr", &y_corr ,"y_corr/D");
+    t8->Branch("z_corr", &z_corr ,"z_corr/D"); 
+
+    t8->Branch("Vertex_X",   &Vertex_X   ,"Vertex_X/D");
+    t8->Branch("Vertex_Y",   &Vertex_Y   ,"Vertex_Y/D");
+    t8->Branch("Vertex_Z",   &Vertex_Z   ,"Vertex_Z/D");
+    t8->Branch("Theta_Pion_Photon",   &Theta_Pion_Photon   ,"Theta_Pion_Photon/D");
+
+    t8->Branch("A_Factor",                                  &A_Factor          ,"data/D"    );
+    t8->Branch("Flux_Factor_RF",                            &Flux_Factor_RF       ,"data/D"    );
+    t8->Branch("Flux_Factor_Col",                           &Flux_Factor_Col   ,"data/D"    );
+    t8->Branch("Jacobian_CM",                               &Jacobian_CM       ,"data/D"    );
+    t8->Branch("Jacobian_CM_RF",                            &Jacobian_CM_RF    ,"data/D"    );
+    t8->Branch("Jacobian_CM_Col",                           &Jacobian_CM_Col   ,"data/D"    );
+    /*}}}*/
+
+    t8->Branch("Phi",       &Phi,       "Phi/D");/*{{{*/
+    t8->Branch("PhiS",      &PhiS,      "PhiS/D");
+    t8->Branch("Phi_corr",  &Phi_corr,  "Phi_corr/D");
+    t8->Branch("PhiS_corr", &PhiS_corr, "PhiS_corr/D");/*}}}*/
+
+    t8->Branch("Sigma_Lab",     &Sigma_Lab, "data/D");                              /*{{{*/
+    t8->Branch("Sigma_UU",      &Sigma_UU,   "data/D");                              
+    t8->Branch("Sigma_UT",      &Sigma_UT,   "data/D");                              
+    t8->Branch("Sig_T",         &Sig_T, "data/D");                                  
+    t8->Branch("Sig_L",         &Sig_L, "data/D");                                  
+    t8->Branch("Sig_LT",        &Sig_LT, "data/D");                                 
+    t8->Branch("Sig_TT",        &Sig_TT, "data/D");                                      /*}}}*/
+
+    //Six Asymmetries and polarized XS/*{{{*/
+    t8->Branch("SSAsym",              &SSAsym, "data/D");
+    t8->Branch("SineAsym",            &SineAsym, "data/D");
+    t8->Branch("Asym_PhiS",           &Asym_PhiS, "data/D");
+    t8->Branch("Asym_PhiPlusPhiS",    &Asym_PhiPlusPhiS, "data/D");
+    t8->Branch("Asym_2PhiPlusPhiS",   &Asym_2PhiPlusPhiS, "data/D");
+    t8->Branch("Asym_PhiMinusPhiS",   &Asym_PhiMinusPhiS, "data/D");
+    t8->Branch("Asym_2PhiMinusPhiS",  &Asym_2PhiMinusPhiS, "data/D");
+    t8->Branch("Asym_3PhiMinusPhiS",  &Asym_3PhiMinusPhiS, "data/D");
+
+    t8->Branch("Sigma_PhiS",           &Sigma_PhiS, "data/D");
+    t8->Branch("Sigma_PhiPlusPhiS",    &Sigma_PhiPlusPhiS, "data/D");
+    t8->Branch("Sigma_2PhiPlusPhiS",   &Sigma_2PhiPlusPhiS, "data/D");
+    t8->Branch("Sigma_PhiMinusPhiS",   &Sigma_PhiMinusPhiS, "data/D");
+    t8->Branch("Sigma_2PhiMinusPhiS",  &Sigma_2PhiMinusPhiS, "data/D");
+    t8->Branch("Sigma_3PhiMinusPhiS",  &Sigma_3PhiMinusPhiS, "data/D");/*}}}*/
+
+    t8->Branch("EventWeight",         &EventWeight, "data/D");                              /*{{{*/
+    t8->Branch("WilliamsWeight",      &WilliamsWeight, "data/D");                              
+    t8->Branch("DedrickWeight",       &DedrickWeight, "data/D");                              
+    t8->Branch("CatchenWeight",       &CatchenWeight, "data/D");                              /*}}}*/
+
+    t8->Branch("tgt_px", &tgt_px, "tgt_px/D");/*{{{*/
+    t8->Branch("tgt_py", &tgt_py, "tgt_py/D");
+    t8->Branch("tgt_pz", &tgt_pz, "tgt_pz/D");
+    t8->Branch("tgt_theta", &tgt_theta, "tgt_theta/D");
+    t8->Branch("tgt_phi", &tgt_phi, "tgt_phi/D");
+    t8->Branch("tgt_ene", &tgt_ene, "tgt_ene/D");
+    t8->Branch("tgt_ene", &tgt_mom, "tgt_mom/D");/*}}}*/
+
+    t8->Branch("beam_px", &beam_px, "beam_px/D");/*{{{*/
+    t8->Branch("beam_py", &beam_py, "beam_py/D");
+    t8->Branch("beam_pz", &beam_pz, "beam_pz/D");
+    t8->Branch("beam_theta", &beam_theta, "beam_theta/D");
+    t8->Branch("beam_phi", &beam_phi, "beam_phi/D");
+    t8->Branch("beam_ene", &beam_ene, "beam_ene/D");
+    t8->Branch("beam_ene", &beam_mom, "beam_mom/D");
+
+    t8->Branch("beam_corr_px", &beam_corr_px, "beam_corr_px/D");
+    t8->Branch("beam_corr_py", &beam_corr_py, "beam_corr_py/D");
+    t8->Branch("beam_corr_pz", &beam_corr_pz, "beam_corr_pz/D");
+    t8->Branch("beam_corr_theta", &beam_corr_theta, "beam_corr_theta/D");
+    t8->Branch("beam_corr_phi", &beam_corr_phi, "beam_corr_phi/D");
+    t8->Branch("beam_corr_ene", &beam_corr_ene, "beam_corr_ene/D");
+    t8->Branch("beam_corr_ene", &beam_corr_mom, "beam_corr_mom/D");/*}}}*/
+
+    t8->Branch("pim_ene",   &pim_ene   ,"pim_ene/D");/*{{{*/
+    t8->Branch("pim_px",    &pim_px    ,"pim_px/D");
+    t8->Branch("pim_py",    &pim_py    ,"pim_py/D");
+    t8->Branch("pim_pz",    &pim_pz    ,"pim_pz/D");
+    t8->Branch("pim_mom",   &pim_mom   ,"pim_mom/D");
+    t8->Branch("pim_theta", &pim_theta ,"pim_theta/D");
+    t8->Branch("pim_phi",   &pim_phi   ,"pim_phi/D");
+
+    t8->Branch("pim_corr_ene",   &pim_corr_ene   ,"pim_corr_ene/D");
+    t8->Branch("pim_corr_px",    &pim_corr_px    ,"pim_corr_px/D");
+    t8->Branch("pim_corr_py",    &pim_corr_py    ,"pim_corr_py/D");
+    t8->Branch("pim_corr_pz",    &pim_corr_pz    ,"pim_corr_pz/D");
+    t8->Branch("pim_corr_mom",   &pim_corr_mom   ,"pim_corr_mom/D");
+    t8->Branch("pim_corr_theta", &pim_corr_theta ,"pim_corr_theta/D");
+    t8->Branch("pim_corr_phi",   &pim_corr_phi   ,"pim_corr_phi/D");/*}}}*/
+
+    t8->Branch("ele_ene",   &ele_ene   ,"ele_ene/D");/*{{{*/
+    t8->Branch("ele_px",    &ele_px    ,"ele_px/D");
+    t8->Branch("ele_py",    &ele_py    ,"ele_py/D");
+    t8->Branch("ele_pz",    &ele_pz    ,"ele_pz/D");
+    t8->Branch("ele_mom",   &ele_mom   ,"ele_mom/D");
+    t8->Branch("ele_theta", &ele_theta ,"ele_theta/D");
+    t8->Branch("ele_phi",   &ele_phi   ,"ele_phi/D");
+
+    t8->Branch("ele_corr_ene",   &ele_corr_ene   ,"ele_corr_ene/D");
+    t8->Branch("ele_corr_px",    &ele_corr_px    ,"ele_corr_px/D");
+    t8->Branch("ele_corr_py",    &ele_corr_py    ,"ele_corr_py/D");
+    t8->Branch("ele_corr_pz",    &ele_corr_pz    ,"ele_corr_pz/D");
+    t8->Branch("ele_corr_mom",   &ele_corr_mom   ,"ele_corr_mom/D");
+    t8->Branch("ele_corr_theta", &ele_corr_theta ,"ele_corr_theta/D");
+    t8->Branch("ele_corr_phi",   &ele_corr_phi   ,"ele_corr_phi/D");/*}}}*/
+
+    t8->Branch("pro_ene",   &pro_ene   ,"pro_ene/D"); /*{{{*/
+    t8->Branch("pro_px",    &pro_px    ,"pro_px/D");
+    t8->Branch("pro_py",    &pro_py    ,"pro_py/D");
+    t8->Branch("pro_pz",    &pro_pz    ,"pro_pz/D");
+    t8->Branch("pro_mom",   &pro_mom   ,"pro_mom/D");
+    t8->Branch("pro_theta", &pro_theta ,"pro_theta/D");
+    t8->Branch("pro_phi",   &pro_phi   ,"pro_phi/D");
+
+    t8->Branch("pro_corr_ene",   &pro_corr_ene   ,"pro_corr_ene/D");
+    t8->Branch("pro_corr_px",    &pro_corr_px    ,"pro_corr_px/D");
+    t8->Branch("pro_corr_py",    &pro_corr_py    ,"pro_corr_py/D");
+    t8->Branch("pro_corr_pz",    &pro_corr_pz    ,"pro_corr_pz/D");
+    t8->Branch("pro_corr_mom",   &pro_corr_mom   ,"pro_corr_mom/D");
+    t8->Branch("pro_corr_theta", &pro_corr_theta ,"pro_corr_theta/D");
+    t8->Branch("pro_corr_phi",   &pro_corr_phi   ,"pro_corr_phi/D");/*}}}*/
+
+    //Add SoLID acceptance/*{{{*/
+    t8->Branch("ele_acc_f",     &ele_acc_f,     "ele_acc_f/D");
+    t8->Branch("ele_acc_l",     &ele_acc_l,     "ele_acc_l/D");
+    t8->Branch("pim_acc_f",     &pim_acc_f,     "pim_acc_f/D");
+    t8->Branch("pim_acc_l",     &pim_acc_l,     "pim_acc_l/D");
+    t8->Branch("pro_acc_f",     &pro_acc_f,     "pro_acc_f/D");
+    t8->Branch("pro_acc_l",     &pro_acc_l,     "pro_acc_l/D");/*}}}*/
+
+    //Add detector resolutions/*{{{*/
+    t8->Branch("ele_mom_res",   &ele_mom_res,   "ele_mom_res/D");
+    t8->Branch("ele_theta_res", &ele_theta_res, "ele_theta_res/D");
+    t8->Branch("ele_phi_res",   &ele_phi_res,   "ele_phi_res/D");
+    t8->Branch("pim_mom_res",   &pim_mom_res,   "pim_mom_res/D");
+    t8->Branch("pim_theta_res", &pim_theta_res, "pim_theta_res/D");
+    t8->Branch("pim_phi_res",   &pim_phi_res,   "pim_phi_res/D");
+    t8->Branch("pro_mom_res",   &pro_mom_res,   "pro_mom_res/D");
+    t8->Branch("pro_theta_res", &pro_theta_res, "pro_theta_res/D");
+    t8->Branch("pro_phi_res",   &pro_phi_res,   "pro_phi_res/D");/*}}}*/
+
+    //Add other quantities/*{{{*/
+    t8->Branch("weight",        &weight,        "weight/D");
+    t8->Branch("weight_uu",        &weight_uu,        "weight_uu/D"); //weight for unpolarized XS
+    t8->Branch("weight_ut",        &weight_ut,        "weight_ut/D"); //weight for polarized XS
+    t8->Branch("weight_3m1",        &weight_3m1,        "weight_3m1/D"); //weight for Sin(3Phi-PhiS) module
+    t8->Branch("weight_2m1",        &weight_2m1,        "weight_2m1/D"); //weight for Sin(2Phi-PhiS) module
+    t8->Branch("weight_1m1",        &weight_1m1,        "weight_1m1/D"); //weight for Sin(Phi-PhiS) module
+    t8->Branch("weight_0p1",        &weight_0p1,        "weight_0p1/D"); //weight for Sin(PhiS) module
+    t8->Branch("weight_1p1",        &weight_1p1,        "weight_1p1/D"); //weight for Sin(Phi+PhiS) module
+    t8->Branch("weight_2p1",        &weight_2p1,        "weight_2p1/D"); //weight for Sin(2Phi+PhiS) module
+    t8->Branch("dilute",        &dilute,        "dilute/D");
+    //t8->Branch("PSF",           &PSF,           "PSF/D");
+    t8->Branch("MM",            &MM,            "MM/D");
+    t8->Branch("MM_res", &MM_res, "MM_res/D");/*}}}*/
+    
+    t8->Branch("time",            &time,            "time/D");
+    //t8->Branch("fileNO",            &fileNO,            "fileNO/I");
+    t8->Branch("total_acceptance",            &total_acceptance,            "total_acceptance/D");
+    t8->Branch("Q2BIN", &Q2BIN, "Q2BIN/I");
+    //t8->Branch("",            &,            "/D");
+    /*}}}*/
+    
+    //const Int_t tbin = 7;
+    //const Double_t t_cut[8] = {0.05, 0.15, 0.25, 0.35, 0.45, 0.55, 0.75, 1.2};
+    //const Int_t tbin = 8;
+    const Double_t t_cut[9] = {0.0, 0.30, 0.40, 0.50, 0.60, 0.75, 0.95, 1.2, 2.0};
+ 
+    const double_t par[4] = {3.293, 6.989, -3.174, 0.4937}; //for Q2 cut
+
     for(Long64_t i=0;i<N_entries;i++){
         t0->GetEntry(i);
         if(Epsilon>0.55&&Epsilon<0.75&&W>2&&Qsq>4){
+
+            double Q2Cut = par[0]+par[1]*t + par[2]*t*t + par[3]*t*t*t;
+            if(Qsq<=Q2Cut) Q2BIN = 1;
+            if(Qsq>Q2Cut) Q2BIN = 2;
+
+            time = 48 * 24 * 60 * 60;
+            total_acceptance = (ele_acc_f+ele_acc_l);
+            total_acceptance *=(pim_acc_f+pim_acc_l);
+            total_acceptance *=(pro_acc_f+pro_acc_l);
+
+            weight *=total_acceptance * time;
+            weight_uu *=total_acceptance * time;
+            weight_ut *=total_acceptance * time;
+
             if( t>t_cut[0] && t<t_cut[1])  t1->Fill();
             if( t>t_cut[1] && t<t_cut[2])  t2->Fill();
             if( t>t_cut[2] && t<t_cut[3])  t3->Fill();
@@ -1571,6 +1780,7 @@ Int_t makebin(){
             if( t>t_cut[4] && t<t_cut[5])  t5->Fill();
             if( t>t_cut[5] && t<t_cut[6])  t6->Fill();
             if( t>t_cut[6] && t<t_cut[7])  t7->Fill();
+            if( t>t_cut[7] && t<t_cut[8])  t8->Fill();
         }
     }
 
@@ -1582,6 +1792,7 @@ Int_t makebin(){
     f5->cd(); t5->Write(); f5->Close();
     f6->cd(); t6->Write(); f6->Close();
     f7->cd(); t7->Write(); f7->Close();
+    f8->cd(); t8->Write(); f8->Close();
     file->Close();
 
     return 0;

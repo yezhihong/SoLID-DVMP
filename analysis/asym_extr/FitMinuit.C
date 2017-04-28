@@ -9,36 +9,67 @@ const double A1 = -0.1;//1m1
 const double A2 = -0.2;//2m1
 const double A3 = -0.3;//3m1
 const double A4 = 0.1;//0p1
-const double A5 = 0.15;//1p1
+const double A5 = 0.2;//1p1
 
+ofstream outf;
 /*Main{{{*/
 Int_t main()
 { 
-	gStyle->SetOptFit(1);  
-	gStyle->SetOptStat(0);
+    gStyle->SetOptFit(1);  
+    gStyle->SetOptStat(0);
+    Int_t IT = 0, IQ = 0;
 
-        Int_t I = 0;
-        cout<<"--- Which t-bin? (1--7)  "; cin >> I;
+    cout<<"--- Which t-bin? (1--8, 0 for all)  "; cin >> IT;
+    if(IT>0){
+        cout<<"--- Which Q2-bin? (1--2)  "; cin >> IQ;
+        LoadData(IT, IQ);
 
-        //Load Data from MC Rootfiles
-	LoadData(I);
+        /////////////////////////////
+        //TMinuit Minimization
+        /////////////////////////////
+        double fyPar[5] = {0.0, 0.0, 0.0, 0.0, 0.0};
+        DoMinuit(fyPar, IT, IQ, 0);
+    }
+    else{
+        outf.open("dvmp_par.dat");
+        outf<<Form("-- Test Values: A1=%4.2f, A2=%4.2f, A3=%4.2f, A4=%4.2f, A5=%4.2f, ",
+                A1, A2, A3, A4, A5)<<endl<<endl;
+        outf<<Form("%4s %4s %10s %10s %10s %10s %10s %10s %10s %10s %10s %10s ",
+                "#t", "#Q2", "A1", "dA1", "A2", "dA2", "A3", "dA3", "A4", "dA4", "A5", "dA5")
+            <<endl;
 
-	/////////////////////////////
-	//TMinuit Minimization
-	/////////////////////////////
-	double fyPar[5] = {0.0, 0.0, 0.0, 0.0, 0.0};
-        DoMinuit(fyPar);
+
+        for(int i=1; i<=8;i++){
+            for(int j=1; j<=2;j++){
+                IT = i;
+                IQ = j;
+
+                /////////////////////////////
+                //Load Data from MC Rootfiles
+                /////////////////////////////
+                LoadData(IT, IQ);
+
+                /////////////////////////////
+                //TMinuit Minimization
+                /////////////////////////////
+                double fyPar[5] = {0.0, 0.0, 0.0, 0.0, 0.0};
+                DoMinuit(fyPar, IT, IQ, 1);
+            }
+        }
+
+        outf.close();
+    }
 	return 0;
 }
 /*}}}*/
 
 /*DoMunuit{{{*/
-void DoMinuit(double *par)
+void DoMinuit(double *par, Int_t IT, Int_t IQ, Int_t SAVE)
 {
 	cout << "      *************************************************" << endl; 
 	cout << "      *          Minimization Fitting for             *" << endl;
 	cout << "      *              DVMP Asymmetries                 *" << endl;
-	cout << "      *             Z. Ye 09/20/2010                  *" << endl;
+	cout << "      *             Z. Ye 04/26/2017                  *" << endl;
 	cout << "      *************************************************" << endl; 
 	cout << endl;
 	gSystem->Load("libMinuit");
@@ -129,15 +160,20 @@ void DoMinuit(double *par)
 	//Put the results into a file
         cout<<endl<<"-----------------------------------------------------------------------"<<endl;
         cout<<"-----------------------------------------------------------------------"<<endl;
-	cerr<<Form("        Set:  A1=%6.3f,  A2=%6.3f,  A3=%6.3f,  A4=%6.3f,  A5=%6.3f", 
+	cout<<Form("        Set:  A1=%6.3f,  A2=%6.3f,  A3=%6.3f,  A4=%6.3f,  A5=%6.3f", 
                 A1, A2, A3, A4, A5)<<endl;
-	cerr<<Form("Asymmetries:  A1=%6.3f,  A2=%6.3f,  A3=%6.3f,  A4=%6.3f,  A5=%6.3f", 
-                par[0], par[1], par[2], par[3], par[4])<<endl;
-	cerr<<Form("     Errors: dA1=%6.3f, dA2=%6.4f, dA3=%6.4f, dA4=%6.4f, dA5=%6.4f", 
+        cout<<Form("Asymmetries:  A1=%6.3f,  A2=%6.3f,  A3=%6.3f,  A4=%6.3f,  A5=%6.3f", 
+        par[0], par[1], par[2], par[3], par[4])<<endl;
+	cout<<Form("     Errors: dA1=%6.3f, dA2=%6.4f, dA3=%6.4f, dA4=%6.4f, dA5=%6.4f", 
                 err[0], err[1], err[2], err[3], err[4])<<endl;
         cout<<"-----------------------------------------------------------------------"<<endl;
         cout<<"-----------------------------------------------------------------------"<<endl<<endl;
-
+        
+        if(SAVE==1){
+            outf<<Form("%4d %4d %10.3e %10.4e %10.3e %10.4e %10.3e %10.4e %10.3e %10.4e %10.3e %10.4e ",
+                    IT, IQ, par[0], err[0], par[1], err[1], par[2], err[2], par[3], err[3], par[4], err[4])
+                <<endl;
+        }
 }
 /*}}}*/
 
@@ -182,14 +218,15 @@ Double_t func(Double_t phiH, Double_t phiS, Double_t *par){
 /*}}}*/
 
 /*LoadData{{{*/
-void LoadData( Int_t I=0){
+void LoadData( Int_t IT=0, Int_t IQ=0){
 
    Double_t phi_h, phi_s;
    Double_t weight, weight_uu, weight_ut;
    Double_t weight_1m1,weight_2m1,weight_3m1,weight_0p1,weight_1p1;
+   Int_t Q2BIN;
   
   //Target Polarization is up/*{{{*/
-   TFile *fu = new TFile(Form("../rootfiles/dvmp_up_t%d.root", I));
+   TFile *fu = new TFile(Form("../rootfiles/dvmp_up_t%d_newt.root", IT));
    TTree *Tu = (TTree*) gDirectory->Get("T");
    
    Tu->SetBranchAddress("Phi", &phi_h);
@@ -202,10 +239,13 @@ void LoadData( Int_t I=0){
    Tu->SetBranchAddress("weight_3m1", &weight_3m1);
    Tu->SetBranchAddress("weight_0p1", &weight_0p1);
    Tu->SetBranchAddress("weight_1p1", &weight_1p1);
+   Tu->SetBranchAddress("Q2BIN", &Q2BIN);
 
    Int_t Nu = Tu->GetEntries();
    for(int i=0;i<Nu; i++){
      Tu->GetEntry(i);
+     if(Q2BIN!=IQ) continue; //choose the right Q2 bin
+     
      phi_h *= Deg2Rad;
      phi_s *= Deg2Rad;
 
@@ -230,7 +270,7 @@ void LoadData( Int_t I=0){
    fu->Close();/*}}}*/
 
   //Target Polarization is down/*{{{*/
-   TFile *fd = new TFile(Form("../rootfiles/dvmp_down_t%d.root", I));
+   TFile *fd = new TFile(Form("../rootfiles/dvmp_down_t%d_newt.root", IT));
    TTree *Td = (TTree*) gDirectory->Get("T");
    
    Td->SetBranchAddress("Phi", &phi_h);
@@ -243,10 +283,13 @@ void LoadData( Int_t I=0){
    Td->SetBranchAddress("weight_3m1", &weight_3m1);
    Td->SetBranchAddress("weight_0p1", &weight_0p1);
    Td->SetBranchAddress("weight_1p1", &weight_1p1);
+   Td->SetBranchAddress("Q2BIN", &Q2BIN);
 
    Int_t Nd = Td->GetEntries();
    for(int i=0;i<Nd; i++){
      Td->GetEntry(i);
+     if(Q2BIN!=IQ) continue; //choose the right Q2 bin
+     
      phi_s += 180.0;
      phi_h *= Deg2Rad;
      phi_s *= Deg2Rad;
