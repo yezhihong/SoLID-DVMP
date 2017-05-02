@@ -68,14 +68,23 @@ Int_t main(){
 Int_t makebin(){
     gStyle->SetOptStat(0);
 
+       TString type_name = "";
+    Int_t type=0;
+    cout<<"--- type = (1->simple, 2->mult, 3->mult_fsi)"; cin>>type;
+    if(type==1) type_name ="simple";
+    if(type==2) type_name ="mult";
+    if(type==3) type_name ="mult_fsi";
+
     TString pol_name="";
     int pol=0;
     cout<<"--- Pol = (1->up, 2->down) "; cin >> pol;
     if(pol==1) pol_name="up";
     if(pol==2) pol_name="down";
 
+
     TString prefix = "";
-    TString finalfile = Form("./rootfiles/DEMP_Ee_11_4_%s_simple.root", pol_name.Data());
+    TString finalfile = Form("./rootfiles/DEMP_Ee_11_4_%s_%s.root", pol_name.Data(), type_name.Data());
+    cout<<"-- Reading in file  "<<finalfile.Data()<<endl;
     TFile *file = new TFile(finalfile.Data(),"r");
     TTree *t0 = (TTree*) file->Get("T");
     int N_entries = t0->GetEntries();
@@ -97,10 +106,10 @@ Int_t makebin(){
     Double_t Sigma_PhiS, Sigma_PhiMinusPhiS, Sigma_2PhiMinusPhiS, Sigma_3PhiMinusPhiS, Sigma_PhiPlusPhiS, Sigma_2PhiPlusPhiS;
     Double_t Sigma_Lab, Sigma_UU, Sigma_UT, SSAsym, SineAsym;
     Double_t Sig_L, Sig_T, Sig_LT, Sig_TT;
-    Double_t Flux_Factor_RF, Flux_Factor_Col, Jacobian_CM, Jacobian_CM_RF, Jacobian_CM_Col, A_Factor, time;
+    Double_t Flux_Factor_RF, Flux_Factor_Col, Jacobian_CM, Jacobian_CM_RF, Jacobian_CM_Col, A_Factor, time, Photon_Factor, Photon_Theta;
     Int_t NRecorded, NGenerated, fileNO; 
 
-    double ele_acc_f, ele_acc_l, pim_acc_f,pim_acc_l, pro_acc_f,pro_acc_l,total_acceptance;
+    double ele_acc_f, ele_acc_l, pim_acc_f,pim_acc_l, pro_acc_f,pro_acc_l,total_acc, total_acc_corr, total_acc_res;
     double MM, MM_res,dilute,weight, weight_uu, weight_ut, weight_3m1, weight_2m1, weight_1m1, weight_0p1, weight_1p1, weight_2p1;
     double ele_mom_res, ele_theta_res, ele_phi_res;
     double pim_mom_res, pim_theta_res, pim_phi_res;
@@ -115,6 +124,7 @@ Int_t makebin(){
     t0->SetBranchAddress("Epsilon", &Epsilon);
     t0->SetBranchAddress("Qsq", &Qsq );
     t0->SetBranchAddress("t", &t );
+    t0->SetBranchAddress("t_Para", &t_Para );
     t0->SetBranchAddress("W", &W );
     t0->SetBranchAddress("x", &x );
     t0->SetBranchAddress("y", &y );
@@ -131,6 +141,8 @@ Int_t makebin(){
     t0->SetBranchAddress("Vertex_Y",   &Vertex_Y );
     t0->SetBranchAddress("Vertex_Z",   &Vertex_Z );
     t0->SetBranchAddress("Theta_Pion_Photon",   &Theta_Pion_Photon );
+    t0->SetBranchAddress("Photon_Theta",   &Photon_Theta );
+    t0->SetBranchAddress("Photon_Factor",  &Photon_Factor);
 
     t0->SetBranchAddress("A_Factor",                                  &A_Factor        );
     t0->SetBranchAddress("Flux_Factor_RF",                            &Flux_Factor_RF  );
@@ -280,21 +292,27 @@ Int_t makebin(){
     t0->SetBranchAddress("MM",            &MM);
     t0->SetBranchAddress("MM_res", &MM_res);
     
-    //t0->SetBranchAddress("time",            &time);
-    //t0->SetBranchAddress("fileNO",            &fileNO);
-    //t0->SetBranchAddress("total_acceptance",            &total_acceptance);[>}}}<]
+    t0->SetBranchAddress("time",            &time);
+    t0->SetBranchAddress("fileNO",          &fileNO);
+    t0->SetBranchAddress("total_acc",       &total_acc);
+    t0->SetBranchAddress("total_acc_corr",  &total_acc_corr);
+    t0->SetBranchAddress("total_acc_res",   &total_acc_res);
     /*}}}*/
+/*}}}*/
 
     /*Define #1 new Tree and new Branch{{{*/
-    TFile *f1 = new TFile(Form("./rootfiles/dvmp_%s_t1_newt.root", pol_name.Data()), "recreate");
+    TFile *f1 = new TFile(Form("./rootfiles/dvmp_%s_t1_%s.root", pol_name.Data(), type_name.Data()), "recreate");
     TTree *t1 = new TTree("T","a new tree");
 
     t1->Branch("NRecorded",       &NRecorded,     "NRecorded/I");/*{{{*/
     t1->Branch("NGenerated",       &NGenerated,     "NGenerated/I");
+    t1->Branch("Photon_Theta",   &Photon_Theta ,"Photon_Theta/D");
+    t1->Branch("Photon_Factor",  &Photon_Factor, "Photon_Factor/D");
 
     t1->Branch("Epsilon", &Epsilon, "Epsilon/D" );
     t1->Branch("Qsq", &Qsq ,"Qsq/D");
     t1->Branch("t", &t ,"t/D");
+    t1->Branch("t_Para", &t_Para ,"t_Para/D");
     t1->Branch("W", &W ,"W/D");
     t1->Branch("x", &x ,"x/D");
     t1->Branch("y", &y ,"y/D");
@@ -462,22 +480,26 @@ Int_t makebin(){
     t1->Branch("MM_res", &MM_res, "MM_res/D");/*}}}*/
     
     t1->Branch("time",            &time,            "time/D");
-    //t1->Branch("fileNO",            &fileNO,            "fileNO/I");
-    t1->Branch("total_acceptance",            &total_acceptance,            "total_acceptance/D");
+    t1->Branch("fileNO",          &fileNO,          "fileNO/I");
+    t1->Branch("total_acc",       &total_acc,       "total_acc/D");
+    t1->Branch("total_acc_corr",  &total_acc_corr,  "total_acc_corr/D");
+    t1->Branch("total_acc_res",   &total_acc_res,   "total_acc_res/D");
     t1->Branch("Q2BIN", &Q2BIN, "Q2BIN/I");
-    //t1->Branch("",            &,            "/D");
     /*}}}*/
 
     /*Define #2 new Tree and new Branch{{{*/
-    TFile *f2 = new TFile(Form("./rootfiles/dvmp_%s_t2_newt.root", pol_name.Data()), "recreate");
+    TFile *f2 = new TFile(Form("./rootfiles/dvmp_%s_t2_%s.root", pol_name.Data(), type_name.Data()), "recreate");
     TTree *t2 = new TTree("T","a new tree");
 
     t2->Branch("NRecorded",       &NRecorded,     "NRecorded/I");/*{{{*/
     t2->Branch("NGenerated",       &NGenerated,     "NGenerated/I");
+    t2->Branch("Photon_Theta",   &Photon_Theta ,"Photon_Theta/D");
+    t2->Branch("Photon_Factor",  &Photon_Factor, "Photon_Factor/D");
 
     t2->Branch("Epsilon", &Epsilon, "Epsilon/D" );
     t2->Branch("Qsq", &Qsq ,"Qsq/D");
     t2->Branch("t", &t ,"t/D");
+    t2->Branch("t_Para", &t_Para ,"t_Para/D");
     t2->Branch("W", &W ,"W/D");
     t2->Branch("x", &x ,"x/D");
     t2->Branch("y", &y ,"y/D");
@@ -645,22 +667,27 @@ Int_t makebin(){
     t2->Branch("MM_res", &MM_res, "MM_res/D");/*}}}*/
     
     t2->Branch("time",            &time,            "time/D");
-    //t2->Branch("fileNO",            &fileNO,            "fileNO/I");
-    t2->Branch("total_acceptance",            &total_acceptance,            "total_acceptance/D");
+    t2->Branch("fileNO",            &fileNO,            "fileNO/I");
+    t2->Branch("total_acc",       &total_acc,       "total_acc/D");
+    t2->Branch("total_acc_corr",  &total_acc_corr,  "total_acc_corr/D");
+    t2->Branch("total_acc_res",   &total_acc_res,   "total_acc_res/D");
     t2->Branch("Q2BIN", &Q2BIN, "Q2BIN/I");
     //t2->Branch("",            &,            "/D");
     /*}}}*/
     
     /*Define #3 new Tree and new Branch{{{*/
-    TFile *f3 = new TFile(Form("./rootfiles/dvmp_%s_t3_newt.root", pol_name.Data()), "recreate");
+    TFile *f3 = new TFile(Form("./rootfiles/dvmp_%s_t3_%s.root", pol_name.Data(), type_name.Data()), "recreate");
     TTree *t3 = new TTree("T","a new tree");
 
     t3->Branch("NRecorded",       &NRecorded,     "NRecorded/I");/*{{{*/
     t3->Branch("NGenerated",       &NGenerated,     "NGenerated/I");
+    t3->Branch("Photon_Theta",   &Photon_Theta ,"Photon_Theta/D");
+    t3->Branch("Photon_Factor",  &Photon_Factor, "Photon_Factor/D");
 
     t3->Branch("Epsilon", &Epsilon, "Epsilon/D" );
     t3->Branch("Qsq", &Qsq ,"Qsq/D");
     t3->Branch("t", &t ,"t/D");
+    t3->Branch("t_Para", &t_Para ,"t_Para/D");
     t3->Branch("W", &W ,"W/D");
     t3->Branch("x", &x ,"x/D");
     t3->Branch("y", &y ,"y/D");
@@ -828,22 +855,27 @@ Int_t makebin(){
     t3->Branch("MM_res", &MM_res, "MM_res/D");/*}}}*/
     
     t3->Branch("time",            &time,            "time/D");
-    //t3->Branch("fileNO",            &fileNO,            "fileNO/I");
-    t3->Branch("total_acceptance",            &total_acceptance,            "total_acceptance/D");
+    t3->Branch("fileNO",            &fileNO,            "fileNO/I");
+    t3->Branch("total_acc",       &total_acc,       "total_acc/D");
+    t3->Branch("total_acc_corr",  &total_acc_corr,  "total_acc_corr/D");
+    t3->Branch("total_acc_res",   &total_acc_res,   "total_acc_res/D");
     t3->Branch("Q2BIN", &Q2BIN, "Q2BIN/I");
     //t3->Branch("",            &,            "/D");
     /*}}}*/
 
     /*Define #4 new Tree and new Branch{{{*/
-    TFile *f4 = new TFile(Form("./rootfiles/dvmp_%s_t4_newt.root", pol_name.Data()), "recreate");
+    TFile *f4 = new TFile(Form("./rootfiles/dvmp_%s_t4_%s.root", pol_name.Data(), type_name.Data()), "recreate");
     TTree *t4 = new TTree("T","a new tree");
 
     t4->Branch("NRecorded",       &NRecorded,     "NRecorded/I");/*{{{*/
     t4->Branch("NGenerated",       &NGenerated,     "NGenerated/I");
+    t4->Branch("Photon_Theta",   &Photon_Theta ,"Photon_Theta/D");
+    t4->Branch("Photon_Factor",  &Photon_Factor, "Photon_Factor/D");
 
     t4->Branch("Epsilon", &Epsilon, "Epsilon/D" );
     t4->Branch("Qsq", &Qsq ,"Qsq/D");
     t4->Branch("t", &t ,"t/D");
+    t4->Branch("t_Para", &t_Para ,"t_Para/D");
     t4->Branch("W", &W ,"W/D");
     t4->Branch("x", &x ,"x/D");
     t4->Branch("y", &y ,"y/D");
@@ -1011,22 +1043,27 @@ Int_t makebin(){
     t4->Branch("MM_res", &MM_res, "MM_res/D");/*}}}*/
     
     t4->Branch("time",            &time,            "time/D");
-    //t4->Branch("fileNO",            &fileNO,            "fileNO/I");
-    t4->Branch("total_acceptance",            &total_acceptance,            "total_acceptance/D");
+    t4->Branch("fileNO",            &fileNO,            "fileNO/I");
+    t4->Branch("total_acc",       &total_acc,       "total_acc/D");
+    t4->Branch("total_acc_corr",  &total_acc_corr,  "total_acc_corr/D");
+    t4->Branch("total_acc_res",   &total_acc_res,   "total_acc_res/D");
     t4->Branch("Q2BIN", &Q2BIN, "Q2BIN/I");
     //t4->Branch("",            &,            "/D");
     /*}}}*/
     
     /*Define #5 new Tree and new Branch{{{*/
-    TFile *f5 = new TFile(Form("./rootfiles/dvmp_%s_t5_newt.root", pol_name.Data()), "recreate");
+    TFile *f5 = new TFile(Form("./rootfiles/dvmp_%s_t5_%s.root", pol_name.Data(), type_name.Data()), "recreate");
     TTree *t5 = new TTree("T","a new tree");
 
     t5->Branch("NRecorded",       &NRecorded,     "NRecorded/I");/*{{{*/
     t5->Branch("NGenerated",       &NGenerated,     "NGenerated/I");
+    t5->Branch("Photon_Theta",   &Photon_Theta ,"Photon_Theta/D");
+    t5->Branch("Photon_Factor",  &Photon_Factor, "Photon_Factor/D");
 
     t5->Branch("Epsilon", &Epsilon, "Epsilon/D" );
     t5->Branch("Qsq", &Qsq ,"Qsq/D");
     t5->Branch("t", &t ,"t/D");
+    t5->Branch("t_Para", &t_Para ,"t_Para/D");
     t5->Branch("W", &W ,"W/D");
     t5->Branch("x", &x ,"x/D");
     t5->Branch("y", &y ,"y/D");
@@ -1194,22 +1231,27 @@ Int_t makebin(){
     t5->Branch("MM_res", &MM_res, "MM_res/D");/*}}}*/
     
     t5->Branch("time",            &time,            "time/D");
-    //t5->Branch("fileNO",            &fileNO,            "fileNO/I");
-    t5->Branch("total_acceptance",            &total_acceptance,            "total_acceptance/D");
+    t5->Branch("fileNO",            &fileNO,            "fileNO/I");
+    t5->Branch("total_acc",       &total_acc,       "total_acc/D");
+    t5->Branch("total_acc_corr",  &total_acc_corr,  "total_acc_corr/D");
+    t5->Branch("total_acc_res",   &total_acc_res,   "total_acc_res/D");
     t5->Branch("Q2BIN", &Q2BIN, "Q2BIN/I");
     //t5->Branch("",            &,            "/D");
     /*}}}*/
 
     /*Define #6 new Tree and new Branch{{{*/
-    TFile *f6 = new TFile(Form("./rootfiles/dvmp_%s_t6_newt.root", pol_name.Data()), "recreate");
+    TFile *f6 = new TFile(Form("./rootfiles/dvmp_%s_t6_%s.root", pol_name.Data(), type_name.Data()), "recreate");
     TTree *t6 = new TTree("T","a new tree");
 
     t6->Branch("NRecorded",       &NRecorded,     "NRecorded/I");/*{{{*/
     t6->Branch("NGenerated",       &NGenerated,     "NGenerated/I");
+    t6->Branch("Photon_Theta",   &Photon_Theta ,"Photon_Theta/D");
+    t6->Branch("Photon_Factor",  &Photon_Factor, "Photon_Factor/D");
 
     t6->Branch("Epsilon", &Epsilon, "Epsilon/D" );
     t6->Branch("Qsq", &Qsq ,"Qsq/D");
     t6->Branch("t", &t ,"t/D");
+    t6->Branch("t_Para", &t_Para ,"t_Para/D");
     t6->Branch("W", &W ,"W/D");
     t6->Branch("x", &x ,"x/D");
     t6->Branch("y", &y ,"y/D");
@@ -1377,22 +1419,27 @@ Int_t makebin(){
     t6->Branch("MM_res", &MM_res, "MM_res/D");/*}}}*/
     
     t6->Branch("time",            &time,            "time/D");
-    //t6->Branch("fileNO",            &fileNO,            "fileNO/I");
-    t6->Branch("total_acceptance",            &total_acceptance,            "total_acceptance/D");
+    t6->Branch("fileNO",            &fileNO,            "fileNO/I");
+    t6->Branch("total_acc",       &total_acc,       "total_acc/D");
+    t6->Branch("total_acc_corr",  &total_acc_corr,  "total_acc_corr/D");
+    t6->Branch("total_acc_res",   &total_acc_res,   "total_acc_res/D");
     t6->Branch("Q2BIN", &Q2BIN, "Q2BIN/I");
     //t6->Branch("",            &,            "/D");
     /*}}}*/
     
     /*Define #7 new Tree and new Branch{{{*/
-    TFile *f7 = new TFile(Form("./rootfiles/dvmp_%s_t7_newt.root", pol_name.Data()), "recreate");
+    TFile *f7 = new TFile(Form("./rootfiles/dvmp_%s_t7_%s.root", pol_name.Data(), type_name.Data()), "recreate");
     TTree *t7 = new TTree("T","a new tree");
 
     t7->Branch("NRecorded",       &NRecorded,     "NRecorded/I");/*{{{*/
     t7->Branch("NGenerated",       &NGenerated,     "NGenerated/I");
+    t7->Branch("Photon_Theta",   &Photon_Theta ,"Photon_Theta/D");
+    t7->Branch("Photon_Factor",  &Photon_Factor, "Photon_Factor/D");
 
     t7->Branch("Epsilon", &Epsilon, "Epsilon/D" );
     t7->Branch("Qsq", &Qsq ,"Qsq/D");
     t7->Branch("t", &t ,"t/D");
+    t7->Branch("t_Para", &t_Para ,"t_Para/D");
     t7->Branch("W", &W ,"W/D");
     t7->Branch("x", &x ,"x/D");
     t7->Branch("y", &y ,"y/D");
@@ -1560,22 +1607,27 @@ Int_t makebin(){
     t7->Branch("MM_res", &MM_res, "MM_res/D");/*}}}*/
     
     t7->Branch("time",            &time,            "time/D");
-    //t7->Branch("fileNO",            &fileNO,            "fileNO/I");
-    t7->Branch("total_acceptance",            &total_acceptance,            "total_acceptance/D");
+    t7->Branch("fileNO",            &fileNO,            "fileNO/I");
+    t7->Branch("total_acc",       &total_acc,       "total_acc/D");
+    t7->Branch("total_acc_corr",  &total_acc_corr,  "total_acc_corr/D");
+    t7->Branch("total_acc_res",   &total_acc_res,   "total_acc_res/D");
     t7->Branch("Q2BIN", &Q2BIN, "Q2BIN/I");
     //t7->Branch("",            &,            "/D");
     /*}}}*/
     
     /*Define #8 new Tree and new Branch{{{*/
-    TFile *f8 = new TFile(Form("./rootfiles/dvmp_%s_t8_newt.root", pol_name.Data()), "recreate");
+    TFile *f8 = new TFile(Form("./rootfiles/dvmp_%s_t8_%s.root", pol_name.Data(), type_name.Data()), "recreate");
     TTree *t8 = new TTree("T","a new tree");
 
     t8->Branch("NRecorded",       &NRecorded,     "NRecorded/I");/*{{{*/
     t8->Branch("NGenerated",       &NGenerated,     "NGenerated/I");
+    t8->Branch("Photon_Theta",   &Photon_Theta ,"Photon_Theta/D");
+    t8->Branch("Photon_Factor",  &Photon_Factor, "Photon_Factor/D");
 
     t8->Branch("Epsilon", &Epsilon, "Epsilon/D" );
     t8->Branch("Qsq", &Qsq ,"Qsq/D");
     t8->Branch("t", &t ,"t/D");
+    t8->Branch("t_Para", &t_Para ,"t_Para/D");
     t8->Branch("W", &W ,"W/D");
     t8->Branch("x", &x ,"x/D");
     t8->Branch("y", &y ,"y/D");
@@ -1743,8 +1795,10 @@ Int_t makebin(){
     t8->Branch("MM_res", &MM_res, "MM_res/D");/*}}}*/
     
     t8->Branch("time",            &time,            "time/D");
-    //t8->Branch("fileNO",            &fileNO,            "fileNO/I");
-    t8->Branch("total_acceptance",            &total_acceptance,            "total_acceptance/D");
+    t8->Branch("fileNO",            &fileNO,            "fileNO/I");
+    t8->Branch("total_acc",       &total_acc,       "total_acc/D");
+    t8->Branch("total_acc_corr",  &total_acc_corr,  "total_acc_corr/D");
+    t8->Branch("total_acc_res",   &total_acc_res,   "total_acc_res/D");
     t8->Branch("Q2BIN", &Q2BIN, "Q2BIN/I");
     //t8->Branch("",            &,            "/D");
     /*}}}*/
@@ -1752,7 +1806,7 @@ Int_t makebin(){
     //const Int_t tbin = 7;
     //const Double_t t_cut[8] = {0.05, 0.15, 0.25, 0.35, 0.45, 0.55, 0.75, 1.2};
     //const Int_t tbin = 8;
-    const Double_t t_cut[9] = {0.0, 0.30, 0.40, 0.50, 0.60, 0.75, 0.95, 1.2, 2.0};
+    const Double_t t_cut[9] = {0.00, 0.30, 0.40, 0.50, 0.60, 0.80, 1.10, 2.0};
  
     const double_t par[4] = {3.293, 6.989, -3.174, 0.4937}; //for Q2 cut
 
@@ -1763,15 +1817,6 @@ Int_t makebin(){
             double Q2Cut = par[0]+par[1]*t + par[2]*t*t + par[3]*t*t*t;
             if(Qsq<=Q2Cut) Q2BIN = 1;
             if(Qsq>Q2Cut) Q2BIN = 2;
-
-            time = 48 * 24 * 60 * 60;
-            total_acceptance = (ele_acc_f+ele_acc_l);
-            total_acceptance *=(pim_acc_f+pim_acc_l);
-            total_acceptance *=(pro_acc_f+pro_acc_l);
-
-            weight *=total_acceptance * time;
-            weight_uu *=total_acceptance * time;
-            weight_ut *=total_acceptance * time;
 
             if( t>t_cut[0] && t<t_cut[1])  t1->Fill();
             if( t>t_cut[1] && t<t_cut[2])  t2->Fill();

@@ -76,25 +76,46 @@ int main(){
     const TString Target = "He3";
     const TString particle="pim";
     double EBeam = 11.0;
-    const Int_t time = 48 * 24 * 3600;
+    Int_t time = 48 * 24 * 3600;
+    
+    Int_t CASE = 0; cout<<"--- What Configuration (1->NONE, 2->EL+MS, 3->EL+MS+FSI)? "; cin>>CASE;/*{{{*/
+
+    Int_t target_direction=1; 
+    cout<<"--- Target Direction (1->Up, 2->Down): "; cin>>target_direction;
+    TString targetname="";
+    if(target_direction==1) targetname="up";
+    if(target_direction==2) targetname="down";/*}}}*/
 
     //CLEO Acceptance
     SIDIS_Acceptance *accpt = new SIDIS_Acceptance();
 
-    TString filename, new_filename;
+    TString filename, new_filename;/*{{{*/
     TChain *t1 = new TChain("t1");
     
     //const int fileNO = 1000;
-    const int fileNO = 999;
+    int fileNO = 999;
     //for(int i=0;i<fileNO;i++){
     for(int i=1;i<fileNO;i++){
-        filename = Form("./RootFiles_Up_Simple/DEMP_Ee_11_Events_100000_File_%d.root", i);
-        //filename = Form("./RootFiles_Down_Simple/DEMP_Ee_11_Events_100000_File_%d.root", i);
+        if(CASE==1){
+            if(target_direction==1) filename = Form("./RootFiles_Up_Simple/DEMP_Ee_11_Events_1000000_File_%d.root", i);
+            if(target_direction==2) filename = Form("./RootFiles_Down_Simple/DEMP_Ee_11_Events_1000000_File_%d.root", i);
+        }
+        
+        if(CASE==2){
+            if(target_direction==1) filename = Form("./RootFiles_Up_EL/DEMP_Ee_11_Events_1000000_File_%d_Fermi__Eloss__MS_.root", i);
+            if(target_direction==2) filename = Form("./RootFiles_Down_EL/DEMP_Ee_11_Events_1000000_File_%d_Fermi__Eloss__MS_.root", i);
+        }
+
+        if(CASE==3){
+            if(target_direction==1) filename = Form("./RootFiles_Up_EL_FSI/DEMP_Ee_11_Events_1000000_File_%d_Fermi__Eloss__FSI__MS_.root", i);
+            if(target_direction==2) filename = Form("./RootFiles_Down_EL_FSI/DEMP_Ee_11_Events_1000000_File_%d_Fermi__Eloss__FSI__MS_.root", i);
+        }
+       
         cout<<"--- Reading in file = "<<filename.Data()<<"\r";
         t1->Add(filename.Data());
     }
     int N_entries = t1->GetEntries();
-    cout<<"--- Total Events = "<< N_entries<<endl;
+    cout<<"--- Total Events = "<< N_entries<<endl;/*}}}*/
    
     /*Define Variables, Branches{{{*/
     Int_t NRecorded, NGenerated; 
@@ -115,7 +136,7 @@ int main(){
     Double_t Sigma_PhiS, Sigma_PhiMinusPhiS, Sigma_2PhiMinusPhiS, Sigma_3PhiMinusPhiS, Sigma_PhiPlusPhiS, Sigma_2PhiPlusPhiS;
     Double_t Sigma_Lab, Sigma_UU, Sigma_UT, SSAsym, SineAsym;
     Double_t Sig_L, Sig_T, Sig_LT, Sig_TT;
-    Double_t Flux_Factor_RF, Flux_Factor_Col, Jacobian_CM, Jacobian_CM_RF, Jacobian_CM_Col, A_Factor;
+    Double_t Flux_Factor_RF, Flux_Factor_Col, Jacobian_CM, Jacobian_CM_RF, Jacobian_CM_Col, A_Factor, Photon_Factor, Photon_Theta;
     /*}}}*/
 
     /*Branches{{{*/
@@ -195,7 +216,10 @@ int main(){
     t1->SetBranchAddress("Phi",                                       &Phi                 );/*{{{*/
     t1->SetBranchAddress("PhiS",                                      &PhiS                );
     t1->SetBranchAddress("Phi_Corrected",                             &Phi_corr            );
-    t1->SetBranchAddress("PhiS_Corrected",                            &PhiS_corr           );/*}}}*/
+    t1->SetBranchAddress("PhiS_Corrected",                            &PhiS_corr           );
+    //t1->SetBranchAddress("Photon_Corrected_Theta",                    &Photon_Theta        );
+    //t1->SetBranchAddress("Factor_Col",                                &Photon_Factor       );
+    /*}}}*/
 
     //Different XS Quantities/
     //In the lab frame/*{{{*/
@@ -205,22 +229,29 @@ int main(){
 
     //XSs corresponding to different Asymmetries
     //dSigma_k_Sin(...) = kFactor * Sin(...) * fAsym_k * dSigma_UU, in lab frame
-    t1->SetBranchAddress("Sig_PhiS_Col",                                 &Sigma_PhiS           );
-    t1->SetBranchAddress("Sig_Phi_Minus_PhiS_Col",                       &Sigma_PhiMinusPhiS );
-    t1->SetBranchAddress("Sig_2Phi_Minus_PhiS_Col",                      &Sigma_2PhiMinusPhiS);
-    t1->SetBranchAddress("Sig_3Phi_Minus_PhiS_Col",                      &Sigma_3PhiMinusPhiS);
-    t1->SetBranchAddress("Sig_Phi_Plus_PhiS_Col",                        &Sigma_PhiPlusPhiS  );
-    t1->SetBranchAddress("Sig_2Phi_Plus_PhiS_Col",                       &Sigma_2PhiPlusPhiS );
+    //t1->SetBranchAddress("Sig_PhiS_Col",                                 &Sigma_PhiS           );
+    //t1->SetBranchAddress("Sig_Phi_Minus_PhiS_Col",                       &Sigma_PhiMinusPhiS );
+    //t1->SetBranchAddress("Sig_2Phi_Minus_PhiS_Col",                      &Sigma_2PhiMinusPhiS);
+    //t1->SetBranchAddress("Sig_3Phi_Minus_PhiS_Col",                      &Sigma_3PhiMinusPhiS);
+    //t1->SetBranchAddress("Sig_Phi_Plus_PhiS_Col",                        &Sigma_PhiPlusPhiS  );
+    //t1->SetBranchAddress("Sig_2Phi_Plus_PhiS_Col",                       &Sigma_2PhiPlusPhiS );
+    t1->SetBranchAddress("Term_Phi_S_Col",                                 &Sigma_PhiS           );
+    t1->SetBranchAddress("Term_PhiMinusPhi_S_Col",                       &Sigma_PhiMinusPhiS );
+    t1->SetBranchAddress("Term_2PhiMinusPhi_S_Col",                      &Sigma_2PhiMinusPhiS);
+    t1->SetBranchAddress("Term_3PhiMinusPhi_S_Col",                      &Sigma_3PhiMinusPhiS);
+    t1->SetBranchAddress("Term_PhiPlusPhi_S_Col",                        &Sigma_PhiPlusPhiS  );
+    t1->SetBranchAddress("Term_2PhiPlusPhi_S_Col",                       &Sigma_2PhiPlusPhiS );
 
     //6 Asymmetries, "_Col" means in the lab frame, w/o that means the rest frame
     t1->SetBranchAddress("SSAsym",                                       &SSAsym           );
     t1->SetBranchAddress("SineAsym",                                     &SineAsym           );
     t1->SetBranchAddress("AsymPhi_S_Col",                                &Asym_PhiS           );
     t1->SetBranchAddress("AsymPhiMinusPhi_S_Col",                        &Asym_PhiMinusPhiS   );
-    t1->SetBranchAddress("AsymPhiPlusPhi_S_Col",                         &Asym_PhiPlusPhiS    );
-    t1->SetBranchAddress("Asym3PhiMinusPhi_S_Col",                       &Asym_3PhiMinusPhiS  );
-    t1->SetBranchAddress("AsymPhiMinusPhi_S_Col",                        &Asym_2PhiMinusPhiS  );
     t1->SetBranchAddress("Asym2PhiMinusPhi_S_Col",                       &Asym_2PhiMinusPhiS  );/*}}}*/
+    t1->SetBranchAddress("Asym3PhiMinusPhi_S_Col",                       &Asym_3PhiMinusPhiS  );
+    t1->SetBranchAddress("AsymPhiMinusPhi_S_Col",                        &Asym_PhiMinusPhiS  );
+    t1->SetBranchAddress("AsymPhiPlusPhi_S_Col",                         &Asym_PhiPlusPhiS    );
+    t1->SetBranchAddress("Asym2PhiPlusPhi_S_Col",                        &Asym_2PhiPlusPhiS    );
 
     //LT XS in the rest frame/*{{{*/
     t1->SetBranchAddress("ZASig_T",                                   &Sig_T             );//Pleaes explain here
@@ -269,14 +300,15 @@ int main(){
     /*}}}*/
     /*}}}*/
 
-    new_filename = "./rootfiles/DEMP_Ee_11_4_up_simple.root";
-    //new_filename = "./rootfiles/DEMP_Ee_11_4_down_simple.root";
+    if(CASE==1) new_filename = Form("./rootfiles/DEMP_Ee_11_4_%s_simple.root", targetname.Data());
+    if(CASE==2) new_filename = Form("./rootfiles/DEMP_Ee_11_4_%s_mult.root", targetname.Data());
+    if(CASE==3) new_filename = Form("./rootfiles/DEMP_Ee_11_4_%s_mult_fsi.root", targetname.Data());
     cout<<"---  Saving in file = "<<new_filename.Data()<<endl;
     TFile* f2=new TFile(new_filename.Data(),"recreate"); 
    
     /*Define new Tree and new Branch{{{*/
-    double ele_acc_f, ele_acc_l, pim_acc_f,pim_acc_l, pro_acc_f,pro_acc_l;
-    double MM, MM_res,dilute,weight;
+    double ele_acc_f, ele_acc_l, pim_acc_f,pim_acc_l, pro_acc_f,pro_acc_l,total_acc, total_acc_corr, total_acc_res;
+    double MM, MM_res,dilute,weight, weight_uu, weight_ut, weight_3m1, weight_2m1, weight_1m1, weight_0p1, weight_1p1, weight_2p1;
     double ele_mom_res, ele_theta_res, ele_phi_res;
     double pim_mom_res, pim_theta_res, pim_phi_res;
     double pro_mom_res, pro_theta_res, pro_phi_res;
@@ -290,6 +322,7 @@ int main(){
     t2->Branch("Epsilon", &Epsilon, "Epsilon/D" );
     t2->Branch("Qsq", &Qsq ,"Qsq/D");
     t2->Branch("t", &t ,"t/D");
+    t2->Branch("t_Para", &t_Para ,"t_Para/D");
     t2->Branch("W", &W ,"W/D");
     t2->Branch("x", &x ,"x/D");
     t2->Branch("y", &y ,"y/D");
@@ -318,7 +351,10 @@ int main(){
     t2->Branch("Phi",       &Phi,       "Phi/D");/*{{{*/
     t2->Branch("PhiS",      &PhiS,      "PhiS/D");
     t2->Branch("Phi_corr",  &Phi_corr,  "Phi_corr/D");
-    t2->Branch("PhiS_corr", &PhiS_corr, "PhiS_corr/D");/*}}}*/
+    t2->Branch("PhiS_corr", &PhiS_corr, "PhiS_corr/D");
+    t2->Branch("Photon_Theta",      &Photon_Theta,      "Photon_Theta/D");
+    t2->Branch("Photon_Factor",      &Photon_Factor,      "Photon_Factor/D");
+    /*}}}*/
 
     t2->Branch("Sigma_Lab",     &Sigma_Lab, "data/D");                              /*{{{*/
     t2->Branch("Sigma_UU",      &Sigma_UU,   "data/D");                              
@@ -443,10 +479,25 @@ int main(){
 
     //Add other quantities/*{{{*/
     t2->Branch("weight",        &weight,        "weight/D");
+    t2->Branch("weight_uu",        &weight_uu,        "weight_uu/D"); //weight for unpolarized XS
+    t2->Branch("weight_ut",        &weight_ut,        "weight_ut/D"); //weight for polarized XS
+    t2->Branch("weight_3m1",        &weight_3m1,        "weight_3m1/D"); //weight for Sin(3Phi-PhiS) module
+    t2->Branch("weight_2m1",        &weight_2m1,        "weight_2m1/D"); //weight for Sin(2Phi-PhiS) module
+    t2->Branch("weight_1m1",        &weight_1m1,        "weight_1m1/D"); //weight for Sin(Phi-PhiS) module
+    t2->Branch("weight_0p1",        &weight_0p1,        "weight_0p1/D"); //weight for Sin(PhiS) module
+    t2->Branch("weight_1p1",        &weight_1p1,        "weight_1p1/D"); //weight for Sin(Phi+PhiS) module
+    t2->Branch("weight_2p1",        &weight_2p1,        "weight_2p1/D"); //weight for Sin(2Phi+PhiS) module
     t2->Branch("dilute",        &dilute,        "dilute/D");
     //t2->Branch("PSF",           &PSF,           "PSF/D");
     t2->Branch("MM",            &MM,            "MM/D");
     t2->Branch("MM_res", &MM_res, "MM_res/D");/*}}}*/
+    
+    t2->Branch("time",            &time,            "time/D");
+    t2->Branch("fileNO",          &fileNO,          "fileNO/I");
+    t2->Branch("total_acc",       &total_acc,       "total_acc/D");
+    t2->Branch("total_acc_corr",  &total_acc_corr,  "total_acc_corr/D");
+    t2->Branch("total_acc_res",   &total_acc_res,   "total_acc_res/D");
+    //t2->Branch("",            &,            "/D");
     /*}}}*/
 
     /*Vectors & Histograms{{{*/
@@ -525,6 +576,18 @@ int main(){
             //Make sure to use the corrected quantities for multipile scattering and eloss effects
             //Do not use the smeared quantities since we are about whether particles are in the accepntace or not, but not how good we measure
             /*Elec Acc {{{*/
+            ele_acc_f = accpt->GetAcc("e-","forward", ele_mom, ele_theta);
+            ele_acc_l = accpt->GetAcc("e-","large", ele_mom, ele_theta);
+            if(ele_mom<1.0||ele_theta>14.8||ele_theta<8.0)//GeV, CLEO
+            ele_acc_f=0.0;//Farward-Angle EC Cut at 1 GeV
+            if(ele_mom<3.5||ele_theta<16.0||ele_theta>24)//GeV,CLEO
+            ele_acc_l=0.0; //Larger-Angle EC Cut at 3 GeV
+            if(ele_acc_f>1.) 
+            ele_acc_f=1.0; 
+            if(ele_acc_l>1.) 
+            ele_acc_l=1.0; 
+            total_acc = (ele_acc_l+ele_acc_f);
+            
             ele_acc_f = accpt->GetAcc("e-","forward", ele_corr_mom, ele_corr_theta);
             ele_acc_l = accpt->GetAcc("e-","large", ele_corr_mom, ele_corr_theta);
             if(ele_corr_mom<1.0||ele_corr_theta>14.8||ele_corr_theta<8.0)//GeV, CLEO
@@ -535,19 +598,34 @@ int main(){
                 ele_acc_f=1.0; 
             if(ele_acc_l>1.) 
                 ele_acc_l=1.0; 
+            total_acc_corr = (ele_acc_l+ele_acc_f);
 
-            //ele_acc_f = accpt->GetAcc("e-","forward", ele_mom, ele_theta);
-            //ele_acc_l = accpt->GetAcc("e-","large", ele_mom, ele_theta);
-            //if(ele_mom<1.0||ele_theta>14.8||ele_theta<8.0)//GeV, CLEO
-                //ele_acc_f=0.0;//Farward-Angle EC Cut at 1 GeV
-            //if(ele_mom<3.5||ele_theta<16.0||ele_theta>24)//GeV,CLEO
-                //ele_acc_l=0.0; //Larger-Angle EC Cut at 3 GeV
-            //if(ele_acc_f>1.) 
-                //ele_acc_f=1.0; 
-            //if(ele_acc_l>1.) 
-                //ele_acc_l=1.0; /*}}}*/
-            
+            ele_acc_f = accpt->GetAcc("e-","forward", ele_mom_res, ele_theta_res);
+            ele_acc_l = accpt->GetAcc("e-","large", ele_mom_res, ele_theta_res);
+            if(ele_mom_res<1.0||ele_theta_res>14.8||ele_theta_res<8.0)//GeV, CLEO
+            ele_acc_f=0.0;//Farward-Angle EC Cut at 1 GeV
+            if(ele_mom_res<3.5||ele_theta_res<16.0||ele_theta_res>24)//GeV,CLEO
+            ele_acc_l=0.0; //Larger-Angle EC Cut at 3 GeV
+            if(ele_acc_f>1.) 
+            ele_acc_f=1.0; 
+            if(ele_acc_l>1.) 
+            ele_acc_l=1.0; 
+            total_acc_res = (ele_acc_l+ele_acc_f);
+            /*}}}*/
+
             /*Pion Acc{{{*/
+            pim_acc_f = accpt->GetAcc("pi-","forward", pim_mom, pim_theta);
+            pim_acc_l = accpt->GetAcc("pi-","large", pim_mom, pim_theta);
+            if(pim_theta>14.8||pim_theta<8.0||pim_mom<0.||pim_mom>11.)//GeV, CLEO
+            pim_acc_f=0.0;
+            if(pim_theta<16.0||pim_theta>24.0||pim_mom<0.||pim_mom>11.)//GeV, CLEO
+            pim_acc_l=0.0; 
+            if(pim_acc_f>1.) 
+            pim_acc_f=1.0; 
+            if(pim_acc_l>1.) 
+            pim_acc_l=1.0; 
+            total_acc *= (pim_acc_f);
+            
             pim_acc_f = accpt->GetAcc("pi-","forward", pim_corr_mom, pim_corr_theta);
             pim_acc_l = accpt->GetAcc("pi-","large", pim_corr_mom, pim_corr_theta);
             if(pim_corr_theta>14.8||pim_corr_theta<8.0||pim_corr_mom<0.||pim_corr_mom>11.)//GeV, CLEO
@@ -557,28 +635,43 @@ int main(){
             if(pim_acc_f>1.) 
             pim_acc_f=1.0; 
             if(pim_acc_l>1.) 
-            pim_acc_l=1.0; 
+                pim_acc_l=1.0; 
+            total_acc_corr *= (pim_acc_f);
 
-            //pim_acc_f = accpt->GetAcc("pi-","forward", pim_mom, pim_theta);
-            //pim_acc_l = accpt->GetAcc("pi-","large", pim_mom, pim_theta);
-            //if(pim_theta>14.8||pim_theta<8.0||pim_mom<0.||pim_mom>11.)//GeV, CLEO
-                //pim_acc_f=0.0;
-            //if(pim_theta<16.0||pim_theta>24.0||pim_mom<0.||pim_mom>11.)//GeV, CLEO
-                //pim_acc_l=0.0; 
-            //if(pim_acc_f>1.) 
-                //pim_acc_f=1.0; 
-            //if(pim_acc_l>1.) 
-                //pim_acc_l=1.0; 
+            pim_acc_f = accpt->GetAcc("pi-","forward", pim_mom_res, pim_theta_res);
+            pim_acc_l = accpt->GetAcc("pi-","large", pim_mom_res, pim_theta_res);
+            if(pim_theta_res>14.8||pim_theta<8.0||pim_mom_res<0.||pim_mom_res>11.)//GeV, CLEO
+            pim_acc_f=0.0;
+            if(pim_theta_res<16.0||pim_theta_res>24.0||pim_mom_res<0.||pim_mom_res>11.)//GeV, CLEO
+            pim_acc_l=0.0; 
+            if(pim_acc_f>1.) 
+            pim_acc_f=1.0; 
+            if(pim_acc_l>1.) 
+            pim_acc_l=1.0; 
+            total_acc_res *= (pim_acc_f);
+
             /*}}}*/
 
             /*Proton Acc {{{*/
             //The momentum cut is applied by EC while for proton, we don't reply on EC to tell the acceptance.
             //What I assume here is that we can detecto all energy range of protons,
             //unlike electrons which need to be separated from pions
-            //     pro_acc_f = accpt->GetAcc("p","forward", pro_mom, pro_theta);
-            //     pro_acc_l = accpt->GetAcc("p","large", pro_mom, pro_theta);
+            //   pro_acc_f = accpt->GetAcc("p","forward", pro_mom, pro_theta);
+            //   pro_acc_l = accpt->GetAcc("p","large", pro_mom, pro_theta);
             //   pro_acc_f = accpt->GetThetaAcc("p","forward", pro_theta);
             //   pro_acc_l = accpt->GetThetaAcc("p","large", pro_theta);
+
+            pro_acc_f = 1.0;
+            pro_acc_l = 1.0;
+            if(pro_theta>14.8||pro_theta<8.0||pro_mom<0.||pro_mom>11.)//GeV, CLEO
+                pro_acc_f=0.0;
+            if(pro_theta<16.0||pro_theta>24.0||pro_mom<0.||pro_mom>11.)//GeV, CLEO
+                pro_acc_l=0.0; 
+            if(pro_acc_f>1.) 
+                pro_acc_f=1.0; 
+            if(pro_acc_l>1.) 
+                pro_acc_l=1.0; 
+            total_acc *= (pro_acc_l+pro_acc_f);
 
             pro_acc_f = 1.0;
             pro_acc_l = 1.0;
@@ -590,30 +683,49 @@ int main(){
                 pro_acc_f=1.0; 
             if(pro_acc_l>1.) 
                 pro_acc_l=1.0; 
+            total_acc_corr *= (pro_acc_l+pro_acc_f);
 
-            //pro_acc_f = 1.0;
-            //pro_acc_l = 1.0;
-            //if(pro_theta>14.8||pro_theta<8.0||pro_mom<0.||pro_mom>11.)//GeV, CLEO
-                //pro_acc_f=0.0;
-            //if(pro_theta<16.0||pro_theta>24.0||pro_mom<0.||pro_mom>11.)//GeV, CLEO
-                //pro_acc_l=0.0; 
-            //if(pro_acc_f>1.) 
-                //pro_acc_f=1.0; 
-            //if(pro_acc_l>1.) 
-                //pro_acc_l=1.0; 
+            pro_acc_f = 1.0;
+            pro_acc_l = 1.0;
+            if(pro_theta_res>14.8||pro_theta_res<8.0 ||pro_mom_res<0.||pro_mom_res>11.)//GeV, CLEO
+                pro_acc_f=0.0;
+            if(pro_theta_res<16.0||pro_theta_res>24.0||pro_mom_res<0.||pro_mom_res>11.)//GeV, CLEO
+                pro_acc_l=0.0; 
+            if(pro_acc_f>1.) 
+                pro_acc_f=1.0; 
+            if(pro_acc_l>1.) 
+                pro_acc_l=1.0; 
+            total_acc_res *= (pro_acc_l+pro_acc_f);
             /*}}}*/
 
-            double ele_acceptance=(ele_acc_f+ele_acc_l);
-            //double pim_acceptance=(pim_acc_l+pim_acc_f);
-            double pim_acceptance=pim_acc_f;
-            double pro_acceptance=pro_acc_f+pro_acc_l;
-
-            double total_acceptance=ele_acceptance*pim_acceptance*pro_acceptance;
             /*}}}*/
 
             dilute = Epsilon*Sig_L/(Epsilon*Sig_L + Sig_T);
-            weight = EventWeight * total_acceptance/fileNO * time;//XS*Lumi*PSF*Acc, give the real rates
+            //weight = EventWeight * total_acc_res/fileNO * time;//XS*Lumi*PSF*Acc, give the real rates
+            weight = EventWeight * total_acc / fileNO * time;//XS*Lumi*PSF*Acc, give the real rates
             total_rate_dvmp += weight/time;
+
+            //Didn't save in the Root file so have to reconstruct it back
+            Photon_Factor = Sigma_PhiS / sin(PhiS*Deg2Rad) / (Asym_PhiS*Sigma_UU) / 0.865;
+            Photon_Theta = asin( sqrt( (1-1./Photon_Factor)/pow(sin(PhiS*Deg2Rad),2) ) )*Rad2Deg;
+            
+            //Remove the polarization values from the polarized XS, assuming 100% polarization
+            Sigma_UT /= 0.865;
+            Sigma_3PhiMinusPhiS /= 0.865;
+            Sigma_2PhiMinusPhiS /= 0.865;
+            Sigma_PhiMinusPhiS /= 0.865;
+            Sigma_PhiS /= 0.865;
+            Sigma_PhiPlusPhiS /= 0.865;
+            Sigma_2PhiPlusPhiS /= 0.865;
+
+            weight_uu  = weight/(Sigma_Lab) * Sigma_UU;
+            weight_ut  = weight/(Sigma_Lab) * Sigma_UT;
+            weight_3m1 = weight/(Sigma_Lab) * Sigma_3PhiMinusPhiS;
+            weight_2m1 = weight/(Sigma_Lab) * Sigma_2PhiMinusPhiS;
+            weight_1m1 = weight/(Sigma_Lab) * Sigma_PhiMinusPhiS;
+            weight_0p1 = weight/(Sigma_Lab) * Sigma_PhiS;
+            weight_1p1 = weight/(Sigma_Lab) * Sigma_PhiPlusPhiS;
+            weight_2p1 = weight/(Sigma_Lab) * Sigma_2PhiPlusPhiS;
 
             /*Missing Mass w/o resolutions{{{*/
             P_E0->SetPxPyPzE(0.,0.,EBeam, EBeam);
@@ -623,15 +735,15 @@ int main(){
             P_pro->SetPxPyPzE(pro_px,pro_py,pro_pz,pro_ene);	
 
             int err = CheckLaws(P_t, P_E0, P_e, P_pim, P_pro);//Check whether momentum and energy conserve first
-            if (err < 1e-33){
-            cerr<<"---- Momentum and Energy Conservation Laws are broken!! Something is wrong!!!"<<endl;
-            }
+            /*if (err < 1e-33){*/
+            //cerr<<"---- Momentum and Energy Conservation Laws are broken!! Something is wrong!!!"<<endl;
+            /*}*/
 
             MM = GetMM(P_t, P_E0, P_e, P_pim);	
             if(ele_theta>7.5&&ele_theta<24.5&&ele_mom>1.&&ele_mom<11
                     &&pim_theta>7.5&&pim_theta<24.5&&pim_mom>1.&&pim_mom<11
                     && W>=2.&&Qsq>1.0&&Sigma_Lab>1e-33)//any additional cuts should be added in here
-                hMM->Fill(MM, weight*total_acceptance);
+                hMM->Fill(MM, weight*total_acc_res);
             /*}}}*/
 
             /*Missing Mass w/ detector resolutions{{{*/
@@ -640,7 +752,7 @@ int main(){
             if(ele_theta>7.5&&ele_theta<24.5&&ele_mom>1.&&ele_mom<11
                     &&pim_theta>7.5&&pim_theta<24.5&&pim_mom>1.&&pim_mom<11
                     && W>=2.&&Qsq>1.0&&Sigma_Lab>1e-33)//any additional cuts should be added in here
-                hMM_res->Fill(MM_res, weight*total_acceptance);	
+                hMM_res->Fill(MM_res, weight*total_acc_res);	
             //////////////////////////////////////////*}}}*/
             t2->Fill(); 
             if(!(i%1000))
