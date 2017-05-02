@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015) (preloaded format=pdflatex 2015.5.24)  1 JUL 2016 15:15
+This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015) (preloaded format=pdflatex 2015.5.24)  1 MAY 2017 22:40
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -678,7 +678,7 @@ File: ulasy.fd 1998/08/17 v2.2e LaTeX symbol font definitions
  [3
 
 ] [4] (./motivation.tex
-<./figures/pdist_gpd_comparo.pdf, id=166, 590.205pt x 444.66125pt>
+<./figures/pdist_gpd_comparo.pdf, id=211, 590.205pt x 444.66125pt>
 File: ./figures/pdist_gpd_comparo.pdf Graphic file (type pdf)
 
 <use ./figures/pdist_gpd_comparo.pdf>
@@ -686,60 +686,62 @@ Package pdftex.def Info: ./figures/pdist_gpd_comparo.pdf used on input line 26.
 
 (pdftex.def)             Requested size: 226.59471pt x 170.71652pt.
  [5 <./figures/pdist_gpd_comparo.pdf>]
-<figures/PCAC_pion_pole.pdf, id=191, 665.48625pt x 204.765pt>
+<figures/PCAC_pion_pole.pdf, id=235, 665.48625pt x 204.765pt>
 File: figures/PCAC_pion_pole.pdf Graphic file (type pdf)
 
 <use figures/PCAC_pion_pole.pdf>
 Package pdftex.def Info: figures/PCAC_pion_pole.pdf used on input line 101.
 (pdftex.def)             Requested size: 369.89758pt x 113.81102pt.
 
-<./figures/atpi_planes.pdf, id=195, 875.27pt x 475.7775pt>
-File: ./figures/atpi_planes.pdf Graphic file (type pdf)
+<./figures/atpi_planes.png, id=239, 874.467pt x 475.17525pt>
+File: ./figures/atpi_planes.png Graphic file (type png)
 
-<use ./figures/atpi_planes.pdf>
-Package pdftex.def Info: ./figures/atpi_planes.pdf used on input line 128.
-(pdftex.def)             Requested size: 261.71492pt x 142.26378pt.
+<use ./figures/atpi_planes.png>
+Package pdftex.def Info: ./figures/atpi_planes.png used on input line 128.
+(pdftex.def)             Requested size: 261.80838pt x 142.26378pt.
  [6]
-<./figures/frankfurt_atpi.pdf, id=219, 464.73625pt x 402.50375pt>
+<./figures/frankfurt_atpi.pdf, id=263, 464.73625pt x 402.50375pt>
 File: ./figures/frankfurt_atpi.pdf Graphic file (type pdf)
 
 <use ./figures/frankfurt_atpi.pdf>
-Package pdftex.def Info: ./figures/frankfurt_atpi.pdf used on input line 173.
+Package pdftex.def Info: ./figures/frankfurt_atpi.pdf used on input line 172.
 (pdftex.def)             Requested size: 229.9636pt x 199.16928pt.
- [7 <./figures/PCAC_pion_pole.pdf> <./figures/atpi_planes.pdf>] <./figures/beli
-tsky2.pdf, id=248, 614.295pt x 546.04pt>
+ [7 <./figures/PCAC_pion_pole.pdf> <./figures/atpi_planes.png (PNG copy)>]
+<./figures/belitsky2.pdf, id=287, 614.295pt x 546.04pt>
 File: ./figures/belitsky2.pdf Graphic file (type pdf)
 
 <use ./figures/belitsky2.pdf>
-Package pdftex.def Info: ./figures/belitsky2.pdf used on input line 198.
+Package pdftex.def Info: ./figures/belitsky2.pdf used on input line 197.
 (pdftex.def)             Requested size: 320.09137pt x 284.52756pt.
  [8 <./figures/frankfurt_atpi.pdf>] [9 <./figures/belitsky2.pdf>] <./figures/he
-rmes_Aut.pdf, id=293, 501.875pt x 392.46625pt>
+rmes_Aut.pdf, id=334, 501.875pt x 392.46625pt>
 File: ./figures/hermes_Aut.pdf Graphic file (type pdf)
 
 <use ./figures/hermes_Aut.pdf>
-Package pdftex.def Info: ./figures/hermes_Aut.pdf used on input line 310.
+Package pdftex.def Info: ./figures/hermes_Aut.pdf used on input line 321.
 (pdftex.def)             Requested size: 254.69695pt x 199.16928pt.
  [10]
-<./figures/goloskokov2.png, id=308, 417.4797pt x 590.205pt>
+<./figures/goloskokov2.png, id=358, 417.4797pt x 590.205pt>
 File: ./figures/goloskokov2.png Graphic file (type png)
 
 <use ./figures/goloskokov2.png>
-Package pdftex.def Info: ./figures/goloskokov2.png used on input line 348.
+Package pdftex.def Info: ./figures/goloskokov2.png used on input line 362.
 (pdftex.def)             Requested size: 201.2607pt x 284.52756pt.
-
-<./figures/hermes_sinphiS.png, id=321, 537.50812pt x 420.06938pt>
+ [11 <./figures/hermes_Aut.pdf>] [12 <./figures/goloskokov2.png>]
+<./figures/hermes_sinphiS.png, id=390, 537.50812pt x 420.06938pt>
 File: ./figures/hermes_sinphiS.png Graphic file (type png)
 
 <use ./figures/hermes_sinphiS.png>
-Package pdftex.def Info: ./figures/hermes_sinphiS.png used on input line 388.
+Package pdftex.def Info: ./figures/hermes_sinphiS.png used on input line 429.
 (pdftex.def)             Requested size: 254.8515pt x 199.16928pt.
- [11 <./figures/hermes_Aut.pdf>]
 
-LaTeX Warning: Text page 12 contains only floats.
+<./figures/gk16.png, id=398, 568.73347pt x 745.7311pt>
+File: ./figures/gk16.png Graphic file (type png)
 
-[12 <./figures/goloskokov2.png> <./figures/hermes_sinphiS.png>]) [13]
-(./setup.tex
+<use ./figures/gk16.png>
+Package pdftex.def Info: ./figures/gk16.png used on input line 465.
+(pdftex.def)             Requested size: 325.49185pt x 426.79134pt.
+ [13 <./figures/hermes_sinphiS.png>]) [14 <./figures/gk16.png>] (./setup.tex
 
 Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
 (hyperref)                removing `math shift' on input line 47.
@@ -752,7 +754,7 @@ Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
 Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
 (hyperref)                removing `math shift' on input line 47.
 
-[14] <./figures/SoLID_SIDIS_setup.pdf, id=376, 722.7pt x 542.025pt>
+[15] <./figures/SoLID_SIDIS_setup.pdf, id=445, 722.7pt x 542.025pt>
 File: ./figures/SoLID_SIDIS_setup.pdf Graphic file (type pdf)
 
 <use ./figures/SoLID_SIDIS_setup.pdf>
@@ -763,64 +765,64 @@ Package pdftex.def Info: ./figures/SoLID_SIDIS_setup.pdf used on input line 113
 
 LaTeX Warning: `!h' float specifier changed to `!ht'.
 
-[15] [16 <./figures/SoLID_SIDIS_setup.pdf>] [17]
-<./figures/time_diff.pdf, id=464, 867.24pt x 361.35pt>
+[16] [17 <./figures/SoLID_SIDIS_setup.pdf>] [18]
+<./figures/time_diff.pdf, id=534, 867.24pt x 361.35pt>
 File: ./figures/time_diff.pdf Graphic file (type pdf)
 
 <use ./figures/time_diff.pdf>
 Package pdftex.def Info: ./figures/time_diff.pdf used on input line 236.
 (pdftex.def)             Requested size: 375.80544pt x 156.58498pt.
-) [18 <./figures/time_diff.pdf>] (./projection.tex <./figures//Q2_x_02Hz.pdf, i
-d=487, 511.9125pt x 348.30125pt>
+) [19 <./figures/time_diff.pdf>] (./projection.tex <./figures//Q2_x_02Hz.pdf, i
+d=558, 511.9125pt x 348.30125pt>
 File: ./figures//Q2_x_02Hz.pdf Graphic file (type pdf)
 
 <use ./figures//Q2_x_02Hz.pdf>
 Package pdftex.def Info: ./figures//Q2_x_02Hz.pdf used on input line 15.
 (pdftex.def)             Requested size: 211.38832pt x 143.82484pt.
 
-<./figures/E11_acc_epip_Q2gt4_02Hz.pdf, id=489, 427.5975pt x 626.34pt>
+<./figures/E11_acc_epip_Q2gt4_02Hz.pdf, id=560, 427.5975pt x 626.34pt>
 File: ./figures/E11_acc_epip_Q2gt4_02Hz.pdf Graphic file (type pdf)
 
 <use ./figures/E11_acc_epip_Q2gt4_02Hz.pdf>
 Package pdftex.def Info: ./figures/E11_acc_epip_Q2gt4_02Hz.pdf used on input li
 ne 30.
 (pdftex.def)             Requested size: 211.38832pt x 309.63307pt.
- [19 <./figures//Q2_x_02Hz.pdf, page is rotated 90 degrees>]
-<./figures/E11_Q2_t_bin_02Hz.pdf, id=545, 511.9125pt x 369.38pt>
+ [20 <./figures//Q2_x_02Hz.pdf, page is rotated 90 degrees>]
+<./figures/E11_Q2_t_bin_02Hz.pdf, id=614, 511.9125pt x 369.38pt>
 File: ./figures/E11_Q2_t_bin_02Hz.pdf Graphic file (type pdf)
 
 <use ./figures/E11_Q2_t_bin_02Hz.pdf>
 Package pdftex.def Info: ./figures/E11_Q2_t_bin_02Hz.pdf used on input line 85.
 
 (pdftex.def)             Requested size: 234.8775pt x 169.47722pt.
- [20 <./figures/E11_acc_epip_Q2gt4_02Hz.pdf>] <./figures/bin_asym_t_fermi_02Hz.
-pdf, id=600, 578.16pt x 433.62pt>
+ [21 <./figures/E11_acc_epip_Q2gt4_02Hz.pdf>] <./figures/bin_asym_t_fermi_02Hz.
+pdf, id=669, 578.16pt x 433.62pt>
 File: ./figures/bin_asym_t_fermi_02Hz.pdf Graphic file (type pdf)
 
 <use ./figures/bin_asym_t_fermi_02Hz.pdf>
 Package pdftex.def Info: ./figures/bin_asym_t_fermi_02Hz.pdf used on input line
  161.
 (pdftex.def)             Requested size: 305.33789pt x 229.00368pt.
- [21 <./figures/E11_Q2_t_bin_02Hz.pdf, page is rotated 90 degrees>] [22 <./figu
+ [22 <./figures/E11_Q2_t_bin_02Hz.pdf, page is rotated 90 degrees>] [23 <./figu
 res/bin_asym_t_fermi_02Hz.pdf>]
-<./figures/Missing_P_Fermi_Rad_02Hz.pdf, id=686, 511.9125pt x 369.38pt>
+<./figures/Missing_P_Fermi_Rad_02Hz.pdf, id=757, 511.9125pt x 369.38pt>
 File: ./figures/Missing_P_Fermi_Rad_02Hz.pdf Graphic file (type pdf)
 
 <use ./figures/Missing_P_Fermi_Rad_02Hz.pdf>
 Package pdftex.def Info: ./figures/Missing_P_Fermi_Rad_02Hz.pdf used on input l
 ine 252.
 (pdftex.def)             Requested size: 234.8775pt x 169.47722pt.
- [23 <./figures/Missing_P_Fermi_Rad_02Hz.pdf, page is rotated 90 degrees>]
-<./figures/Missing_Mass_Fermi_Rad_02Hz.pdf, id=737, 511.9125pt x 273.02pt>
+ [24 <./figures/Missing_P_Fermi_Rad_02Hz.pdf, page is rotated 90 degrees>]
+<./figures/Missing_Mass_Fermi_Rad_02Hz.pdf, id=807, 511.9125pt x 273.02pt>
 File: ./figures/Missing_Mass_Fermi_Rad_02Hz.pdf Graphic file (type pdf)
 
 <use ./figures/Missing_Mass_Fermi_Rad_02Hz.pdf>
 Package pdftex.def Info: ./figures/Missing_Mass_Fermi_Rad_02Hz.pdf used on inpu
 t line 271.
 (pdftex.def)             Requested size: 399.29463pt x 212.95891pt.
- [24 <./figures/Missing_Mass_Fermi_Rad_02Hz.pdf, page is rotated 90 degrees>]) 
-[25]
-(./demp_parameterization.tex
+ [25 <./figures/Missing_Mass_Fermi_Rad_02Hz.pdf, page is rotated 90 degrees>]) 
+[26] (./responses.tex [27])
+[28] (./demp_parameterization.tex
 
 Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
 (hyperref)                removing `math shift' on input line 2.
@@ -849,242 +851,230 @@ Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
 Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
 (hyperref)                removing `math shift' on input line 2.
 
+[29]
 
 Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
-(hyperref)                removing `math shift' on input line 74.
-
-
-Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
-(hyperref)                removing `superscript' on input line 74.
+(hyperref)                removing `math shift' on input line 115.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
-(hyperref)                removing `math shift' on input line 74.
-
-<./figures/pimsigma_qsq.pdf, id=808, 511.9125pt x 284.06125pt>
-File: ./figures/pimsigma_qsq.pdf Graphic file (type pdf)
-
-<use ./figures/pimsigma_qsq.pdf>
-Package pdftex.def Info: ./figures/pimsigma_qsq.pdf used on input line 78.
-(pdftex.def)             Requested size: 433.62013pt x 173.4548pt.
- [26]
-
-Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
-(hyperref)                removing `math shift' on input line 100.
+(hyperref)                removing `superscript' on input line 115.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
-(hyperref)                removing `\sigma' on input line 100.
+(hyperref)                removing `math shift' on input line 115.
+
+LaTeX Font Info:    Try loading font information for TS1+cmr on input line 123.
+
+(/usr/local/texlive/2015/texmf-dist/tex/latex/base/ts1cmr.fd
+File: ts1cmr.fd 2014/09/29 v2.5h Standard LaTeX font definitions
+)
+
+LaTeX Warning: Citation `gmhuber' on page 30 undefined on input line 146.
+
+
+LaTeX Warning: File `./figures/01.eps' not found on input line 155.
+
+Package epstopdf Info: Source file: <./figures/01.eps>
+(epstopdf)             Output file: <./figures/01-eps-converted-to.pdf>
+(epstopdf)             Command: <repstopdf --outfile=./figures/01-eps-converted
+-to.pdf ./figures/01.eps>
+(epstopdf)             \includegraphics on input line 155.
+Package epstopdf Info: Output file is already uptodate.
+
+! Package pdftex.def Error: File `./figures/01-eps-converted-to.pdf' not found.
+
+
+See the pdftex.def package documentation for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.155 ...dth=6.0in,height=3.0in]{./figures/01.eps}
+                                                  
+? 
+
+LaTeX Warning: File `./figures/02.eps' not found on input line 169.
+
+Package epstopdf Info: Source file: <./figures/02.eps>
+(epstopdf)             Output file: <./figures/02-eps-converted-to.pdf>
+(epstopdf)             Command: <repstopdf --outfile=./figures/02-eps-converted
+-to.pdf ./figures/02.eps>
+(epstopdf)             \includegraphics on input line 169.
+Package epstopdf Info: Output file is already uptodate.
+
+! Package pdftex.def Error: File `./figures/02-eps-converted-to.pdf' not found.
+
+
+See the pdftex.def package documentation for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.169 ...dth=5.0in,height=2.4in]{./figures/02.eps}
+                                                  
+? 
+
+Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
+(hyperref)                removing `math shift' on input line 179.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
-(hyperref)                removing `subscript' on input line 100.
+(hyperref)                removing `\sigma' on input line 179.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
-(hyperref)                removing `math shift' on input line 100.
+(hyperref)                removing `subscript' on input line 179.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
-(hyperref)                removing `math shift' on input line 100.
+(hyperref)                removing `math shift' on input line 179.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
-(hyperref)                removing `\sigma' on input line 100.
+(hyperref)                removing `math shift' on input line 179.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
-(hyperref)                removing `subscript' on input line 100.
+(hyperref)                removing `\sigma' on input line 179.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
-(hyperref)                removing `math shift' on input line 100.
+(hyperref)                removing `subscript' on input line 179.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
-(hyperref)                removing `math shift' on input line 100.
+(hyperref)                removing `math shift' on input line 179.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
-(hyperref)                removing `\sigma' on input line 100.
+(hyperref)                removing `math shift' on input line 179.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
-(hyperref)                removing `subscript' on input line 100.
+(hyperref)                removing `\sigma' on input line 179.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
-(hyperref)                removing `math shift' on input line 100.
+(hyperref)                removing `subscript' on input line 179.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
-(hyperref)                removing `math shift' on input line 100.
+(hyperref)                removing `math shift' on input line 179.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
-(hyperref)                removing `math shift' on input line 100.
+(hyperref)                removing `math shift' on input line 179.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
-(hyperref)                removing `math shift' on input line 100.
+(hyperref)                removing `math shift' on input line 179.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
-(hyperref)                removing `\sigma' on input line 100.
+(hyperref)                removing `math shift' on input line 179.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
-(hyperref)                removing `subscript' on input line 100.
+(hyperref)                removing `\sigma' on input line 179.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
-(hyperref)                removing `math shift' on input line 100.
-
-<./figures/pimFit.pdf, id=832, 511.9125pt x 284.06125pt>
-File: ./figures/pimFit.pdf Graphic file (type pdf)
-
-<use ./figures/pimFit.pdf>
-Package pdftex.def Info: ./figures/pimFit.pdf used on input line 104.
-(pdftex.def)             Requested size: 433.62013pt x 173.4548pt.
- [27 <./figures/pimsigma_qsq.pdf>]
-
-Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
-(hyperref)                removing `math shift' on input line 147.
+(hyperref)                removing `subscript' on input line 179.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
-(hyperref)                removing `subscript' on input line 147.
+(hyperref)                removing `math shift' on input line 179.
 
 
-Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
-(hyperref)                removing `superscript' on input line 147.
+LaTeX Warning: Citation `gmhuber' on page 30 undefined on input line 185.
 
-
-Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
-(hyperref)                removing `\perp' on input line 147.
-
-
-Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
-(hyperref)                removing `math shift' on input line 147.
-
-<./figures/asym_3.pdf, id=864, 511.9125pt x 192.72pt>
+[30] [31] <./figures/asym_3.pdf, id=942, 511.9125pt x 192.72pt>
 File: ./figures/asym_3.pdf Graphic file (type pdf)
 
 <use ./figures/asym_3.pdf>
-Package pdftex.def Info: ./figures/asym_3.pdf used on input line 151.
+Package pdftex.def Info: ./figures/asym_3.pdf used on input line 240.
 (pdftex.def)             Requested size: 433.62013pt x 104.79063pt.
- [28 <./figures/pimFit.pdf> <./figures/asym_3.pdf>]
-<./figures/Fermi.pdf, id=908, 511.9125pt x 245.91875pt>
+
+<./figures/Fermi.pdf, id=945, 511.9125pt x 245.91875pt>
 File: ./figures/Fermi.pdf Graphic file (type pdf)
 
 <use ./figures/Fermi.pdf>
-Package pdftex.def Info: ./figures/Fermi.pdf used on input line 192.
+Package pdftex.def Info: ./figures/Fermi.pdf used on input line 281.
 (pdftex.def)             Requested size: 289.08269pt x 180.68243pt.
-) (./prop_bib.tex [29 <./figures/Fermi.pdf>]
-Underfull \hbox (badness 1142) in paragraph at lines 5--10
-\OT1/cmr/m/n/10 Deep-Inelastic $(\OML/cmm/m/it/10 e; e[]^^Y[]\OT1/cmr/m/n/10 )$
- Re-ac-tion on a Trans-versely Po-lar-ized $[]$ Tar-get at 11 GeV'', $\OML/cmm/
-m/it/10 https \OT1/cmr/m/n/10 :
- []
-
-[30
+ [32 <./figures/asym_3.pdf>] [33 <./figures/Fermi.pdf>]) (./prop_bib.tex [34] [
+35
 
 ]
-Underfull \hbox (badness 10000) in paragraph at lines 85--89
-[]\OT1/cmr/m/n/10 Approved SoLID SIDIS ex-per-i-ment E12-11-007, ``Asym-me-trie
-s in Semi-Inclusive Deep-
- []
-
-
-Underfull \hbox (badness 2088) in paragraph at lines 85--89
-\OT1/cmr/m/n/10 Inelastic $(\OML/cmm/m/it/10 e; e[]^^Y[]\OT1/cmr/m/n/10 )$ Re-a
-c-tions on a Lon-gi-tu-di-nally Po-lar-ized $[]$ Tar-get at 8.8 and 11 GeV'',
- []
-
-
-Underfull \hbox (badness 1067) in paragraph at lines 85--89
+Underfull \hbox (badness 1067) in paragraph at lines 93--97
 \OML/cmm/m/it/10 https \OT1/cmr/m/n/10 : \OML/cmm/m/it/10 ==www:jlab:org=exp[]r
 og=PACpage=PAC\OT1/cmr/m/n/10 37\OML/cmm/m/it/10 =proposals=Proposals=New\OT1/c
 mr/m/n/10 %20\OML/cmm/m/it/10 Proposals=PR \OMS/cmsy/m/n/10 ^^@
  []
 
 
-Underfull \hbox (badness 3668) in paragraph at lines 91--95
-[]\OT1/cmr/m/n/10 Approved SoLID SIDIS ex-per-i-ment E12-11-108, ``Tar-get Sin-
-gle Spin Asym-me-try in Semi-
+Overfull \hbox (15.63097pt too wide) in paragraph at lines 123--127
+\OML/cmm/m/it/10 https \OT1/cmr/m/n/10 : \OML/cmm/m/it/10 ==www:jlab:org=exp[]p
+rog=PACpage=PAC\OT1/cmr/m/n/10 37\OML/cmm/m/it/10 =proposals=Proposals=Previous
+ly\OT1/cmr/m/n/10 %20\OML/cmm/m/it/10 Approved=E\OT1/cmr/m/n/10 12 \OMS/cmsy/m/
+n/10 ^^@
  []
 
-
-Underfull \hbox (badness 10000) in paragraph at lines 115--119
-[]\OT1/cmr/m/n/10 Approved SoLID PVDIS ex-per-i-ment E12-10-007, ``Pre-ci-sion 
-Mea-sure-ment of Parity-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 115--119
-\OT1/cmr/m/n/10 violation in Deep In-elas-tic Scat-ter-ing Over a Broad Kine-ma
-tic Range'', $\OML/cmm/m/it/10 https \OT1/cmr/m/n/10 :
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 115--119
-\OML/cmm/m/it/10 ==www:jlab:org=exp[]prog=PACpage=PAC\OT1/cmr/m/n/10 37\OML/cmm
-/m/it/10 =proposals=Proposals=Previously\OT1/cmr/m/n/10 %20\OML/cmm/m/it/10 App
-roved=E\OT1/cmr/m/n/10 12 \OMS/cmsy/m/n/10 ^^@
- []
-
-)
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 337.
- [31] [32]
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 337.
+[36])
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 341.
+ [37]
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 341.
  (./solid_neutron_DEMP.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 337.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 337.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 341.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 341.
 Package rerunfilecheck Info: File `solid_neutron_DEMP.out' has not changed.
-(rerunfilecheck)             Checksum: 20C8965F87162B93E56F8546BF1573CE;1787.
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 337.
+(rerunfilecheck)             Checksum: 2A6E2EF40D9D33A3E95CFB4E7C7BCF57;2616.
+
+
+LaTeX Warning: There were undefined references.
+
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 341.
  ) 
 Here is how much of TeX's memory you used:
- 11109 strings out of 493089
- 165775 string characters out of 6134842
- 273801 words of memory out of 5000000
- 14219 multiletter control sequences out of 15000+600000
- 20306 words of font info for 82 fonts, out of 8000000 for 9000
+ 11173 strings out of 493089
+ 167031 string characters out of 6134842
+ 274270 words of memory out of 5000000
+ 14250 multiletter control sequences out of 15000+600000
+ 20809 words of font info for 84 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 42i,12n,38p,1165b,453s stack positions out of 5000i,500n,10000p,200000b,80000s
-</usr/local/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb
-></usr/local/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb>
-</usr/local/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx5.pfb></
-usr/local/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx7.pfb></us
-r/local/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx8.pfb></usr/
-local/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx9.pfb></usr/lo
-cal/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></usr/loc
-al/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/loca
-l/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi12.pfb></usr/local
-/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi5.pfb></usr/local/t
-exlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi6.pfb></usr/local/tex
-live/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi7.pfb></usr/local/texli
-ve/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi8.pfb></usr/local/texlive
-/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi9.pfb></usr/local/texlive/2
-015/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/local/texlive/201
-5/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb></usr/local/texlive/2015/
-texmf-dist/fonts/type1/public/amsfonts/cm/cmr17.pfb></usr/local/texlive/2015/te
-xmf-dist/fonts/type1/public/amsfonts/cm/cmr5.pfb></usr/local/texlive/2015/texmf
--dist/fonts/type1/public/amsfonts/cm/cmr6.pfb></usr/local/texlive/2015/texmf-di
-st/fonts/type1/public/amsfonts/cm/cmr7.pfb></usr/local/texlive/2015/texmf-dist/
-fonts/type1/public/amsfonts/cm/cmr8.pfb></usr/local/texlive/2015/texmf-dist/fon
-ts/type1/public/amsfonts/cm/cmr9.pfb></usr/local/texlive/2015/texmf-dist/fonts/
-type1/public/amsfonts/cm/cmsy10.pfb></usr/local/texlive/2015/texmf-dist/fonts/t
-ype1/public/amsfonts/cm/cmsy5.pfb></usr/local/texlive/2015/texmf-dist/fonts/typ
-e1/public/amsfonts/cm/cmsy6.pfb></usr/local/texlive/2015/texmf-dist/fonts/type1
-/public/amsfonts/cm/cmsy7.pfb></usr/local/texlive/2015/texmf-dist/fonts/type1/p
-ublic/amsfonts/cm/cmsy8.pfb></usr/local/texlive/2015/texmf-dist/fonts/type1/pub
-lic/amsfonts/cm/cmsy9.pfb></usr/local/texlive/2015/texmf-dist/fonts/type1/publi
-c/amsfonts/cm/cmti10.pfb>
-Output written on solid_neutron_DEMP.pdf (32 pages, 2878809 bytes).
+ 42i,19n,38p,1257b,453s stack positions out of 5000i,500n,10000p,200000b,80000s
+{/usr/local/texlive/2015/texmf-dist/fonts/enc/dvips/cm-super/cm-super-ts1.enc
+}</usr/local/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb>
+</usr/local/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb><
+/usr/local/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx7.pfb></u
+sr/local/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx9.pfb></usr
+/local/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></usr/
+local/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/l
+ocal/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi12.pfb></usr/lo
+cal/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi5.pfb></usr/loca
+l/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi6.pfb></usr/local/
+texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi7.pfb></usr/local/te
+xlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi8.pfb></usr/local/texl
+ive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi9.pfb></usr/local/texliv
+e/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/local/texlive/
+2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb></usr/local/texlive/20
+15/texmf-dist/fonts/type1/public/amsfonts/cm/cmr17.pfb></usr/local/texlive/2015
+/texmf-dist/fonts/type1/public/amsfonts/cm/cmr5.pfb></usr/local/texlive/2015/te
+xmf-dist/fonts/type1/public/amsfonts/cm/cmr6.pfb></usr/local/texlive/2015/texmf
+-dist/fonts/type1/public/amsfonts/cm/cmr7.pfb></usr/local/texlive/2015/texmf-di
+st/fonts/type1/public/amsfonts/cm/cmr8.pfb></usr/local/texlive/2015/texmf-dist/
+fonts/type1/public/amsfonts/cm/cmr9.pfb></usr/local/texlive/2015/texmf-dist/fon
+ts/type1/public/amsfonts/cm/cmsy10.pfb></usr/local/texlive/2015/texmf-dist/font
+s/type1/public/amsfonts/cm/cmsy5.pfb></usr/local/texlive/2015/texmf-dist/fonts/
+type1/public/amsfonts/cm/cmsy6.pfb></usr/local/texlive/2015/texmf-dist/fonts/ty
+pe1/public/amsfonts/cm/cmsy7.pfb></usr/local/texlive/2015/texmf-dist/fonts/type
+1/public/amsfonts/cm/cmsy8.pfb></usr/local/texlive/2015/texmf-dist/fonts/type1/
+public/amsfonts/cm/cmsy9.pfb></usr/local/texlive/2015/texmf-dist/fonts/type1/pu
+blic/amsfonts/cm/cmti10.pfb></usr/local/texlive/2015/texmf-dist/fonts/type1/pub
+lic/amsfonts/cm/cmtt10.pfb></usr/local/texlive/2015/texmf-dist/fonts/type1/publ
+ic/cm-super/sfrm1000.pfb>
+Output written on solid_neutron_DEMP.pdf (37 pages, 2922845 bytes).
 PDF statistics:
- 1070 PDF objects out of 1200 (max. 8388607)
- 760 compressed objects within 8 object streams
- 148 named destinations out of 1000 (max. 500000)
- 285 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 1151 PDF objects out of 1200 (max. 8388607)
+ 835 compressed objects within 9 object streams
+ 171 named destinations out of 1000 (max. 500000)
+ 352 words of extra memory for PDF output out of 10000 (max. 10000000)
 

@@ -125,14 +125,13 @@ unlikely to be available from any other source.
 
 \begin{figure}[hbt!]
 \begin{center}
-\includegraphics[height=5cm]{./figures/atpi_planes.pdf}
+\includegraphics[height=5cm]{./figures/atpi_planes.png}
 \end{center}
 \caption{\label{fig:planes}
 \footnotesize{
 Scattering and hadronic reaction planes for exclusive $\vec{N}(e,e'\pi)N'$.
-$\beta$ is the angle between the target nucleon polarization vector and the
-reaction plane.  Some works alternatively label this angle as $(\phi-\phi_s)$.
-}}
+$\beta=(\phi-\phi_s)$ is the angle between the target nucleon polarization vector and the
+reaction plane.  $\theta_q$ is the scattering angle of the virtual photon.}}
 \end{figure}
 
 \subsection{Single spin asymmetry in exclusive pion electroproduction}
@@ -155,7 +154,7 @@ the nucleon polarization vector and the reaction plane
 This asymmetry is related to the parton-helicity-conserving part of the
 scattering process and is sensitive to the interference between $\tilde{H}$ and
 $\tilde{E}$ \cite{Fr99,Di05}:
-\begin{equation}
+\begin{equation} \label{eqn:asy2}
 A_L^{\perp}=\frac{\sqrt{-t'}}{m_p}
 \frac{\xi\sqrt{1-\xi^2}\ \mathrm{Im}(\tilde{E}^*\tilde{H})}
 {(1-\xi^2)\tilde{H}^2-\frac{t\xi^2}{4m_p}
@@ -244,7 +243,7 @@ pion form factor program.
 \subsection{The Complementarity of Separated and Unseparated Asymmetry
   Measurements}
 
-The reaction of interest is $^3He(e,e'\pi^-)p(pp)_{sp}$.
+The reaction of interest is $^3$He$(e,e'\pi^-)p(pp)_{sp}$.
 The measurement of the transverse single-spin asymmetry requires the detection
 of the $\pi^-$ in non-parallel kinematics.  It is the component of the target
 polarization parallel to $\hat{q}\times\hat{p_{\pi}}$ that is important, and
@@ -253,26 +252,39 @@ this direction is uniquely defined only in non-parallel kinematics.
 Experimentally, the angle between the target polarization and the reaction
 plane, $\beta$, and the angle between the scattering and reaction planes,
 $\phi$, are not independent.  If the target polarization is at some angle,
-$\phi_s$, relative to the scattering plane, then $\beta = \phi_s-\phi$.  
-The polarized nucleon cross section can be expressed \cite{Ba73} 
+$\phi_s$, relative to the scattering plane, then $\beta = \phi-\phi_s$.  
+
+The polarized nucleon cross section can be expressed \cite{Di05,hermes-thesis} 
 in terms of these variables as:
-\begin{multline}\label{eqn:sigtarg}
-\sigma_t =  - P_\perp \sin \beta \left[\sigma^y_{TT}+ 2\epsilon \; 
-  \sigma^y_L \right] \\
-- P_\perp \sin \beta \left[\epsilon (\cos 2\phi_s \cos 2\beta + 
-  \sin 2\phi_s \sin 2\beta) \; \sigma^y_{TT'} \right]\\
-- P_\perp \sin \beta \left[\sqrt{2\epsilon(1+\epsilon)}(\cos \phi_s \cos \beta 
-  + \sin \phi_s \sin \beta) \; \sigma^y_{LT}\right] \\
--P_\perp \cos \beta \left[\sqrt{2\epsilon(1+\epsilon)}(\sin \phi_s \sin \beta 
-  - \cos \phi_s \cos \beta)\; \sigma^x_{LT} \right]\\
--P_\perp \cos \beta \left[\epsilon (\sin 2\phi_s \sin 2\beta 
-  - \cos 2\phi_s \cos 2\beta)  \; \sigma^x_{TT} \right] .
-\end{multline}
+\begin{equation}
+\begin{split}\label{eqn:sigtarg}
+d\sigma_{UT}(\phi,\phi_s) =  \sum_k d\sigma_{UT_k}(\phi,\phi_s) \;
+= -\frac{P_\perp \cos\theta_q}{\sqrt{1-\sin^2\theta_q \sin^2\phi_s}} \biggl[\; 
+  &\; \sin\beta \; \rm{Im}(\sigma^{+-}_{++} + \epsilon\sigma^{+-}_{00})\\
+ +&\; \sin\phi_s \; \sqrt{\epsilon(1+\epsilon)}\; \rm{Im}(\sigma^{+-}_{+0})\\
+ +&\; \sin(\phi+\phi_s) \; \frac{\epsilon}{2} \; \rm{Im}(\sigma^{+-}_{+-})\\
+ +&\; \sin(2\phi-\phi_s) \; \sqrt{\epsilon(1+\epsilon)} \; \rm{Im}(\sigma^{-+}_{+0}) \\
+ +&\; \sin(3\phi-\phi_s) \; \frac{\epsilon}{2} \; \rm{Im}(\sigma^{-+}_{+-})\;\; \biggr] ,
+\end{split}
+\end{equation}
+where the $\cos\theta_q$ factor is needed to convert the target $P_\perp$
+relative to the lepton beam to that relative to the virtual photon
+(in accordance with the Trento convention), and much smaller factors
+proportional to $\sin\theta_q$ have been neglected for clarity.  
+The $\sigma^{ij}_{mn}$ correspond to nucleon polarizations
+$ij=(+\frac{1}{2},-\frac{1}{2})$ and photon polarizations $mn=(+1,0,-1)$, and
+$\sigma_T=\frac{1}{2}(\sigma^{++}_{++}+\sigma^{--}_{++})$,
+$\sigma_L=\sigma^{++}_{00}$ are the usual unpolarized transverse and
+longitudinal cross sections.
+
 From the above equation, it is clear that to extract $A_L^{\perp}$
 it is necessary to first isolate the 
 $\sin \beta$ Fourier component of the polarized nucleon cross section.
-Once that has been accomplished, one must then separate the $\sigma_L^y$ term 
-from the $\sigma_{TT}^y$ term via a Rosenbluth-type separation.
+Once that has been accomplished, one must then separate the desired
+$\sigma^{+-}_{00}$ term 
+from the $\sigma^{+-}_{++}$ term via a Rosenbluth-type separation.  All of the
+other polarized terms can be distinguished from their azimuthal dependences,
+without need of a Rosenbluth separation \cite{Di05}.
 
 It has not yet been possible to perform an experiment to measure $A_L^{\perp}$.
 The conflicting experimental requirements of transversely polarized target,
@@ -299,9 +311,8 @@ obtained for average values of $\langle x_B \rangle =0.13$, $\langle Q^2 \rangle
 criterion $W^2>10$ GeV$^2$.  The six Fourier amplitudes in terms of the
 azimuthal angles $\phi$, $\phi_s$ of the pion-momentum and proton-polarization
 vectors relative to the lepton scattering plane were determined.  Of these, at
-leading twist only the $\sin(\phi-\phi_s)_{UT}$ Fourier amplitude receives a
-contribution from longitudinal photons.  
-If one assumes that longitudinal
+leading twist only the $\sin\beta_{UT}$ Fourier amplitude receives a
+contribution from longitudinal photons.  If one assumes that longitudinal
 contributions dominate, these $A_{UT}^{sin(\phi-\phi_s)}$ values can be
 compared to GPD models for $\tilde{E}$, $\tilde{H}$.
 
@@ -313,10 +324,13 @@ compared to GPD models for $\tilde{E}$, $\tilde{H}$.
 \footnotesize{
 Predictions by Goloskokov and Kroll for the sin$(\phi-\phi_s)$ moment of
 $A_{UT}$ in the handbag approach, in comparison to the data from HERMES at
-$Q^2=2.45$ GeV$^2$, $W=3.99$ GeV.  The independent variable is
-$-t'=|t-t_{min}|$.  Dashed line: contribution from longitudinal photons only.
-Solid line: full calculation including both transverse and longitudinal
-photons.  This figure is taken from Ref. \protect{\cite{Go10}}.}}
+$Q^2=2.45$ GeV$^2$, $W=3.99$ GeV.  Please note that the HERMES data
+follow the Trento convention, while the Eqns. \ref{eqn:asy}, \ref{eqn:asy2} and
+Figs. \ref{fig:frankfurt_atpi}, \ref{fig:belitsky_atpi} do not, leading to a
+normalization difference of $-\pi/2$ \cite{hermes-thesis}.  The independent
+variable is $-t'=|t-t_{min}|$.  Dashed line: contribution from longitudinal
+photons only.  Solid line: full calculation including both transverse and
+longitudinal photons.  This figure is taken from Ref. \protect{\cite{Go10}}.}}
 \end{figure}
 
 Because transverse photon amplitudes are suppressed by $1/Q$, at very high
@@ -383,6 +397,33 @@ Fig. \ref{fig:belitsky_atpi} indicates a substantial dilution of the
 unseparated asymmetry due to transverse photon contributions, similar to that
 observed in Fig. \ref{fig:hermes_aut}.
 
+In addition to allowing a measurement at $Q^2>4$ GeV$^2$, a measurement by
+SoLID of $A_{UT}^{sin(\phi-\phi_s)}$ will cover a fairly large range of $-t$,
+allowing the asymmetry to be mapped over its full range with good statistical
+uncertainties -- from its required zero-value in parallel kinematics, through
+its maximum, and then back to near-zero or even positive at larger $-t$.  
+The shape of the asymmetry curve versus
+$-t$, as well as its maximum value, are critical information for comparison to
+GPD-based models.
+
+\subsection{Motivation for and Status of the other Fourier Azimuthal Components}
+
+An important point is that any model that describes exclusive pion production
+will need to describe not only the leading-twist Fourier amplitude
+$A_{UT}^{sin(\phi-\phi_s)}$, but also the other contributions to the
+target-spin azimuthal asymmetry listed in Eqn.~\ref{eqn:sigtarg}, providing
+additional GPD model constraints.  Like HERMES, we plan to determine the full
+set of asymmetries from their azimuthal modulations,
+\begin{equation}
+A(\phi,\phi_s)=\frac{d\sigma_{UT}(\phi,\phi_s)}{d\sigma_{UU}(\phi)}
+=-\sum_k A_{UT}^{\sin(\mu\phi+\lambda\phi_s)_k}\sin(\mu\phi+\lambda\phi_s)_k ,
+\end{equation}
+where 
+$d\sigma_{UU}$ is the unpolarized nucleon cross section in terms of the well-known
+L, T, LT and TT response functions.  These asymmetries include all five terms
+listed in Eqn.~\ref{eqn:sigtarg}, plus a very small $\sin(2\phi+\phi_s)$ term
+proportional to $\sin\theta_q$ not listed there.
+
 \begin{figure}[hbt!]
 \begin{center}
 \includegraphics[height=7cm]{./figures/hermes_sinphiS.png}
@@ -396,21 +437,11 @@ disregarding the twist-3 contribution.  This figure is taken from
 Ref. \protect{\cite{Go10}}.}}
 \end{figure}
 
-In addition to allowing a measurement at $Q^2>4$ GeV$^2$, a measurement by
-SoLID of $A_{UT}^{sin(\phi-\phi_s)}$ will cover a fairly large range of $-t$,
-allowing the asymmetry to be mapped over its full range with good statistical
-uncertainties -- from its required zero-value in parallel kinematics, through
-its maximum, and then back to near-zero or even positive at larger $-t$.  
-The shape of the asymmetry curve versus
-$-t$, as well as its maximum value, are critical information for comparison to
-GPD-based models.
-
-Simultaneously, the $\sin(\phi_S)_{UT}$ moment can be extracted, which may be
-interpretable in terms of transversity GPDs.  Any model that describes
-exclusive pion production will need to describe not only the leading-twist
-Fourier amplitude $A_{UT}^{sin(\phi-\phi_s)}$, but also these other
-contributions to the target-spin azimuthal asymmetry, providing additional GPD
-model constraints.  Independent of a specific dynamical interpretation
+While most of the theoretical interest and the primary motivation of our
+experiment is the target asymmetry proportional to $\sin\beta$, there is
+growing interest in the $\sin(\phi_S)_{UT}$ asymmetry, as it may be
+interpretable in terms of the transversity GPDs.  
+Independent of a specific dynamical interpretation
 (e.g. the handbag approach), the $A_{UT}^{sin(\phi_S)}$ asymmetry will say
 something on the strength of the contributions from transverse photons at
 small $-t$:
@@ -418,7 +449,7 @@ small $-t$:
 A_{UT}^{sin(\phi_S)}\sim\mathrm{Im}[M^*_{0+++}M_{0-0+} - M^*_{0-++}M_{0+0+}],
 \end{equation}
 where the helicities are in the order: pion neutron photon proton
-\cite{Go10}.  Thus, in contrast to the $\sin(\phi-\phi_S)$ modulation, which
+\cite{Go10}.  In contrast to the $\sin(\phi-\phi_S)$ modulation, which
 has contributions from LL and TT interferences, the $sin(\phi_s)$ modulation
 measures only the LT interference.  The first term is proportional to $t'$, as
 is forced by angular momentum conservation, while the second one is not forced
@@ -429,11 +460,31 @@ first clear signal for strong contributions from transversely polarized photons
 at rather large values of $W$ and $Q^2$ \cite{Go10}.  This is very interesting
 in its own right.
 
-%At a later date, the New Hampshire polarized target might enable a measurement
-%of $A_L^{\perp}$ in Hall C.  The comparison of the two measurements will
-%provide complementary data needed to extract $\tilde{E}$ information and better
-%understand non-pole contributions complicating the extraction of the pion form
-%factor from electroproduction data.
+\begin{figure}[hbt!]
+\begin{center}
+\includegraphics[height=15cm]{./figures/gk16.png}
+\caption{\label{fig:gk16}
+\footnotesize{
+$\sin(\mu\phi+\lambda\phi_s)_k$ moments of the transverse nucleon spin
+  asymmetry $A_{UT}$ calculated in the handbag approach by Goloskokov and Kroll
+  \cite{GoPC} for the kinematics of this experiment.
+Solid black: $Q^2=4.107$ GeV$^2$, $W=$3.166 GeV;  
+Long-dash red: $Q^2=5.138$ GeV$^2$, $W=$2.796 GeV;  
+Dash-dot green: $Q^2=6.049$ GeV$^2$, $W=$2.718 GeV;  
+Short-dash blue: $Q^2=6.894$ GeV$^2$, $W=$2.562 GeV.}}
+\end{center}
+\end{figure}
+
+A calculation for the kinematics of this experiment by S.V. Goloskokov and
+P. Kroll \cite{Go10,GoPC,Go11} for the amplitudes of the five azimuthal
+modulations listed in Eqn.~\ref{eqn:sigtarg} is shown in Fig.~\ref{fig:gk16}.
+It clearly shows that the two asymmetries of greatest physics interest
+dominate, while the other asymmetries are much smaller.  This is consistent
+with the HERMES result, which found the four asymmetries $\sin(2\phi-\phi_s)$, 
+$\sin(phi+\phi_s)$, $\sin(3\phi-\phi_s)$, $\sin(2\phi+\phi_s)$, to be mostly
+consistent with zero over the measured $t$ range \cite{hermes-thesis}.  This is
+good news, as large expected values for these asymmetries would complicate the
+extraction of the most-valued Fourier components.
 
 In the longer term, the measurement presented in this proposal is important
 preparatory work for future measurements at the EIC.  The Electron-Ion Collider
