@@ -80,36 +80,15 @@ can be parameterized \cite{Di05,hermes-thesis} as
 \label{eqn:cross-3}
 \end{equation}
 where $\phi_{S}$ is angle between the target polarization and lepton planes
-(Fig.~\ref{fig:planes}) and the $\Sigma_{k}$ are given by
+(Fig.~\ref{fig:planes}), the $\Sigma_{k}$ are given by
 \begin{equation}
   \Sigma_{k} = A_{UT}^{\sin{( \mu\phi+\lambda\phi_{S})_{k}}} \times
-  d\sigma_{UU}(\phi).
+  d\sigma_{UU}(\phi),
   \label{eqn:sigmas}
 \end{equation}
-The $\sin{( \mu\phi+\lambda\phi_{S})_{k}}$ are the six azimuthal modulations
-\begin{tabular}{|r|l|}
-\hline
-k & $\sin{(\mu\phi + \lambda\phi_{S})_{k}}$ \\
-\hline
-1 & $\sin{(\phi - \phi_{S})}$ \\ 
-\hline
-2 & $\sin{(\phi + \phi_{S})}$ \\ 
-\hline
-3 & $\sin{(\phi_{S})}$ \\ 
-\hline
-4 & $\sin{(2\phi - \phi_{S})}$ \\ 
-\hline
-5 & $\sin{(3\phi - \phi_{S})}$ \\ 
-\hline
-6 & $\sin{(2\phi + \phi_{S})}$ \\ 
-\hline
-\end{tabular}
-.\\
-For $k=1-5$, the $A_{UT}^{\sin{( \mu\phi+\lambda\phi_{S})_{k}}}$ used here are
-the asymmetries calculated for us by Sergey Goloskokov and Peter Kroll
-\cite{GoPC} for SoLID-DEMP kinematics (see Fig.~\ref{fig:gk16}).  The asymmetry
-for $k=6$ is a fit of HERMES data \cite{hermes-thesis}.  Further details are
-provided in Sec.~\ref{sec:sixparametrizations}.
+and the $\sin (\mu\phi + \lambda\phi_{S})$ are the different azimuthal
+modulations.  The calculation of $d\sigma_{UT}$ in the event generator is
+described in Sec.~\ref{sec:asymparametrizations}.
 
 \subsection{Cross Section Model for Higher $Q^2$ Kinematics
 \label{sec:model}}
@@ -151,8 +130,8 @@ $-t\leq$0.5 GeV$^2$, but it overshoots the data for $-t>$0.5 GeV$^2$.
 
 \begin{figure}[!hbt]
     \centering
-%    \includegraphics[width=6.0in,height=2.4in]{./figures/pimsigma_qsq.pdf}
-    \includegraphics[width=6.0in,height=3.0in]{./figures/01.eps}
+    \includegraphics[width=6.0in,height=2.4in]{./figures/pimsigma_qsq.pdf}
+%    \includegraphics[width=6.0in,height=3.0in]{./figures/01.eps}
     \caption{ A comparison of last six points of table $v$ of \cite{gmhuber-2},
       the VR model, and our parametrization values vs. $Q^{2}$ for $\pi^{-}$
       electroproduction. Experimental data are shown in blue circles, VR model
@@ -165,8 +144,8 @@ $-t\leq$0.5 GeV$^2$, but it overshoots the data for $-t>$0.5 GeV$^2$.
 
 \begin{figure}[!hbt]
     \centering
-%    \includegraphics[width=6.0in,height=2.4in]{./figures/pimFit.pdf}
-    \includegraphics[width=5.0in,height=2.4in]{./figures/02.eps}
+\    \includegraphics[width=6.0in,height=2.4in]{./figures/pimFit.pdf}
+%    \includegraphics[width=5.0in,height=2.4in]{./figures/02.eps}
     \caption{ A comparison of parametrized $\sigma_{L,T,LT,TT}$ and VR model
     values at $Q^2$ = 4.421 GeV$^2$ and $W = 3.0$ GeV.  Black points are VR
     model values and blue line is parametrized $\sigma_{L,T,LT,TT}$ given by
@@ -220,58 +199,63 @@ Figs. \ref{fig:expvrfit}, \ref{fig:sigall}.
   neutron rest frame from the `vertex' kinematic quantities, and then
   transformed to the lab frame.}
 
-\subsection{Parametrization of the six Single-Spin Asymmetries
-\label{sec:sixparametrizations}}
-
-Six asymmetries of Eqn. \ref{eqn:sigmas} are calculated by Sergey 
-Goloskokov and Peter Kroll for the SoLID DEMP kinematics of this proposal.
-
-{\bf
-Need to add a description of the fit to their calculations.  Also need to add
-the parametrization of the sixth asymmetry from HERMES data.
-
-The calculation of the components of $\sigma_{UT}$ from these asymmetries needs
-to be described, including the transformation from the neutron rest frame to
-the lab frame.
-}
+\subsection{Parametrization of six Single-Spin Asymmetries
+\label{sec:asymparametrizations}}
 
 \begin{figure}[!hbt]
     \centering
-    \includegraphics[width=6.0in,height=1.45in]{./figures/asym_3.pdf}
-    \caption{ Parametrization of single spin asymmetry $\bf{A_{L}^{\perp}}$
-      vs. $-t$ at $Q^2$ = 10 GeV$^2$ in left graph $x = 0.1$ and in right graph
-      $x = 0.3$ where the points are from the model defined in \cite{Fr00} and
-      blue line is our parametrization function.}
+    \includegraphics[width=6.0in]{./figures/AsymPlots.pdf}
+    \caption{Parametrization of the five single spin asymmetries
+      $A_{UT}^{\sin(\mu\phi+\lambda\phi_s)_k}$ vs. $t'$ used in the event
+      generator for this proposal.  The points are the calculations by
+      Goloskokov and Kroll \cite{GoPC} and the curves are our fit.}
     \label{fig:asym-1}
 \end{figure}
 
-%It is shown in Ref. \cite{frankfurt} that the generalized parton distribution
-%($\tilde{E}$) can be probed by measuring the single spin asymmetry$(SSA)$. The
-%SSA is defined in equation $\ref{eqn:ssa}$, where $\beta$ is the angle
-%between the transversely polarized target vector and the reaction plane, and
-%$\sigma_{L}^{\pi^{-}}$ is the exclusive $\pi^{-}$ cross section for
-%longitudinal virtual photons.  We parametrized the single spin asymmetry using
-%the model of \cite{frankfurt} at $x=0.1$ and $x=0.3$. Our parametrization of
-%$SSA$ is shown in Fig. $\ref{fig:asym-1}$ and equation
-%$\ref{eqn:asy-fit}$ is the parameterized function of single spin
-%asymmetry.
-%
-%\begin{equation}
-%  \bf{A_{L}^{\perp}} =
-%\frac{\int^{\pi}_{0}d\beta\frac{d\sigma_{L}^{\pi^{-}}}{d\beta} -
-%\int^{2\pi}_{\pi}d\beta\frac{d\sigma_{L}^{\pi^{-}}}{d\beta} }
-%{\int^{2\pi}_{0}d\beta\frac{d\sigma_{L}^{\pi^{-}}}{d\beta}}
-%     \label{eqn:ssa}
-%\end{equation}
-%
-%\begin{equation}
-%        \bf{A_{L}^{\perp}} = \left\{
-%        \begin{array}{rl}
-%        A_{0} \left[ 1 - \exp^{ [ -\lambda \times ( t - t_{min} ) ] } \right] & \text{if } t \ge t_{min}, \\
-%        0 &  \text{if } t < t_{min}.
-%        \end{array} \right.
-%     \label{eqn:asy-fit}
-%\end{equation}
+The single-spin asymmetries calculated for us by S.V Goloskokov and P. Kroll
+\cite{GoPC} have been used to approximate $d\sigma_{UT}$ in the
+DEMP event generator.  Their $A_{UT}^{\sin(\mu\phi+\lambda\phi_s)_k}$ values are
+at discrete values of $Q^2$ from 4.107 to 7.167~GeV$^2$, $W$ from 2.362 to
+3.191~GeV, and $t'$ from 0~GeV$^2$ to 0.5~GeV$^2$.  There are six different 
+azimuthal modulations defined as follows:
+\begin{center}
+\begin{tabular}{ l|l }
+  $k$ & $\sin(\mu\phi+\lambda\phi_s)$ \\
+  \hline
+  $1$ & $\sin(\phi-\phi_s)$ \\
+  $2$ & $\sin(\phi+\phi_s)$ \\
+  $3$ & $\sin(\phi_s)$ \\
+  $4$ & $\sin(2\phi-\phi_s)$ \\
+  $5$ & $\sin(3\phi-\phi_s)$ \\
+  $6$ & $\sin(2\phi+\phi_s)$
+\end{tabular}
+\end{center}
+
+These asymmetries are used to give
+\begin{align}
+  \Sigma_k &= d\sigma_{UU}(\phi)A_{UT}^{\sin(\mu\phi+\lambda\phi_s)_k} \\
+  d\sigma_{UT}&=-\frac{P_T}{\sqrt{1-\sin^2\theta
+      \sin^2\phi_s}}\sum_{k=1}^{6}\sin(\mu\phi+\lambda\phi_s)_k\Sigma_k
+\end{align}
+
+The $k=6$ asymmetry ($(\mu,\lambda)=(2,1)$) is not included in their
+calculation, and is taken to be zero, in accordance with the HERMES data
+\cite{hermes-thesis}. The other five are calculated based on fits to their
+values.  The following fits were used:
+\begin{align}
+  A_{UT}^{\sin(\mu\phi+\lambda\phi_s)_k} =
+  \begin{cases}
+    ae^{bx}-(a+c)e^{dx}+c, &\quad k=1 \\
+    ae^{bx}+c, &\quad k=2,3,4,5
+  \end{cases}
+\end{align}
+where $a$, $b$, $c$, and $d$ are fit parameters. The forms of these functions
+were chosen only to closely match the shape of the simulated data and are not
+based on any physical principle. These fits are done for each given value of
+$Q^2$ independently, as shown in Fig.~\ref{fig:asym-1}.  During event
+generation, the asymmetry is calculated from the fit for the two nearest values
+of $Q^2$. The asymmetry for the given event is then approximated by linear
+interpolation of the nearest values.
 
 \subsection{Target Neutron Fermi Momentum 
 \label{sec:fermimotion}}
@@ -292,7 +276,7 @@ momenta up to 300 MeV/c are generated according to this distribution, uniformly
 distributed in spherical coordinates. The quasi-free collision between the
 virtual photon and moving neutron is then transformed to the fixed neutron
 frame, after which the parameterizations of Secs.~\ref{sec:parametrization},
-\ref{sec:sixparametrizations} are applied. The outgoing particles are then
+\ref{sec:asymparametrizations} are applied. The outgoing particles are then
 transformed back to the lab frame for tracking.
 
 \subsection{Energy Loss and Multiple Scattering
@@ -375,9 +359,3 @@ $\pi^-$ $N$ were randomly generated, and the events
 weighted according to the differential cross setions of Eqn.~\ref{eqn:piN}.
 Events were generated for both the FSI and non-FSI versions of the
 model and the results compared, as described in the main text.
-
-
-
-
-
-
