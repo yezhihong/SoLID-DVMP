@@ -4,21 +4,28 @@
 //    ---  Zhihong Ye 04/26/2017    //
 //////////////////////////////////////
 #include "FitMinuit.h"
-//Fake Asymmetries for testing only
-const double A1 = -0.1;//1m1
-const double A2 = -0.2;//2m1
-const double A3 = -0.3;//3m1
-const double A4 = 0.1;//0p1
-const double A5 = 0.2;//1p1
 
+//Set to one but keep in mind that the weight_ut should set pol=1 as well.
+static const Double_t POL = 0.6*0.865 * 0.9;//He3-Pol, Neutron-Effective-Pol, and Dilution
+
+TString type_name = "simple";
+//TString type_name = "mult";
 ofstream outf;
+Double_t asym_1m1_avg,asym_2m1_avg,asym_3m1_avg,asym_0p1_avg,asym_1p1_avg,Astat;
+
 /*Main{{{*/
 Int_t main()
 { 
     gStyle->SetOptFit(1);  
     gStyle->SetOptStat(0);
-    Int_t IT = 0, IQ = 0;
+    
+    Int_t iType = 0;
+    cout<<"--- Which file ? (1->simple, 2->mult, 3->mult_fsi)  "; cin >> iType;
+    if(iType==1) type_name = "simple"; 
+    if(iType==2) type_name = "mult"; 
+    if(iType==3) type_name = "mult_fsi"; 
 
+    Int_t IT = 0, IQ = 0;
     cout<<"--- Which t-bin? (1--8, 0 for all)  "; cin >> IT;
     if(IT>0){
         cout<<"--- Which Q2-bin? (1--2)  "; cin >> IQ;
@@ -31,16 +38,20 @@ Int_t main()
         DoMinuit(fyPar, IT, IQ, 0);
     }
     else{
-        outf.open("dvmp_par.dat");
-        outf<<Form("-- Test Values: A1=%4.2f, A2=%4.2f, A3=%4.2f, A4=%4.2f, A5=%4.2f, ",
-                A1, A2, A3, A4, A5)<<endl<<endl;
-        outf<<Form("%4s %4s %10s %10s %10s %10s %10s %10s %10s %10s %10s %10s ",
-                "#t", "#Q2", "A1", "dA1", "A2", "dA2", "A3", "dA3", "A4", "dA4", "A5", "dA5")
+        outf.open(Form("dvmp_par_%s_real.dat", type_name.Data()));
+        outf<<Form("%4s %4s %10s %10s %10s %10s %10s %10s %10s %10s %10s %10s %10s %10s %10s %10s %10s ",
+                "#t", "#Q2", 
+                "A_AVG", "A_1M1", "dA_1M1", 
+                "A_AVG", "A_2M1", "dA_2M1", 
+                "A_AVG", "A_3M1", "dA_3M1", 
+                "A_AVG", "A_0P1", "dA_0P1", 
+                "A_AVG", "A_1P1", "dA_1P1")
             <<endl;
 
 
-        for(int i=1; i<=8;i++){
-            for(int j=1; j<=2;j++){
+        for(int i=1; i<=7;i++){
+            //for(int j=0; j<=2;j++){
+            for(int j=0; j<1;j++){
                 IT = i;
                 IQ = j;
 
@@ -106,20 +117,19 @@ void DoMinuit(double *par, Int_t IT, Int_t IQ, Int_t SAVE)
 	pMinuit->mnexcm("SET NOWarnings",arglist,0,ierflg);
 
 	//Set Name of Parameters
-	TString namePar[iParaNum]={"a1m1","a2m1","a3m1","a0p1","a1p1"};//, "a2p1"};
+	TString namePar[iParaNum]={"a1m1","a2m1","a3m1","a0p1","a1p1"};
 	
         //Set Initial Values of Parameters
         Double_t inPar[iParaNum]={par[0],par[1],par[2],par[3],par[4]};//,par[5]};   
 
 	//Set Stepsize of Parameters
-	Double_t step[iParaNum]={ 0.00000001,0.00000001,0.00001,0.00000001,0.00000001};//,0.00000001};
+	Double_t step[iParaNum]={1.0e-5,1.0e-5,1.0e-5,1.0e-5,1.0e-5};
 
 	//Set Min of Parameters, value==0 for No-Bound
-	// Double_t minVal[iParaNum]={ 0.0001,0.0001,100.0,0.0001,0.0001};
-	Double_t minVal[iParaNum]={ 0.0,0.0,0.0,0.0,0.0};
+	Double_t minVal[iParaNum]={0,0,0,0,0};
 
 	//Set Max of Parameters, value==0 for No-Bound
-	Double_t maxVal[iParaNum]={ 0.0,0.0,0.0,0.0,0.0};//,0.0};
+	Double_t maxVal[iParaNum]={0,0,0,0,0};
 
 	//Initializing Parameters
 	for(int ii=0;ii<iParaNum;ii++){
@@ -148,7 +158,7 @@ void DoMinuit(double *par, Int_t IT, Int_t IQ, Int_t SAVE)
 
 	//Set Iteration Times and Use Migrad to start minimization
 	arglist[0] = 500;
-	arglist[1] = 0.01;
+	//arglist[1] = 0.001;
 	pMinuit->mnexcm("MIGRAD", arglist ,2,ierflg);
 
 	//Get Results
@@ -160,18 +170,26 @@ void DoMinuit(double *par, Int_t IT, Int_t IQ, Int_t SAVE)
 	//Put the results into a file
         cout<<endl<<"-----------------------------------------------------------------------"<<endl;
         cout<<"-----------------------------------------------------------------------"<<endl;
-	cout<<Form("        Set:  A1=%6.3f,  A2=%6.3f,  A3=%6.3f,  A4=%6.3f,  A5=%6.3f", 
-                A1, A2, A3, A4, A5)<<endl;
+
+        cout<<Form("Real:         A1=%6.3f,  A2=%6.3f,  A3=%6.3f,  A4=%6.3f   A5=%6.3f, Astat=%10.4e",
+                asym_1m1_avg,asym_2m1_avg,asym_3m1_avg,asym_0p1_avg,asym_1p1_avg, Astat)<<endl;
+
         cout<<Form("Asymmetries:  A1=%6.3f,  A2=%6.3f,  A3=%6.3f,  A4=%6.3f,  A5=%6.3f", 
-        par[0], par[1], par[2], par[3], par[4])<<endl;
-	cout<<Form("     Errors: dA1=%6.3f, dA2=%6.4f, dA3=%6.4f, dA4=%6.4f, dA5=%6.4f", 
-                err[0], err[1], err[2], err[3], err[4])<<endl;
+                par[0], par[1], par[2], par[3], par[4])<<endl;
+        cout<<Form("     Errors: dA1=%6.3f, dA2=%6.3f, dA3=%6.3f, dA4=%6.3f, dA5=%6.3f", 
+        err[0], err[1], err[2], err[3], err[4])<<endl;
         cout<<"-----------------------------------------------------------------------"<<endl;
         cout<<"-----------------------------------------------------------------------"<<endl<<endl;
         
         if(SAVE==1){
-            outf<<Form("%4d %4d %10.3e %10.4e %10.3e %10.4e %10.3e %10.4e %10.3e %10.4e %10.3e %10.4e ",
-                    IT, IQ, par[0], err[0], par[1], err[1], par[2], err[2], par[3], err[3], par[4], err[4])
+            outf<<Form("%4d %4d %10.3e %10.3e %10.4e %10.3e %10.3e %10.4e %10.3e %10.3e %10.4e %10.3e %10.3e %10.4e %10.3e %10.3e %10.4e %10.4e",
+                    IT, IQ, 
+                    asym_1m1_avg, par[0], err[0],
+                    asym_2m1_avg, par[1], err[1],
+                    asym_3m1_avg, par[2], err[2],
+                    asym_0p1_avg, par[3], err[3],
+                    asym_1p1_avg, par[4], err[4],
+                    Astat)
                 <<endl;
         }
 }
@@ -180,16 +198,16 @@ void DoMinuit(double *par, Int_t IT, Int_t IQ, Int_t SAVE)
 /*myUML{{{*/
 void myUML(Int_t& npar, Double_t* deriv, Double_t& L, Double_t *par, Int_t flag){
     //Set Parameters
-    int aNu = vPhiH_U.size();
+    unsigned int aNu = vPhiH_U.size();
     double lnL_U = 0.0;
     for ( unsigned int ii=0; ii< aNu; ii++ ){
-        lnL_U += vWeight_UT_U[ii] * log(func(vPhiH_U[ii], vPhiS_U[ii], par)) ;
+        lnL_U += vWeight_U[ii] * log(func(vFactor_U[ii], vPhiH_U[ii], vPhiS_U[ii], par)) ;
     }
 
-    int aNd = vPhiH_D.size();
+    unsigned int aNd = vPhiH_D.size();
     double lnL_D = 0.0;
     for ( unsigned int ii=0; ii< aNd; ii++ ){
-        lnL_D += vWeight_UT_D[ii] * log(func(vPhiH_D[ii], vPhiS_D[ii], par)) ;
+        lnL_D += vWeight_D[ii] * log(func(vFactor_D[ii], vPhiH_D[ii], vPhiS_D[ii], par)) ;
     }
 
     L = -1.0 * (lnL_U + lnL_D);
@@ -197,7 +215,7 @@ void myUML(Int_t& npar, Double_t* deriv, Double_t& L, Double_t *par, Int_t flag)
 /*}}}*/
 
 /*func{{{*/
-Double_t func(Double_t phiH, Double_t phiS, Double_t *par){
+Double_t func(Double_t factor, Double_t phiH, Double_t phiS, Double_t *par){
 
     double asym_1m1 = par[0];
     double asym_2m1 = par[1];
@@ -205,8 +223,8 @@ Double_t func(Double_t phiH, Double_t phiS, Double_t *par){
     double asym_0p1 = par[3];
     double asym_1p1 = par[4];
 
-    double f = 1.0 + POL * (
-            asym_1m1*sin(1.*phiH - phiS) 
+    double f = 1.0 - POL * factor * (
+              asym_1m1*sin(1.*phiH - phiS) 
             + asym_2m1*sin(2.*phiH - phiS) 
             + asym_3m1*sin(3.*phiH - phiS) 
             + asym_0p1*sin(0.*phiH + phiS) 
@@ -220,17 +238,21 @@ Double_t func(Double_t phiH, Double_t phiS, Double_t *par){
 /*LoadData{{{*/
 void LoadData( Int_t IT=0, Int_t IQ=0){
 
-   Double_t phi_h, phi_s;
+   Double_t phi_h, phi_s, Photon_Factor;
    Double_t weight, weight_uu, weight_ut;
    Double_t weight_1m1,weight_2m1,weight_3m1,weight_0p1,weight_1p1;
+   Double_t asym_1m1, asym_2m1, asym_3m1, asym_0p1, asym_1p1, sigma_uu;
    Int_t Q2BIN;
   
   //Target Polarization is up/*{{{*/
-   TFile *fu = new TFile(Form("../rootfiles/dvmp_up_t%d_newt.root", IT));
+   TFile *fu = new TFile(Form("../rootfiles/dvmp_up_t%d_%s.root", IT, type_name.Data()));
    TTree *Tu = (TTree*) gDirectory->Get("T");
    
    Tu->SetBranchAddress("Phi", &phi_h);
-   Tu->SetBranchAddress("PhiS", &phi_s);
+   Tu->SetBranchAddress("PhiS_corr", &phi_s);//should use the corrected quantity which accounts for fermi-motion etc.
+   Tu->SetBranchAddress("Photon_Factor", &Photon_Factor);
+   Tu->SetBranchAddress("Q2BIN", &Q2BIN);
+   
    Tu->SetBranchAddress("weight", &weight);
    Tu->SetBranchAddress("weight_uu", &weight_uu);
    Tu->SetBranchAddress("weight_ut", &weight_ut);
@@ -239,26 +261,43 @@ void LoadData( Int_t IT=0, Int_t IQ=0){
    Tu->SetBranchAddress("weight_3m1", &weight_3m1);
    Tu->SetBranchAddress("weight_0p1", &weight_0p1);
    Tu->SetBranchAddress("weight_1p1", &weight_1p1);
-   Tu->SetBranchAddress("Q2BIN", &Q2BIN);
-
+  
+   Tu->SetBranchAddress("Asym_PhiMinusPhiS",  &asym_1m1);
+   Tu->SetBranchAddress("Asym_2PhiMinusPhiS", &asym_2m1);
+   Tu->SetBranchAddress("Asym_3PhiMinusPhiS", &asym_3m1);
+   Tu->SetBranchAddress("Asym_PhiS",          &asym_0p1);
+   Tu->SetBranchAddress("Asym_PhiPlusPhiS",   &asym_1p1);
+   Tu->SetBranchAddress("Sigma_UU", &sigma_uu);
+   
    Int_t Nu = Tu->GetEntries();
+   int weight_sum = 0.0;
    for(int i=0;i<Nu; i++){
      Tu->GetEntry(i);
-     if(Q2BIN!=IQ) continue; //choose the right Q2 bin
-     
+     if(Q2BIN!=IQ && IQ!=0) continue; //choose the right Q2 bin
+    
      phi_h *= Deg2Rad;
      phi_s *= Deg2Rad;
+     Photon_Factor = 1.0;
 
-     //fake weights based on fake asymmetries for testing
-     weight_1m1 = A1 * sin(1.0*phi_h - phi_s );
-     weight_2m1 = A2 * sin(2.0*phi_h - phi_s );
-     weight_3m1 = A3 * sin(3.0*phi_h - phi_s );
-     weight_0p1 = A4 * sin(0.0*phi_h + phi_s );
-     weight_1p1 = A5 * sin(1.0*phi_h + phi_s );
-     weight_ut = weight_uu * (1.0+weight_1m1+weight_2m1+weight_3m1+weight_0p1+weight_1p1);
+     weight_1m1 = weight_uu * (asym_1m1* sin(1.*phi_h - phi_s) );
+     weight_2m1 = weight_uu * (asym_2m1* sin(2.*phi_h - phi_s) );
+     weight_3m1 = weight_uu * (asym_3m1* sin(3.*phi_h - phi_s) );
+     weight_0p1 = weight_uu * (asym_0p1* sin(0.*phi_h + phi_s) );
+     weight_1p1 = weight_uu * (asym_1p1* sin(1.*phi_h + phi_s) );
+     
+     weight_ut = weight_1m1
+               + weight_2m1
+               + weight_3m1
+               + weight_0p1
+               + weight_1p1;
+
+     weight_ut *= POL*Photon_Factor;
+     weight = weight_uu - weight_ut;
 
      vPhiH_U.push_back(phi_h);
      vPhiS_U.push_back(phi_s);
+     vFactor_U.push_back(Photon_Factor);
+     vWeight_U.push_back(weight);
      vWeight_UU_U.push_back(weight_uu);
      vWeight_UT_U.push_back(weight_ut);
      vWeight_1M1_U.push_back(weight_1m1);
@@ -266,15 +305,39 @@ void LoadData( Int_t IT=0, Int_t IQ=0){
      vWeight_3M1_U.push_back(weight_3m1);
      vWeight_0P1_U.push_back(weight_0p1);
      vWeight_1P1_U.push_back(weight_1p1);
-   }
-   fu->Close();/*}}}*/
+  
+     asym_1m1_avg += asym_1m1 * weight_uu;
+     asym_2m1_avg += asym_2m1 * weight_uu;
+     asym_3m1_avg += asym_3m1 * weight_uu;
+     asym_0p1_avg += asym_0p1 * weight_uu;
+     asym_1p1_avg += asym_1p1 * weight_uu;
+     weight_sum += weight_uu;
+ }
+   fu->Close();
+   asym_1m1_avg /= weight_sum;
+   asym_2m1_avg /= weight_sum;
+   asym_3m1_avg /= weight_sum;
+   asym_0p1_avg /= weight_sum;
+   asym_1p1_avg /= weight_sum;
+   Astat = 1./sqrt(weight_sum);
+
+   cout<<Form("U:  A_1m1=%10.4e  A_2m1=%10.4e  A_3m1=%10.4e  A_0p1=%10.4e  A_1p1=%10.4e, Astat=%10.4e",
+           asym_1m1_avg,asym_2m1_avg,asym_3m1_avg,asym_0p1_avg,asym_1p1_avg, Astat)<<endl;
+
+   //outf<<Form("U:  A_1m1=%10.4e  A_2m1=%10.4e  A_3m1=%10.4e  A_0p1=%10.4e  A_1p1=%10.4e, Astat=%10.4e",
+           //asym_1m1_avg,asym_2m1_avg,asym_3m1_avg,asym_0p1_avg,asym_1p1_avg, 1./sqrt(weight_sum))<<endl;
+
+   /*}}}*/
 
   //Target Polarization is down/*{{{*/
-   TFile *fd = new TFile(Form("../rootfiles/dvmp_down_t%d_newt.root", IT));
+   TFile *fd = new TFile(Form("../rootfiles/dvmp_down_t%d_%s.root", IT, type_name.Data()));
    TTree *Td = (TTree*) gDirectory->Get("T");
    
    Td->SetBranchAddress("Phi", &phi_h);
-   Td->SetBranchAddress("PhiS", &phi_s);
+   Td->SetBranchAddress("PhiS_corr", &phi_s);//should use the corrected quantity which accounts for fermi-motion etc.
+   Td->SetBranchAddress("Photon_Factor", &Photon_Factor);
+   Td->SetBranchAddress("Q2BIN", &Q2BIN);
+   
    Td->SetBranchAddress("weight", &weight);
    Td->SetBranchAddress("weight_uu", &weight_uu);
    Td->SetBranchAddress("weight_ut", &weight_ut);
@@ -283,27 +346,44 @@ void LoadData( Int_t IT=0, Int_t IQ=0){
    Td->SetBranchAddress("weight_3m1", &weight_3m1);
    Td->SetBranchAddress("weight_0p1", &weight_0p1);
    Td->SetBranchAddress("weight_1p1", &weight_1p1);
-   Td->SetBranchAddress("Q2BIN", &Q2BIN);
+   Td->SetBranchAddress("Asym_PhiMinusPhiS",  &asym_1m1);
+   Td->SetBranchAddress("Asym_2PhiMinusPhiS", &asym_2m1);
+   Td->SetBranchAddress("Asym_3PhiMinusPhiS", &asym_3m1);
+   Td->SetBranchAddress("Asym_PhiS",          &asym_0p1);
+   Td->SetBranchAddress("Asym_PhiPlusPhiS",   &asym_1p1);
+   Td->SetBranchAddress("Sigma_UU", &sigma_uu);
 
    Int_t Nd = Td->GetEntries();
+   weight_sum = 0.0;
    for(int i=0;i<Nd; i++){
      Td->GetEntry(i);
-     if(Q2BIN!=IQ) continue; //choose the right Q2 bin
-     
+     if(Q2BIN!=IQ && IQ!=0) continue; //choose the right Q2 bin
+     //Note: In the generator Ahmed switch the sign of the polarization. 
+     //In this fit, I fix the absolute polarization values, and rotate the phi_S
      phi_s += 180.0;
      phi_h *= Deg2Rad;
      phi_s *= Deg2Rad;
-      
-     //fake weights based on fake asymmetries for testing
-     weight_1m1 = A1 * sin(1.0*phi_h - phi_s );
-     weight_2m1 = A2 * sin(2.0*phi_h - phi_s );
-     weight_3m1 = A3 * sin(3.0*phi_h - phi_s );
-     weight_0p1 = A4 * sin(0.0*phi_h + phi_s );
-     weight_1p1 = A5 * sin(1.0*phi_h + phi_s );
-     weight_ut = weight_uu * (1.0+weight_1m1+weight_2m1+weight_3m1+weight_0p1+weight_1p1);
+     Photon_Factor = 1.0;
+ 
+     weight_1m1 = weight_uu * (asym_1m1* sin(1.*phi_h - phi_s) );
+     weight_2m1 = weight_uu * (asym_2m1* sin(2.*phi_h - phi_s) );
+     weight_3m1 = weight_uu * (asym_3m1* sin(3.*phi_h - phi_s) );
+     weight_0p1 = weight_uu * (asym_0p1* sin(0.*phi_h + phi_s) );
+     weight_1p1 = weight_uu * (asym_1p1* sin(1.*phi_h + phi_s) );
      
+     weight_ut = weight_1m1
+               + weight_2m1
+               + weight_3m1
+               + weight_0p1
+               + weight_1p1;
+
+     weight_ut *= POL*Photon_Factor;
+     weight = weight_uu - weight_ut; //follow the HERMES thesis to put a minus sign here
+
      vPhiH_D.push_back(phi_h);
      vPhiS_D.push_back(phi_s);
+     vFactor_D.push_back(Photon_Factor);
+     vWeight_D.push_back(weight);
      vWeight_UU_D.push_back(weight_uu);
      vWeight_UT_D.push_back(weight_ut);
      vWeight_1M1_D.push_back(weight_1m1);
@@ -311,8 +391,29 @@ void LoadData( Int_t IT=0, Int_t IQ=0){
      vWeight_3M1_D.push_back(weight_3m1);
      vWeight_0P1_D.push_back(weight_0p1);
      vWeight_1P1_D.push_back(weight_1p1);
-   }
-   fd->Close();/*}}}*/
+   
+     asym_1m1_avg += asym_1m1 * weight_uu;
+     asym_2m1_avg += asym_2m1 * weight_uu;
+     asym_3m1_avg += asym_3m1 * weight_uu;
+     asym_0p1_avg += asym_0p1 * weight_uu;
+     asym_1p1_avg += asym_1p1 * weight_uu;
+     weight_sum += weight_uu;
+}
+   fd->Close();
+   asym_1m1_avg /= weight_sum;
+   asym_2m1_avg /= weight_sum;
+   asym_3m1_avg /= weight_sum;
+   asym_0p1_avg /= weight_sum;
+   asym_1p1_avg /= weight_sum;
+   Astat = 1./sqrt(weight_sum);
+
+   cout<<Form("D:  A_1m1=%10.4e  A_2m1=%10.4e  A_3m1=%10.4e  A_0p1=%10.4e  A_1p1=%10.4e, Astat=%10.4e",
+           asym_1m1_avg,asym_2m1_avg,asym_3m1_avg,asym_0p1_avg,asym_1p1_avg, Astat)<<endl;
+
+   //outf<<Form("D:  A_1m1=%10.4e  A_2m1=%10.4e  A_3m1=%10.4e  A_0p1=%10.4e  A_1p1=%10.4e, Astat=%10.4e",
+           //asym_1m1_avg,asym_2m1_avg,asym_3m1_avg,asym_0p1_avg,asym_1p1_avg, 1./sqrt(weight_sum))<<endl;
+
+   /*}}}*/
 
 }
 /*}}}*/
