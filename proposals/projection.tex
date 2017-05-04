@@ -163,12 +163,12 @@ To demonstrate that the proposed measurement has the capability of extracting th
 
 The polarized cross sections with two target polarization directions are given approximately:
 \begin{eqnarray}
-     \sigma_{\uparrow} &=& \sigma_{UT}(\phi, \phi_{S}) = [1 + |P_{T}|A_{UT}(\phi, \phi_{S})] \cdot  \sigma_{UU}(\phi) \\
-     \sigma_{\downarrow} &=& \sigma_{UT}(\phi, \phi_{S}+\pi) = [1 - |P_{T}|A_{UT}(\phi, \phi_{S})]\cdot \sigma_{UU}(\phi).
+     \sigma_{\uparrow} &=& \sigma_{UT}(\phi, \phi_{S}) = [1 + \frac{|P_{T}|}{\sqrt{1-sin^2(\theta_{\gamma})sin^2(\phi_{S})}} A_{UT}(\phi, \phi_{S})] \cdot  \sigma_{UU}(\phi) \\
+     \sigma_{\downarrow} &=& \sigma_{UT}(\phi, \phi_{S}+\pi) = [1 -\frac{|P_{T}|}{\sqrt{1-sin^2(\theta_{\gamma})sin^2(\phi_{S})}} A_{UT}(\phi, \phi_{S})]\cdot \sigma_{UU}(\phi).
 \end{eqnarray}
 where $|P_{T}| = P\cdot \eta_{n} \cdot d $. Hence, the probability density function can be constructed as:
 \begin{equation}
-  f_{\uparrow\downarrow}(\phi, \phi_{S}; \theta_{k}) = \frac{1}{C_{\uparrow\downarrow}} [1 \pm |P_{T}| \sum_{k=1}^{5} \theta_{k} sin(\mu\phi+\lambda\phi_{S})],
+  f_{\uparrow\downarrow}(\phi, \phi_{S}; \theta_{k}) = \frac{1}{C_{\uparrow\downarrow}} [1 \pm \frac{|P_{T}|}{\sqrt{1-sin^2(\theta_{\gamma})sin^2(\phi_{S})}} \sum_{k=1}^{5} \theta_{k} sin(\mu\phi+\lambda\phi_{S})],
 \end{equation}
 where $\theta_{k}$, $k=1-5$, are the values of asymmetries that can maximize the likelihood function.  $C_{\uparrow\downarrow}$ is a normalization constant and is set to one as it is not important in the UML fitting. Here we have dropped out the sixth asymmetry which is zero. The UML function can be defined as:
 \begin{equation}
