@@ -96,7 +96,7 @@ Int_t makebin(){
     TFile *file = new TFile(finalfile.Data(),"r");
     TTree *t0 = (TTree*) file->Get("T");
     int N_entries = t0->GetEntries();
-   
+ 
     Double_t W,Qsq, t,tp, t_Para, Epsilon, x, y, z;/*{{{*/
     Double_t t_cor, tp_cor, Qsq_cor, W_cor, x_cor, y_cor, z_cor;
     Double_t tgt_theta, tgt_phi, tgt_ene, tgt_mom, tgt_px, tgt_py, tgt_pz;
@@ -104,10 +104,13 @@ Int_t makebin(){
     Double_t beam_theta_cor, beam_phi_cor, beam_ene_cor, beam_mom_cor, beam_px_cor, beam_py_cor, beam_pz_cor;
     Double_t ele_theta, ele_phi, ele_ene, ele_mom, ele_px, ele_py, ele_pz;
     Double_t ele_theta_cor, ele_phi_cor, ele_ene_cor, ele_mom_cor, ele_px_cor, ele_py_cor, ele_pz_cor;
+    Double_t ele_theta_res, ele_phi_res, ele_ene_res, ele_mom_res, ele_px_res, ele_py_res, ele_pz_res;
     Double_t pim_theta, pim_phi, pim_ene, pim_mom, pim_px, pim_py, pim_pz;
     Double_t pim_theta_cor, pim_phi_cor, pim_ene_cor, pim_mom_cor, pim_px_cor, pim_py_cor, pim_pz_cor;
+    Double_t pim_theta_res, pim_phi_res, pim_ene_res, pim_mom_res, pim_px_res, pim_py_res, pim_pz_res;
     Double_t pro_theta, pro_phi, pro_ene, pro_mom, pro_px, pro_py, pro_pz;
     Double_t pro_theta_cor, pro_phi_cor, pro_ene_cor, pro_mom_cor, pro_px_cor, pro_py_cor, pro_pz_cor;
+    Double_t pro_theta_res, pro_phi_res, pro_ene_res, pro_mom_res, pro_px_res, pro_py_res, pro_pz_res;
     Double_t EventWeight, WilliamsWeight, DedrickWeight, CatchenWeight;
     Double_t Theta_Pion_Photon, Phi, PhiS, Phi_cor, PhiS_cor, Vertex_X, Vertex_Y, Vertex_Z;
     Double_t Asym_PhiS, Asym_PhiMinusPhiS, Asym_2PhiMinusPhiS, Asym_3PhiMinusPhiS,Asym_PhiPlusPhiS,Asym_2PhiPlusPhiS; 
@@ -119,12 +122,6 @@ Int_t makebin(){
 
     double ele_acc_f, ele_acc_l, pim_acc_f,pim_acc_l, pro_acc_f,pro_acc_l,total_acc, total_acc_cor, total_acc_res;
     double MM, MM_res, MM_cor, MP, MP_res, MP_cor,Lumi_PSF, dilute,weight, weight_uu, weight_ut, weight_3m1, weight_2m1, weight_1m1, weight_0p1, weight_1p1, weight_2p1;
-    double ele_mom_res, ele_theta_res, ele_phi_res;
-    double ele_ene_res, ele_px_res, ele_py_res, ele_pz_res;
-    double pim_mom_res, pim_theta_res, pim_phi_res;
-    double pim_ene_res, pim_px_res, pim_py_res, pim_pz_res;
-    double pro_mom_res, pro_theta_res, pro_phi_res;
-    double pro_ene_res, pro_px_res, pro_py_res, pro_pz_res;
     Int_t Q2BIN;
     /*}}}*/
     
@@ -206,7 +203,7 @@ Int_t makebin(){
     t0->SetBranchAddress("tgt_theta", &tgt_theta);
     t0->SetBranchAddress("tgt_phi", &tgt_phi);
     t0->SetBranchAddress("tgt_ene", &tgt_ene);
-    t0->SetBranchAddress("tgt_ene", &tgt_mom);/*}}}*/
+    t0->SetBranchAddress("tgt_mom", &tgt_mom);/*}}}*/
 
     t0->SetBranchAddress("beam_px", &beam_px);/*{{{*/
     t0->SetBranchAddress("beam_py", &beam_py);
@@ -214,7 +211,7 @@ Int_t makebin(){
     t0->SetBranchAddress("beam_theta", &beam_theta);
     t0->SetBranchAddress("beam_phi", &beam_phi);
     t0->SetBranchAddress("beam_ene", &beam_ene);
-    t0->SetBranchAddress("beam_ene", &beam_mom);
+    t0->SetBranchAddress("beam_mom", &beam_mom);
 
     t0->SetBranchAddress("beam_px_cor", &beam_px_cor);
     t0->SetBranchAddress("beam_py_cor", &beam_py_cor);
@@ -222,7 +219,7 @@ Int_t makebin(){
     t0->SetBranchAddress("beam_theta_cor", &beam_theta_cor);
     t0->SetBranchAddress("beam_phi_cor", &beam_phi_cor);
     t0->SetBranchAddress("beam_ene_cor", &beam_ene_cor);
-    t0->SetBranchAddress("beam_ene_cor", &beam_mom_cor);/*}}}*/
+    t0->SetBranchAddress("beam_mom_cor", &beam_mom_cor);/*}}}*/
 
     t0->SetBranchAddress("pim_ene",   &pim_ene   );/*{{{*/
     t0->SetBranchAddress("pim_px",    &pim_px    );
@@ -238,7 +235,16 @@ Int_t makebin(){
     t0->SetBranchAddress("pim_pz_cor",    &pim_pz_cor   );
     t0->SetBranchAddress("pim_mom_cor",   &pim_mom_cor  );
     t0->SetBranchAddress("pim_theta_cor", &pim_theta_cor);
-    t0->SetBranchAddress("pim_phi_cor",   &pim_phi_cor  );/*}}}*/
+    t0->SetBranchAddress("pim_phi_cor",   &pim_phi_cor  ); 
+    
+    t0->SetBranchAddress("pim_ene_res",   &pim_ene_res  );
+    t0->SetBranchAddress("pim_px_res",    &pim_px_res   );
+    t0->SetBranchAddress("pim_py_res",    &pim_py_res   );
+    t0->SetBranchAddress("pim_pz_res",    &pim_pz_res   );
+    t0->SetBranchAddress("pim_mom_res",   &pim_mom_res  );
+    t0->SetBranchAddress("pim_theta_res", &pim_theta_res);
+    t0->SetBranchAddress("pim_phi_res",   &pim_phi_res  );
+    /*}}}*/
 
     t0->SetBranchAddress("ele_ene",   &ele_ene );/*{{{*/
     t0->SetBranchAddress("ele_px",    &ele_px  );
@@ -254,7 +260,16 @@ Int_t makebin(){
     t0->SetBranchAddress("ele_pz_cor",    &ele_pz_cor   );
     t0->SetBranchAddress("ele_mom_cor",   &ele_mom_cor  );
     t0->SetBranchAddress("ele_theta_cor", &ele_theta_cor);
-    t0->SetBranchAddress("ele_phi_cor",   &ele_phi_cor  );/*}}}*/
+    t0->SetBranchAddress("ele_phi_cor",   &ele_phi_cor  );
+   
+    t0->SetBranchAddress("ele_ene_res",   &ele_ene_res  );
+    t0->SetBranchAddress("ele_px_res",    &ele_px_res   );
+    t0->SetBranchAddress("ele_py_res",    &ele_py_res   );
+    t0->SetBranchAddress("ele_pz_res",    &ele_pz_res   );
+    t0->SetBranchAddress("ele_mom_res",   &ele_mom_res  );
+    t0->SetBranchAddress("ele_theta_res", &ele_theta_res);
+    t0->SetBranchAddress("ele_phi_res",   &ele_phi_res  );
+    /*}}}*/
 
     t0->SetBranchAddress("pro_ene",   &pro_ene  ); /*{{{*/
     t0->SetBranchAddress("pro_px",    &pro_px   );
@@ -270,7 +285,15 @@ Int_t makebin(){
     t0->SetBranchAddress("pro_pz_cor",    &pro_pz_cor    );
     t0->SetBranchAddress("pro_mom_cor",   &pro_mom_cor   );
     t0->SetBranchAddress("pro_theta_cor", &pro_theta_cor );
-    t0->SetBranchAddress("pro_phi_cor",   &pro_phi_cor   );/*}}}*/
+    t0->SetBranchAddress("pro_phi_cor",   &pro_phi_cor   );
+ 
+    t0->SetBranchAddress("pro_ene_res",   &pro_ene_res   );
+    t0->SetBranchAddress("pro_px_res",    &pro_px_res    );
+    t0->SetBranchAddress("pro_py_res",    &pro_py_res    );
+    t0->SetBranchAddress("pro_pz_res",    &pro_pz_res    );
+    t0->SetBranchAddress("pro_mom_res",   &pro_mom_res   );
+    t0->SetBranchAddress("pro_theta_res", &pro_theta_res );
+    t0->SetBranchAddress("pro_phi_res",   &pro_phi_res   );/*}}}*/
 
     //Add SoLID acceptance/*{{{*/
     t0->SetBranchAddress("ele_acc_f",     &ele_acc_f);
@@ -431,7 +454,8 @@ Int_t makebin(){
     t1->Branch("pim_pz_cor",    &pim_pz_cor    ,"pim_pz_cor/D");
     t1->Branch("pim_mom_cor",   &pim_mom_cor   ,"pim_mom_cor/D");
     t1->Branch("pim_theta_cor", &pim_theta_cor ,"pim_theta_cor/D");
-    t1->Branch("pim_phi_cor",   &pim_phi_cor   ,"pim_phi_cor/D");/*}}}*/
+    t1->Branch("pim_phi_cor",   &pim_phi_cor   ,"pim_phi_cor/D");
+    /*}}}*/
 
     t1->Branch("ele_ene",   &ele_ene   ,"ele_ene/D");/*{{{*/
     t1->Branch("ele_px",    &ele_px    ,"ele_px/D");
@@ -464,6 +488,30 @@ Int_t makebin(){
     t1->Branch("pro_mom_cor",   &pro_mom_cor   ,"pro_mom_cor/D");
     t1->Branch("pro_theta_cor", &pro_theta_cor ,"pro_theta_cor/D");
     t1->Branch("pro_phi_cor",   &pro_phi_cor   ,"pro_phi_cor/D");/*}}}*/
+
+    t1->Branch("pim_ene_res",   &pim_ene_res   ,"pim_ene_res/D");
+    t1->Branch("pim_px_res",    &pim_px_res    ,"pim_px_res/D");
+    t1->Branch("pim_py_res",    &pim_py_res    ,"pim_py_res/D");
+    t1->Branch("pim_pz_res",    &pim_pz_res    ,"pim_pz_res/D");
+    t1->Branch("pim_mom_res",   &pim_mom_res   ,"pim_mom_res/D");
+    t1->Branch("pim_theta_res", &pim_theta_res ,"pim_theta_res/D");
+    t1->Branch("pim_phi_res",   &pim_phi_res   ,"pim_phi_res/D");
+   
+    t1->Branch("ele_ene_res",   &ele_ene_res   ,"ele_ene_res/D");/*{{{*/
+    t1->Branch("ele_px_res",    &ele_px_res    ,"ele_px_res/D");
+    t1->Branch("ele_py_res",    &ele_py_res    ,"ele_py_res/D");
+    t1->Branch("ele_pz_res",    &ele_pz_res    ,"ele_pz_res/D");
+    t1->Branch("ele_mom_res",   &ele_mom_res   ,"ele_mom_res/D");
+    t1->Branch("ele_theta_res", &ele_theta_res ,"ele_theta_res/D");
+    t1->Branch("ele_phi_res",   &ele_phi_res   ,"ele_phi_res/D"); 
+
+    t1->Branch("pro_ene_res",   &pro_ene_res   ,"pro_ene_res/D");
+    t1->Branch("pro_px_res",    &pro_px_res    ,"pro_px_res/D");
+    t1->Branch("pro_py_res",    &pro_py_res    ,"pro_py_res/D");
+    t1->Branch("pro_pz_res",    &pro_pz_res    ,"pro_pz_res/D");
+    t1->Branch("pro_mom_res",   &pro_mom_res   ,"pro_mom_res/D");
+    t1->Branch("pro_theta_res", &pro_theta_res ,"pro_theta_res/D");
+    t1->Branch("pro_phi_res",   &pro_phi_res   ,"pro_phi_res/D");/*}}}*/
 
     //Add SoLID acceptance/*{{{*/
     t1->Branch("ele_acc_f",     &ele_acc_f,     "ele_acc_f/D");
@@ -531,6 +579,23 @@ Int_t makebin(){
     /*Define #2 new Tree and new Branch{{{*/
     TFile *f2 = new TFile(Form("./rootfiles/%s_dvmp_%s_t2_%s.root", bin_name.Data(), pol_name.Data(), type_name.Data()), "recreate");
     TTree *t2 = new TTree("T","a new tree");
+    
+    t2->Branch("pim_ene",   &pim_ene   ,"pim_ene/D");/*{{{*/
+    t2->Branch("pim_px",    &pim_px    ,"pim_px/D");
+    t2->Branch("pim_py",    &pim_py    ,"pim_py/D");
+    t2->Branch("pim_pz",    &pim_pz    ,"pim_pz/D");
+    t2->Branch("pim_mom",   &pim_mom   ,"pim_mom/D");
+    t2->Branch("pim_theta", &pim_theta ,"pim_theta/D");
+    t2->Branch("pim_phi",   &pim_phi   ,"pim_phi/D");
+
+    t2->Branch("pim_ene_cor",   &pim_ene_cor   ,"pim_ene_cor/D");
+    t2->Branch("pim_px_cor",    &pim_px_cor    ,"pim_px_cor/D");
+    t2->Branch("pim_py_cor",    &pim_py_cor    ,"pim_py_cor/D");
+    t2->Branch("pim_pz_cor",    &pim_pz_cor    ,"pim_pz_cor/D");
+    t2->Branch("pim_mom_cor",   &pim_mom_cor   ,"pim_mom_cor/D");
+    t2->Branch("pim_theta_cor", &pim_theta_cor ,"pim_theta_cor/D");
+    t2->Branch("pim_phi_cor",   &pim_phi_cor   ,"pim_phi_cor/D");
+    /*}}}*/
 
     t2->Branch("NRecorded",       &NRecorded,     "NRecorded/I");/*{{{*/
     t2->Branch("NGenerated",       &NGenerated,     "NGenerated/I");
@@ -741,6 +806,23 @@ Int_t makebin(){
     /*Define #3 new Tree and new Branch{{{*/
     TFile *f3 = new TFile(Form("./rootfiles/%s_dvmp_%s_t3_%s.root", bin_name.Data(), pol_name.Data(), type_name.Data()), "recreate");
     TTree *t3 = new TTree("T","a new tree");
+    
+    t3->Branch("pim_ene",   &pim_ene   ,"pim_ene/D");/*{{{*/
+    t3->Branch("pim_px",    &pim_px    ,"pim_px/D");
+    t3->Branch("pim_py",    &pim_py    ,"pim_py/D");
+    t3->Branch("pim_pz",    &pim_pz    ,"pim_pz/D");
+    t3->Branch("pim_mom",   &pim_mom   ,"pim_mom/D");
+    t3->Branch("pim_theta", &pim_theta ,"pim_theta/D");
+    t3->Branch("pim_phi",   &pim_phi   ,"pim_phi/D");
+
+    t3->Branch("pim_ene_cor",   &pim_ene_cor   ,"pim_ene_cor/D");
+    t3->Branch("pim_px_cor",    &pim_px_cor    ,"pim_px_cor/D");
+    t3->Branch("pim_py_cor",    &pim_py_cor    ,"pim_py_cor/D");
+    t3->Branch("pim_pz_cor",    &pim_pz_cor    ,"pim_pz_cor/D");
+    t3->Branch("pim_mom_cor",   &pim_mom_cor   ,"pim_mom_cor/D");
+    t3->Branch("pim_theta_cor", &pim_theta_cor ,"pim_theta_cor/D");
+    t3->Branch("pim_phi_cor",   &pim_phi_cor   ,"pim_phi_cor/D");
+    /*}}}*/
 
     t3->Branch("NRecorded",       &NRecorded,     "NRecorded/I");/*{{{*/
     t3->Branch("NGenerated",       &NGenerated,     "NGenerated/I");
@@ -951,6 +1033,23 @@ Int_t makebin(){
     /*Define #4 new Tree and new Branch{{{*/
     TFile *f4 = new TFile(Form("./rootfiles/%s_dvmp_%s_t4_%s.root", bin_name.Data(), pol_name.Data(), type_name.Data()), "recreate");
     TTree *t4 = new TTree("T","a new tree");
+    
+    t4->Branch("pim_ene",   &pim_ene   ,"pim_ene/D");/*{{{*/
+    t4->Branch("pim_px",    &pim_px    ,"pim_px/D");
+    t4->Branch("pim_py",    &pim_py    ,"pim_py/D");
+    t4->Branch("pim_pz",    &pim_pz    ,"pim_pz/D");
+    t4->Branch("pim_mom",   &pim_mom   ,"pim_mom/D");
+    t4->Branch("pim_theta", &pim_theta ,"pim_theta/D");
+    t4->Branch("pim_phi",   &pim_phi   ,"pim_phi/D");
+
+    t4->Branch("pim_ene_cor",   &pim_ene_cor   ,"pim_ene_cor/D");
+    t4->Branch("pim_px_cor",    &pim_px_cor    ,"pim_px_cor/D");
+    t4->Branch("pim_py_cor",    &pim_py_cor    ,"pim_py_cor/D");
+    t4->Branch("pim_pz_cor",    &pim_pz_cor    ,"pim_pz_cor/D");
+    t4->Branch("pim_mom_cor",   &pim_mom_cor   ,"pim_mom_cor/D");
+    t4->Branch("pim_theta_cor", &pim_theta_cor ,"pim_theta_cor/D");
+    t4->Branch("pim_phi_cor",   &pim_phi_cor   ,"pim_phi_cor/D");
+    /*}}}*/
 
     t4->Branch("NRecorded",       &NRecorded,     "NRecorded/I");/*{{{*/
     t4->Branch("NGenerated",       &NGenerated,     "NGenerated/I");
@@ -1161,6 +1260,23 @@ Int_t makebin(){
     /*Define #5 new Tree and new Branch{{{*/
     TFile *f5 = new TFile(Form("./rootfiles/%s_dvmp_%s_t5_%s.root", bin_name.Data(), pol_name.Data(), type_name.Data()), "recreate");
     TTree *t5 = new TTree("T","a new tree");
+    
+    t5->Branch("pim_ene",   &pim_ene   ,"pim_ene/D");/*{{{*/
+    t5->Branch("pim_px",    &pim_px    ,"pim_px/D");
+    t5->Branch("pim_py",    &pim_py    ,"pim_py/D");
+    t5->Branch("pim_pz",    &pim_pz    ,"pim_pz/D");
+    t5->Branch("pim_mom",   &pim_mom   ,"pim_mom/D");
+    t5->Branch("pim_theta", &pim_theta ,"pim_theta/D");
+    t5->Branch("pim_phi",   &pim_phi   ,"pim_phi/D");
+
+    t5->Branch("pim_ene_cor",   &pim_ene_cor   ,"pim_ene_cor/D");
+    t5->Branch("pim_px_cor",    &pim_px_cor    ,"pim_px_cor/D");
+    t5->Branch("pim_py_cor",    &pim_py_cor    ,"pim_py_cor/D");
+    t5->Branch("pim_pz_cor",    &pim_pz_cor    ,"pim_pz_cor/D");
+    t5->Branch("pim_mom_cor",   &pim_mom_cor   ,"pim_mom_cor/D");
+    t5->Branch("pim_theta_cor", &pim_theta_cor ,"pim_theta_cor/D");
+    t5->Branch("pim_phi_cor",   &pim_phi_cor   ,"pim_phi_cor/D");
+    /*}}}*/
 
     t5->Branch("NRecorded",       &NRecorded,     "NRecorded/I");/*{{{*/
     t5->Branch("NGenerated",       &NGenerated,     "NGenerated/I");
@@ -1371,6 +1487,23 @@ Int_t makebin(){
     /*Define #6 new Tree and new Branch{{{*/
     TFile *f6 = new TFile(Form("./rootfiles/%s_dvmp_%s_t6_%s.root", bin_name.Data(), pol_name.Data(), type_name.Data()), "recreate");
     TTree *t6 = new TTree("T","a new tree");
+    
+    t6->Branch("pim_ene",   &pim_ene   ,"pim_ene/D");/*{{{*/
+    t6->Branch("pim_px",    &pim_px    ,"pim_px/D");
+    t6->Branch("pim_py",    &pim_py    ,"pim_py/D");
+    t6->Branch("pim_pz",    &pim_pz    ,"pim_pz/D");
+    t6->Branch("pim_mom",   &pim_mom   ,"pim_mom/D");
+    t6->Branch("pim_theta", &pim_theta ,"pim_theta/D");
+    t6->Branch("pim_phi",   &pim_phi   ,"pim_phi/D");
+
+    t6->Branch("pim_ene_cor",   &pim_ene_cor   ,"pim_ene_cor/D");
+    t6->Branch("pim_px_cor",    &pim_px_cor    ,"pim_px_cor/D");
+    t6->Branch("pim_py_cor",    &pim_py_cor    ,"pim_py_cor/D");
+    t6->Branch("pim_pz_cor",    &pim_pz_cor    ,"pim_pz_cor/D");
+    t6->Branch("pim_mom_cor",   &pim_mom_cor   ,"pim_mom_cor/D");
+    t6->Branch("pim_theta_cor", &pim_theta_cor ,"pim_theta_cor/D");
+    t6->Branch("pim_phi_cor",   &pim_phi_cor   ,"pim_phi_cor/D");
+    /*}}}*/
 
     t6->Branch("NRecorded",       &NRecorded,     "NRecorded/I");/*{{{*/
     t6->Branch("NGenerated",       &NGenerated,     "NGenerated/I");
@@ -1581,6 +1714,23 @@ Int_t makebin(){
     /*Define #7 new Tree and new Branch{{{*/
     TFile *f7 = new TFile(Form("./rootfiles/%s_dvmp_%s_t7_%s.root", bin_name.Data(), pol_name.Data(), type_name.Data()), "recreate");
     TTree *t7 = new TTree("T","a new tree");
+    
+    t7->Branch("pim_ene",   &pim_ene   ,"pim_ene/D");/*{{{*/
+    t7->Branch("pim_px",    &pim_px    ,"pim_px/D");
+    t7->Branch("pim_py",    &pim_py    ,"pim_py/D");
+    t7->Branch("pim_pz",    &pim_pz    ,"pim_pz/D");
+    t7->Branch("pim_mom",   &pim_mom   ,"pim_mom/D");
+    t7->Branch("pim_theta", &pim_theta ,"pim_theta/D");
+    t7->Branch("pim_phi",   &pim_phi   ,"pim_phi/D");
+
+    t7->Branch("pim_ene_cor",   &pim_ene_cor   ,"pim_ene_cor/D");
+    t7->Branch("pim_px_cor",    &pim_px_cor    ,"pim_px_cor/D");
+    t7->Branch("pim_py_cor",    &pim_py_cor    ,"pim_py_cor/D");
+    t7->Branch("pim_pz_cor",    &pim_pz_cor    ,"pim_pz_cor/D");
+    t7->Branch("pim_mom_cor",   &pim_mom_cor   ,"pim_mom_cor/D");
+    t7->Branch("pim_theta_cor", &pim_theta_cor ,"pim_theta_cor/D");
+    t7->Branch("pim_phi_cor",   &pim_phi_cor   ,"pim_phi_cor/D");
+    /*}}}*/
 
     t7->Branch("NRecorded",       &NRecorded,     "NRecorded/I");/*{{{*/
     t7->Branch("NGenerated",       &NGenerated,     "NGenerated/I");
@@ -1791,6 +1941,23 @@ Int_t makebin(){
     /*Define #8 new Tree and new Branch{{{*/
     TFile *f8 = new TFile(Form("./rootfiles/%s_dvmp_%s_t8_%s.root", bin_name.Data(), pol_name.Data(), type_name.Data()), "recreate");
     TTree *t8 = new TTree("T","a new tree");
+    
+    t8->Branch("pim_ene",   &pim_ene   ,"pim_ene/D");/*{{{*/
+    t8->Branch("pim_px",    &pim_px    ,"pim_px/D");
+    t8->Branch("pim_py",    &pim_py    ,"pim_py/D");
+    t8->Branch("pim_pz",    &pim_pz    ,"pim_pz/D");
+    t8->Branch("pim_mom",   &pim_mom   ,"pim_mom/D");
+    t8->Branch("pim_theta", &pim_theta ,"pim_theta/D");
+    t8->Branch("pim_phi",   &pim_phi   ,"pim_phi/D");
+
+    t8->Branch("pim_ene_cor",   &pim_ene_cor   ,"pim_ene_cor/D");
+    t8->Branch("pim_px_cor",    &pim_px_cor    ,"pim_px_cor/D");
+    t8->Branch("pim_py_cor",    &pim_py_cor    ,"pim_py_cor/D");
+    t8->Branch("pim_pz_cor",    &pim_pz_cor    ,"pim_pz_cor/D");
+    t8->Branch("pim_mom_cor",   &pim_mom_cor   ,"pim_mom_cor/D");
+    t8->Branch("pim_theta_cor", &pim_theta_cor ,"pim_theta_cor/D");
+    t8->Branch("pim_phi_cor",   &pim_phi_cor   ,"pim_phi_cor/D");
+    /*}}}*/
 
     t8->Branch("NRecorded",       &NRecorded,     "NRecorded/I");/*{{{*/
     t8->Branch("NGenerated",       &NGenerated,     "NGenerated/I");
@@ -2001,6 +2168,22 @@ Int_t makebin(){
     /*Define #9 new Tree and new Branch{{{*/
     TFile *f9 = new TFile(Form("./rootfiles/%s_dvmp_%s_t9_%s.root", bin_name.Data(), pol_name.Data(), type_name.Data()), "recreate");
     TTree *t9 = new TTree("T","a new tree");
+    t9->Branch("pim_ene",   &pim_ene   ,"pim_ene/D");/*{{{*/
+    t9->Branch("pim_px",    &pim_px    ,"pim_px/D");
+    t9->Branch("pim_py",    &pim_py    ,"pim_py/D");
+    t9->Branch("pim_pz",    &pim_pz    ,"pim_pz/D");
+    t9->Branch("pim_mom",   &pim_mom   ,"pim_mom/D");
+    t9->Branch("pim_theta", &pim_theta ,"pim_theta/D");
+    t9->Branch("pim_phi",   &pim_phi   ,"pim_phi/D");
+
+    t9->Branch("pim_ene_cor",   &pim_ene_cor   ,"pim_ene_cor/D");
+    t9->Branch("pim_px_cor",    &pim_px_cor    ,"pim_px_cor/D");
+    t9->Branch("pim_py_cor",    &pim_py_cor    ,"pim_py_cor/D");
+    t9->Branch("pim_pz_cor",    &pim_pz_cor    ,"pim_pz_cor/D");
+    t9->Branch("pim_mom_cor",   &pim_mom_cor   ,"pim_mom_cor/D");
+    t9->Branch("pim_theta_cor", &pim_theta_cor ,"pim_theta_cor/D");
+    t9->Branch("pim_phi_cor",   &pim_phi_cor   ,"pim_phi_cor/D");
+    /*}}}*/
 
     t9->Branch("NRecorded",       &NRecorded,     "NRecorded/I");/*{{{*/
     t9->Branch("NGenerated",       &NGenerated,     "NGenerated/I");
@@ -2211,6 +2394,22 @@ Int_t makebin(){
     /*Define #10 new Tree and new Branch{{{*/
     TFile *f10 = new TFile(Form("./rootfiles/%s_dvmp_%s_t10_%s.root", bin_name.Data(), pol_name.Data(), type_name.Data()), "recreate");
     TTree *t10 = new TTree("T","a new tree");
+    t10->Branch("pim_ene",   &pim_ene   ,"pim_ene/D");/*{{{*/
+    t10->Branch("pim_px",    &pim_px    ,"pim_px/D");
+    t10->Branch("pim_py",    &pim_py    ,"pim_py/D");
+    t10->Branch("pim_pz",    &pim_pz    ,"pim_pz/D");
+    t10->Branch("pim_mom",   &pim_mom   ,"pim_mom/D");
+    t10->Branch("pim_theta", &pim_theta ,"pim_theta/D");
+    t10->Branch("pim_phi",   &pim_phi   ,"pim_phi/D");
+
+    t10->Branch("pim_ene_cor",   &pim_ene_cor   ,"pim_ene_cor/D");
+    t10->Branch("pim_px_cor",    &pim_px_cor    ,"pim_px_cor/D");
+    t10->Branch("pim_py_cor",    &pim_py_cor    ,"pim_py_cor/D");
+    t10->Branch("pim_pz_cor",    &pim_pz_cor    ,"pim_pz_cor/D");
+    t10->Branch("pim_mom_cor",   &pim_mom_cor   ,"pim_mom_cor/D");
+    t10->Branch("pim_theta_cor", &pim_theta_cor ,"pim_theta_cor/D");
+    t10->Branch("pim_phi_cor",   &pim_phi_cor   ,"pim_phi_cor/D");
+    /*}}}*/
 
     t10->Branch("NRecorded",       &NRecorded,     "NRecorded/I");/*{{{*/
     t10->Branch("NGenerated",       &NGenerated,     "NGenerated/I");
@@ -2420,6 +2619,22 @@ Int_t makebin(){
     /*Define #11 new Tree and new Branch{{{*/
     TFile *f11 = new TFile(Form("./rootfiles/%s_dvmp_%s_t11_%s.root", bin_name.Data(), pol_name.Data(), type_name.Data()), "recreate");
     TTree *t11 = new TTree("T","a new tree");
+    t11->Branch("pim_ene",   &pim_ene   ,"pim_ene/D");/*{{{*/
+    t11->Branch("pim_px",    &pim_px    ,"pim_px/D");
+    t11->Branch("pim_py",    &pim_py    ,"pim_py/D");
+    t11->Branch("pim_pz",    &pim_pz    ,"pim_pz/D");
+    t11->Branch("pim_mom",   &pim_mom   ,"pim_mom/D");
+    t11->Branch("pim_theta", &pim_theta ,"pim_theta/D");
+    t11->Branch("pim_phi",   &pim_phi   ,"pim_phi/D");
+
+    t11->Branch("pim_ene_cor",   &pim_ene_cor   ,"pim_ene_cor/D");
+    t11->Branch("pim_px_cor",    &pim_px_cor    ,"pim_px_cor/D");
+    t11->Branch("pim_py_cor",    &pim_py_cor    ,"pim_py_cor/D");
+    t11->Branch("pim_pz_cor",    &pim_pz_cor    ,"pim_pz_cor/D");
+    t11->Branch("pim_mom_cor",   &pim_mom_cor   ,"pim_mom_cor/D");
+    t11->Branch("pim_theta_cor", &pim_theta_cor ,"pim_theta_cor/D");
+    t11->Branch("pim_phi_cor",   &pim_phi_cor   ,"pim_phi_cor/D");
+    /*}}}*/
 
     t11->Branch("NRecorded",       &NRecorded,     "NRecorded/I");/*{{{*/
     t11->Branch("NGenerated",       &NGenerated,     "NGenerated/I");

@@ -853,7 +853,7 @@ int main(){
         if(Qsq>4){
             total_rate_dvmp_4GeV += weight/time;
         
-            /*and Missing w/o resolutions{{{*/
+            /*Missing w/o resolutions{{{*/
             P_E0->SetPxPyPzE(beam_px,beam_py,beam_pz, beam_ene);
             P_t->SetPxPyPzE(tgt_px,tgt_py,tgt_pz,tgt_ene);
             
