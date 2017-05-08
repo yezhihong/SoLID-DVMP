@@ -23,6 +23,9 @@
  * When reconstructing missing mass and momentum, use the "corrected"+"resolution smeared" quantities
  * To avoid confusion, different polarized XS and weights were recalculated based on the asymmetries
 
+## Plot Missing Mass and Momentum Spectra with DEMP and SIDIS events
+### The code "./missing_mass/Missing_Mass.C" does this job
+
 ### Use the code "./makebin/skim.C" to dvidie the root files into small files for individual -t bins or -tp bins
  * Names correspond to different configurations:
  ```js
