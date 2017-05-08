@@ -24,6 +24,14 @@
  * To avoid confusion, different polarized XS and weights were recalculated based on the asymmetries
 
 ### Use the code "./makebin/skim.C" to dvidie the root files into small files for individual -t bins or -tp bins
+ * Names correspond to different configurations:
+ ```js
+    simple->No Fermi, EL, MS, FSI
+    fermi->Only Fermi
+    mult_nofermi-> EL, MS, but not Fermi
+    mult-> Fermi, EL, MS
+    mult_fsi-> Fermi, EL, MS, FSI
+ ```
  * If binning on "t", using the following boundry:
 ```js
     t_cut[8+1] = {0.00, 0.30, 0.40, 0.50, 0.60, 0.80, 1.10, 2.0};
