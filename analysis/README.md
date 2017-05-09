@@ -60,15 +60,15 @@
  ```
  * If binning on "t", using the following boundry:
 ```js
-    t_cut[8+1] = {0.05, 0.20, 0.30, 0.40, 0.50, 0.70, 1.00, 3.0};
+    t_cut[8] = {0.05, 0.20, 0.30, 0.40, 0.50, 0.70, 1.00, 3.0};
 ```
  * If binning on "tp", using the following boundry:
 ```js
-    tp_cut[11+1] = {0.0,0.025,0.05,0.075,0.100, 0.150,0.200,0.250,0.350,0.7};
+    tp_cut[10] = {0.0,0.025,0.05,0.075,0.100, 0.150,0.200,0.250,0.350,0.7};
 ```
  * If binning on "log10(tp)", using the following boundry:
 ```js
-    tp_cut[11+1] = {-5.0, -2.4, -2.0, -1.8, -1.6, -1.4, -1.2, -0.8, -0.6, -0.2};
+    tp_cut[10] = {-5.0, -2.4, -2.0, -1.8, -1.6, -1.4, -1.2, -0.8, -0.6, -0.2};
 ```
 
 ## Reconstruct "Experimental" Asymmetry and perform fitting to extract angular modulations.
