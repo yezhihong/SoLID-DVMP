@@ -18,7 +18,7 @@
 ```js
 ./Missing_Mass
 ```
- * Step#5: in ./makebin/, Bin the MC data in each t or tp bin futher in (Phi, PhiS) bin, calculate the sum of asymmetries for comparision, and also calcualte the goodness of the fit to check the quality. Output both histograms and data files for plottings. (Note: for up quark, I flip the polarization sign for polarization-down instead of rotating phiS since we compare the same phiS values)
+ * Step#5: in ./makebin/, Bin the MC data in each t or tp bin futher in (Phi, PhiS) bin, calculate the sum of asymmetries for comparision, and also calcualte the goodness of the fit to check the quality. Output both histograms and data files for plottings. (Note: I flip the polarization sign for polarization-down instead of rotating phiS since we compare the same phiS values)
  ```js
     ./makebin
     notebook AsymFit_Binned.ipynb
