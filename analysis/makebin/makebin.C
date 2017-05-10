@@ -88,7 +88,7 @@ Int_t main()
     if(bin_type==3) {BINS= 10;}
 
     ifstream inputf; 
-    inputf.open(Form("../asym_extr/results/%s_dvmp_par_%s_%s.dat",bin_name.Data(), type_name.Data(), fit_pars.Data()));
+    inputf.open(Form("../asym_extr/results_may9/%s_dvmp_par_%s_%s.dat",bin_name.Data(), type_name.Data(), fit_pars.Data()));
     TString com;
     double temp;
     int t_bin, Q2_bin;
@@ -215,10 +215,8 @@ void LoadData( Int_t IT, Int_t IQ){
    for(int i=0;i<Nu; i++){
      Tu->GetEntry(i);
      if(Q2BIN!=IQ && IQ!=0) continue; //choose the right Q2 bin
-
      //last chance to apply whatever cuts here
      if(MP_res>1.2) continue;
-   
      if(isnan(weight_uu) || isinf(weight_uu)) weight_uu=0.0;
      if(weight_uu<1e-12 && weight_uu>1e12) weight_uu=0.0;
   
@@ -304,9 +302,6 @@ void LoadData( Int_t IT, Int_t IQ){
      //last chance to apply whatever cuts here
      if(MP_res>1.2) continue;
     
-     //Note: In the generator Ahmed switch the sign of the polarization. 
-     //In this fit, I fix the absolute polarization values, and rotate the phi_S
-     //phi_s += 180.0; 
      phi_h *= Deg2Rad; phi_s *= Deg2Rad;
     
      if(isnan(weight_uu) || isinf(weight_uu)) weight_uu=0.0;
@@ -326,8 +321,9 @@ void LoadData( Int_t IT, Int_t IQ){
          weight_ut += weight_3m1;
          weight_ut += weight_1p1;
      }
-
-     weight_ut *= -1.*POL;
+     
+     //flip the polarization instead of rotating phiS since we compare same phiS values between up and down
+     weight_ut *= (-1.)*POL;
      weight = weight_uu - weight_ut; //follow the HERMES thesis to put a minus sign here/*}}}*/
 
      /*From Fit{{{*/
@@ -345,7 +341,8 @@ void LoadData( Int_t IT, Int_t IQ){
          weight_ut_fit += weight_1p1_fit;
      }
 
-     weight_ut_fit *= POL;
+     //flip the polarization instead of rotating phiS since we compare same phiS values between up and down
+     weight_ut_fit *= (-1.)*POL;
      weight_fit = weight_uu - weight_ut_fit;/*}}}*/
 
      for(int i=0;i<12;i++){
@@ -373,21 +370,31 @@ void LoadData( Int_t IT, Int_t IQ){
    for(int i=0;i<12;i++){
          for(int j=0;j<12;j++){
              //Asymmetries and error from the MC data/*{{{*/
-            Asym_avg[i][j] = (Ncnt_U_avg[i][j]-Ncnt_D_avg[i][j]) / (Ncnt_U_avg[i][j]+Ncnt_D_avg[i][j]);
             dNU = sqrt( Ncnt_U_avg[i][j]);
             if (dNU<1e-33) dNU = 1;
             dND = sqrt( Ncnt_D_avg[i][j]);
             if (dND<1e-33) dND = 1;
-            dAsym_avg[i][j] = sqrt( pow((2*dND*Ncnt_U_avg[i][j]), 2)+pow((2*dNU*Ncnt_D_avg[i][j]),2))/(Ncnt_U_avg[i][j]+Ncnt_D_avg[i][j]) ;/*}}}*/
+            if((Ncnt_U_avg[i][j]+Ncnt_D_avg[i][j])>1.){
+                Asym_avg[i][j] = (Ncnt_U_avg[i][j]-Ncnt_D_avg[i][j]) / (Ncnt_U_avg[i][j]+Ncnt_D_avg[i][j]);
+                dAsym_avg[i][j] = sqrt( pow((2*dND*Ncnt_U_avg[i][j]), 2)+pow((2*dNU*Ncnt_D_avg[i][j]),2))/(Ncnt_U_avg[i][j]+Ncnt_D_avg[i][j]) ;
+            }else{
+                Asym_avg[i][j] = -10.0; 
+                dAsym_avg[i][j] = 0.0; 
+            }/*}}}*/
 
-             //Asymmetries and error from the fitted values /*{{{*/
+            //Asymmetries and error from the fitted values /*{{{*/
             dNU = sqrt( Ncnt_U_fit[i][j]);
             if (dNU<1e-33) dNU = 1;
             dND = sqrt( Ncnt_D_fit[i][j]);
             if (dND<1e-33) dND = 1;
-            Asym_fit[i][j] = (Ncnt_U_fit[i][j]-Ncnt_D_fit[i][j]) / (Ncnt_U_fit[i][j]+Ncnt_D_fit[i][j]);
-            dAsym_fit[i][j] = sqrt( pow((2*dND*Ncnt_U_fit[i][j]), 2)+pow((2*dNU*Ncnt_D_fit[i][j]),2))/(Ncnt_U_fit[i][j]+Ncnt_D_fit[i][j]) ;/*}}}*/
-             
+            if((Ncnt_U_fit[i][j]+Ncnt_D_fit[i][j])>1.){
+                Asym_fit[i][j] = (Ncnt_U_fit[i][j]-Ncnt_D_fit[i][j]) / (Ncnt_U_fit[i][j]+Ncnt_D_fit[i][j]);
+                dAsym_fit[i][j] = sqrt( pow((2*dND*Ncnt_U_fit[i][j]), 2)+pow((2*dNU*Ncnt_D_fit[i][j]),2))/(Ncnt_U_fit[i][j]+Ncnt_D_fit[i][j]) ;
+            }else{
+                Asym_fit[i][j] = -10.0; 
+                dAsym_fit[i][j] = 0.0; 
+            }/*}}}*/
+
             //Asymmetries and error from page#84 of the HERMES thesis /*{{{*/
             phi_h_temp = 0.5*(PhiH_BIN[i]*Deg2Rad+PhiH_BIN[i+1]*Deg2Rad);
             phi_s_temp = 0.5*(PhiS_BIN[j]*Deg2Rad+PhiS_BIN[j+1]*Deg2Rad);
@@ -408,8 +415,14 @@ void LoadData( Int_t IT, Int_t IQ){
             dAsym_cal[i][j]=sqrt(dAsym_cal[i][j]);/*}}}*/
 
             //Goodness of the fit from page#84 of the HERMES thesis 
-            GOOD_asym_fit[i][j] = (Asym_avg[i][j] - Asym_fit[i][j])/sqrt( pow(dAsym_avg[i][j] ,2)+pow(dAsym_fit[i][j] ,2));
-            GOOD_asym_cal[i][j] = (Asym_avg[i][j] - Asym_cal[i][j])/sqrt( pow(dAsym_avg[i][j] ,2)+pow(dAsym_cal[i][j] ,2));
+            if(sqrt( pow(dAsym_avg[i][j] ,2)+pow(dAsym_fit[i][j] ,2))>1e-6)
+                GOOD_asym_fit[i][j] = (Asym_avg[i][j] - Asym_fit[i][j])/sqrt( pow(dAsym_avg[i][j] ,2)+pow(dAsym_fit[i][j] ,2));
+            else
+                GOOD_asym_fit[i][j] = -10.0;
+            if(sqrt( pow(dAsym_avg[i][j] ,2)+pow(dAsym_cal[i][j] ,2)>1e-6))
+                GOOD_asym_cal[i][j] = (Asym_avg[i][j] - Asym_cal[i][j])/sqrt( pow(dAsym_avg[i][j] ,2)+pow(dAsym_cal[i][j] ,2));
+            else
+                GOOD_asym_cal[i][j] = -10.0;
 
             outf <<Form("%6.3f %6.3f %12.6e %12.6e %12.6e %12.6e %12.6e %12.6e %12.6e %12.6e %12.6e %12.6e %12.6e %12.6e",
                     phi_h_temp*Rad2Deg, phi_s_temp*Rad2Deg,
