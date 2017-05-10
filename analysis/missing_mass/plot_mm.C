@@ -3,7 +3,8 @@ void plot_mm(){
 
     TFile *f1 = new TFile("SIDIS_MM_p_11_Q2gt4.root");
     TFile *f2 = new TFile("SIDIS_MM_n_11_Q2gt4.root");
-    TFile *f3 = new TFile("./histo_up_mult.root");
+    //TFile *f3 = new TFile("./histo_up_mult.root");
+    TFile *f3 = new TFile("./histo_up_mult_cut1.root");
 
     TH1F *hMM_n_dvmp = (TH1F*) f3->Get("hMM_dvmp");
     TH1F *hMM_n_dvmp_cut = (TH1F*) f3->Get("hMM_dvmp_cut");
