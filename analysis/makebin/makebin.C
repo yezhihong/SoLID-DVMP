@@ -1,293 +1,442 @@
-/*C/C++ Includes{{{*/
-#include <stdio.h>
-#include <string>
+///////////////2//////////////////////
+//     DVMP Asymmetries Fitting     //
+//     TMinuit Minimization         //
+//    ---  Zhihong Ye 04/26/2017    //
+//////////////////////////////////////
+/*Headers{{{*/
+
 #include <iostream>
 #include <fstream>
-#include <vector>
-#include <algorithm>
-#include <map>
+#include <cstdlib>
 #include <cmath>
-//#include "Rtypes.h"
-//#include "math.h"
+#include <string>
+#include <vector>
+#include <iomanip>
+#include <string>
+#include <cstdio>
 
-/*}}}*/
-/*ROOT Includes{{{*/
-#include <TSystem.h>
-#include <TString.h>
+#include "math.h"
+#include "stdio.h"
+#include <stdlib.h>
+
+#include "TGraph.h"
+#include "TGraphErrors.h"
+#include "TPaveStats.h"
+#include <TCanvas.h>
 #include <TStyle.h>
-#include <Riostream.h>
-#include "TObjString.h"
-#include <TNamed.h>
-#include <TPRegexp.h>
-#include <TObjArray.h>
-#include <TChain.h>
-#include <TMath.h>
-#include <TH1.h>
-#include <TH1D.h>
-#include <TH2D.h>
-#include <TFile.h>
 #include <TROOT.h>
 #include <TF1.h>
-#include <TGraph.h>
-#include <TGraphErrors.h>
-#include <TCanvas.h>
-#include <TDatime.h>
-#include <TError.h>
+#include <TH1.h>
+#include <TH2F.h>
+#include <TAxis.h>
+#include <TLine.h>
+#include <TLatex.h>
+#include <TLegend.h>
+#include "TFile.h"
+#include "TTree.h"
+#include "TMath.h"
+#include "TObject.h"
+#include "TSystem.h"
 #include <TVirtualFitter.h>
-#include <TSQLServer.h>
-#include <TSQLResult.h>
-#include <TSQLRow.h>
-#include <TCut.h>
-#include <TMultiGraph.h>
-#include <TCutG.h>
-#include <TLorentzVector.h>
-#include <TMath.h>
-#include <TRandom3.h>
+#include <TMinuit.h>
+//#include <TFitterMinuit.h>
 #include <TApplication.h>
-#include <Rtypes.h>
-#include <TTree.h>
-//#include <TMatrix.h>
-/*}}}*/
-
+#include <vector>
 using namespace std;
-const Double_t PI = 3.1415926;
-const Double_t Deg2Rad = PI/180.0;
-Double_t max(Double_t a, Double_t b);
-Int_t makebin();
 
-/*Int_t main{{{*/
-Int_t main(){
-    Int_t err = -1000;
-    err = makebin();
-    if(err<0){
-        cerr<<"***** Return error code = "<<err <<endl;
-    }
-    return err;
-}
 /*}}}*/
 
-Int_t makebin(){
+//Set to one but keep in mind that the weight_ut should set pol=1 as well.
+static const Double_t POL = 0.6*0.865 * 0.9;//He3-Pol, Neutron-Effective-Pol, and Dilution
+static const Double_t pi = 3.1415926;
+static const Double_t Deg2Rad = pi/180.;
+static const Double_t Rad2Deg = 180./pi;
+
+TString type_name = "";
+TString bin_name = "";
+TString fit_pars = "fit5";
+ofstream outf;
+Double_t asym_1m1_avg,asym_2m1_avg,asym_3m1_avg,asym_0p1_avg,asym_1p1_avg;
+Double_t asym_1m1_fit,asym_2m1_fit,asym_3m1_fit,asym_0p1_fit,asym_1p1_fit;
+Double_t asym_1m1_err,asym_2m1_err,asym_3m1_err,asym_0p1_err,asym_1p1_err;
+Double_t t_avg, tp_avg, Q2_avg, xb_avg,W_avg, dilute_avg,Asym,Astat;
+void LoadData( Int_t IT, Int_t IQ);
+
+/*Main{{{*/
+Int_t main()
+{ 
+    gStyle->SetOptFit(1);  
     gStyle->SetOptStat(0);
-    TString target = "n";
-    TString energy = "11";
-    Int_t Q2BIN = 0;
-    /*Initial Factors{{{*/
-    if(target!="p" && target!="n"){
-        cerr<<"I don't know this target flag!"<<endl;
-        return -1;
-    }
-    if(energy!="11" && energy!="8" && energy!="11p8"){
-        cerr<<"I don't know this energy flag!"<<endl;
-        return -2;
-    }
 
-    Int_t target_direction=1; 
-    cout<<"--- Target Direction (1->Up, 2->Down): "; cin>>target_direction;
-    TString targetname="";
-    if(target_direction==1) targetname="up";
-    if(target_direction==2) targetname="down";
+    Int_t iType = 0;
+    cout<<"--- Which file ? (1->simple, 2->mult, 3->mult_fsi, 4->fermi, 5->mult_nofermi)  "; cin >> iType;
+    if(iType==1) type_name = "simple"; 
+    if(iType==2) type_name = "mult"; 
+    if(iType==3) type_name = "mult_fsi"; 
+    if(iType==4) type_name = "fermi"; 
+    if(iType==5) type_name = "mult_nofermi"; 
 
-    const Double_t dilute_factor = 0.9;
-    const Double_t target_polarization = 0.6; //60% polarization
-    //const Double_t beam_polarization = 1.0; //60% polarization
-    const Double_t det_eff = 0.85; //85% detector efficiency for electrons and hadrons
-    const Double_t target_factor = 0.865; //neutron polarization 86.5%
-    //	const Double_t Asys = 0.006; 
-    //const Double_t Nsys = 2e+6; 
-    /*}}}*/
+    Int_t bin_type = 0;
+    cout<<"--- Which Bining? (1->t, 2->tp, 3->log(tp) )"; cin>> bin_type;
+    if(bin_type==1) bin_name ="t";
+    if(bin_type==2) bin_name ="tp";
+    if(bin_type==3) bin_name ="logtp";
 
-       
-    /*Binning{{{*/
-    TString histoname;
-    Double_t N_raw= 0.0,N_out = 0.0, Asym= 0.0, Astat=0.0;
-    Double_t t_min = 0.0, t_max = 0.0;
-    
-    TCanvas *c1 = new TCanvas("c1","c1",900,900);
-    TCanvas *c3 = new TCanvas("c3","c3",1000,300);
+    int BINS = 0;
+    if(bin_type==1) {BINS= 7;}
+    if(bin_type==2) {BINS= 9;}
+    if(bin_type==3) {BINS= 10;}
 
-    TString filename = "";
-    TString prefix = Form("./database/");
-    filename = Form("%s_asym_%s_1.dat",target.Data(),  targetname.Data());
-    TString new_filename = prefix + filename;
-    ofstream outf1(new_filename);
+    ifstream inputf; 
+    inputf.open(Form("../asym_extr/results/%s_dvmp_par_%s_%s.dat",bin_name.Data(), type_name.Data(), fit_pars.Data()));
+    TString com;
+    double temp;
+    int t_bin, Q2_bin;
+    inputf>>com>>com>>com>>com>>com
+          >>com>>com>>com>>com>>com
+          >>com>>com>>com>>com>>com
+          >>com>>com>>com>>com>>com
+          >>com>>com>>com>>com>>com>>com>>com;
+    for(int i=1; i<=BINS;i++){
+        for(int j=0; j<1;j++){
 
-    filename = Form("%s_asym_%s_2.dat",target.Data(),  targetname.Data());
-    new_filename = prefix + filename;
-    ofstream outf2(new_filename);
+            cout<<Form("--- working on IT = %d, IQ = %d", i,j)<<endl;
+            inputf >> t_bin >> Q2_bin
+                >> asym_1m1_avg>> asym_1m1_fit>> asym_1m1_err
+                >> asym_0p1_avg>> asym_0p1_fit>> asym_0p1_err
+                >> asym_2m1_avg>> asym_2m1_fit>> asym_2m1_err
+                >> asym_3m1_avg>> asym_3m1_fit>> asym_3m1_err
+                >> asym_1p1_avg>> asym_1p1_fit>> asym_1p1_err
+                >> temp >> temp >> Asym >> Astat
+                >> t_avg >> tp_avg >> xb_avg >> Q2_avg >> W_avg >> dilute_avg;
 
-    const Int_t time = 48 * 24 * 3600;
-    //const Double_t Norm_Fact = (pow(target_factor * dilute_factor,2) * det_eff);
-    const Double_t det_eff_total = pow(sqrt(det_eff), 3);
-    const Int_t tbin = 8;
-    const Double_t t_cut[9] = {0.0, 0.30, 0.40, 0.50, 0.60, 0.75, 0.95, 1.2, 2.0};
-
-    const TString cut0=Form("(weight_uu*(1.0-0.1*sin((Phi-PhiS)*3.1415926/180.) *%2.1f*%2.1f)*%3.2f)", target_polarization, dilute_factor, det_eff_total);//weight= (Sig_UU+Sig_UT)*Lumi*PSF * Acc, 
-    const TString cut1=Form("(weight_uu*(1.0+0.1*sin(PhiS*3.1415926/180.)*%2.1f*%2.1f)*%3.2f)", target_polarization, dilute_factor, det_eff_total);//weight= (Sig_UU+Sig_UT)*Lumi*PSF * Acc, 
-    TString cutXS,cutAsym;
-    const Int_t PhiBin = 12;
- 
-    histoname = Form("./database/histo_%s_all.root",  targetname.Data());
-    TFile *outroot = new TFile(histoname.Data(),"recreate");
-
-    for (Int_t i=0;i<tbin;i++){
-        TString finalfile = Form("../rootfiles/dvmp_%s_t%d_newt.root",  targetname.Data(), i+1);
-        TFile *file = new TFile(finalfile.Data(),"r");
-        TTree *t0 = (TTree*) file->Get("T");
-        t_min = t_cut[i];
-        t_max = t_cut[i+1];
-
-        for (Int_t j=1;j<=2;j++){
-            TString cutKin = Form("(Epsilon>0.55&&Epsilon<0.75&&W>2&&Qsq>4&&t>%3.2f&&t<%3.2f&&(Q2BIN==%d))", t_min,t_max, j);
-            cutXS = cut0 + "*" + cutKin;
-            cutAsym= cut1 + "*" + cutKin;
-            cerr<<endl<<"--- CutXS   = "<<cutXS.Data()<<endl;
-            cerr<<"--- CutAsym = "<<cutAsym.Data()<<endl;
-            TCut cut = (TCut) (cutXS);
-
-            /*Histograms{{{*/
-            //Q2
-            TH1D *h1Q2  =new TH1D(Form("h1Q2"),"h1Q2",500,0.,10.);
-            //x 
-            TH1D *h1x = new TH1D(Form("h1x"),"h1x",500,0.1,0.7);
-            //W 
-            TH1D *h1W = new TH1D(Form("h1W"),"h1W",500,0.,10.);
-            //Epsilon 
-            TH1D *h1Ep = new TH1D(Form("h1Ep"),"h1Ep",500,0.,1.);
-            //t 
-            TH1D *h1t = new TH1D(Form("h1t"),"h1t",500, 0.0, 2.2);
-            //R=Sigma_L/Sigma_T
-            TH1D *h1R = new TH1D(Form("h1R"),"h1R",500,0.,10.);
-            //F, dilution from L/T separation
-            TH1D *h1F = new TH1D(Form("h1F"),"h1F",500,0.,1.);
-            //TSA 
-            TH1D *h1TSA = new TH1D(Form("h1TSA"),"h1TSA",500,-1.0,0.2);
-            //Sigma
-            TH1D *h1XS = new TH1D(Form("h1XS"),"h1XS (log10)",500,-12.0,2.);
-
-            //Weight
-            TH1D *h1Wt = new TH1D(Form("h1Wt"),"h1Wt",500,0.0,0.01);
-
-
-            TH1D *h1PhiS = new TH1D(Form("h1PhiS"),"#phi_{S}",PhiBin,0.0,360.);
-            TH1D *h1PhiH = new TH1D(Form("h1PhiH"),"#phi",PhiBin,0.0,360.);
-            TH2D *h2Phi = new TH2D(Form("h2Phi"),"#phi_{S}:#phi",PhiBin,0.0,360.,PhiBin,0,360);
-            TH2D *h2PhiAsym = new TH2D(Form("h2PhiAsym"),"#phi_{S}:#phi",PhiBin,0.0,360.,PhiBin,0,360);
-            /*}}}*/
-
-            /*t Binning{{{*/
-            c1->Clear();c1->Divide(3,3);
-            c1->cd(1); h1Q2->SetLineColor(1);t0->Draw("Qsq>>h1Q2",cut);
-            c1->cd(2); h1x->SetLineColor(1); t0->Draw("x>>h1x",cut);
-            c1->cd(3); h1W->SetLineColor(1); t0->Draw("W>>h1W",cut);
-            c1->cd(4); h1t->SetLineColor(1); t0->Draw("t>>h1t",cut);
-            c1->cd(5); h1TSA->SetLineColor(1);t0->Draw("-dilute*SSAsym>>h1TSA",cut);
-            c1->cd(6); t0->Draw("log10(Sigma_Lab)>>h1XS","");
-            c1->cd(7); t0->Draw("PhiS>>h1PhiS",cut,"");
-            c1->cd(8); t0->Draw("Phi>>h1PhiH",cut,"");
-            c1->cd(9); t0->Draw("PhiS:Phi>>h2Phi",cut,"colz");
-            c1->Print(Form("./figure/plot_%s_%d_%d.png",  targetname.Data(),i+1,j));
-            c1->Print(Form("./figure/plot_%s_%d_%d.pdf",  targetname.Data(),i+1,j));
-
-            c3->cd(); h2Phi->Draw("LEGO2"); c3->Print(Form("./figure/PhiS_h_%s_%d_%d.png",targetname.Data(), i+1,j));
-
-            c1->cd(5); h1Ep->SetLineColor(1); t0->Draw("Epsilon>>h1Ep",cut);
-            c1->cd(6); h1R->SetLineColor(i); t0->Draw("Sig_L/Sig_T>>h1R",cut);
-            c1->cd(7); h1F->SetLineColor(i); t0->Draw("dilute>>h1F",cut);
-            c1->cd(8); h1Wt->SetLineColor(1); t0->Draw("weight>>h1Ep",cut);
-            c1->cd(9); t0->Draw("PhiS:Phi>>h2PhiAsym",cutAsym,"colz");
-
-            N_raw = h1x->GetSum()/det_eff_total * time;
-            //N_raw = h1x->GetSum()/Norm_Fact * time;
-            N_out = h1x->GetSum();
-            Asym = h1TSA->GetMean();
-            if(N_out>10)
-                //Astat = 1./sqrt(N_out);
-                Astat = 1./target_polarization/dilute_factor/target_factor * sqrt(1-pow(target_polarization*dilute_factor*target_factor*Asym, 2))/sqrt(N_out);
-            else
-                Astat = -1.0;
-
-            if(j==1)
-                outf1<<Form("%4d %10.4f %10.4f %10.4f %10.4f %10.4f %10.4f %10.4f %12.4e %12.4e %12.4e %12.4e %12.4e",/*{{{*/
-                        i,
-                        h1Q2->GetMean(),
-                        h1x->GetMean(),
-                        h1W->GetMean(),
-                        h1t->GetMean(),
-                        h1Ep->GetMean(),
-                        h1R->GetMean(),
-                        h1F->GetMean(),
-                        h1XS->GetMean(),
-                        Asym,
-                        Astat,
-                        N_out,
-                        N_raw)
-                    <<endl;/*}}}*/
-            if(j==2)
-                outf2<<Form("%4d %10.4f %10.4f %10.4f %10.4f %10.4f %10.4f %10.4f %12.4e %12.4e %12.4e %12.4e %12.4e",/*{{{*/
-                        i,
-                        h1Q2->GetMean(),
-                        h1x->GetMean(),
-                        h1W->GetMean(),
-                        h1t->GetMean(),
-                        h1Ep->GetMean(),
-                        h1R->GetMean(),
-                        h1F->GetMean(),
-                        h1XS->GetMean(),
-                        Asym,
-                        Astat,
-                        N_out,
-                        N_raw)
-                    <<endl;/*}}}*/
-
-            /*Get phi_S and phi_H bin{{{*/
-            Double_t Ncnt[PhiBin][PhiBin], Nstat[PhiBin][PhiBin], PhiS[PhiBin][PhiBin], PhiH[PhiBin][PhiBin];
-            Double_t PhiBinSize = (360-0.0)/PhiBin;
-            for (int l=0;l<PhiBin;l++){
-                for (int k=0;k<PhiBin;k++){
-                    Ncnt[l][k] = h2PhiAsym->GetBinContent(l+1,k+1);//[phi_h][phi_S]
-                    Nstat[l][k] = h2Phi->GetBinContent(l+1,k+1);
-                    PhiS[l][k] = 0.5*PhiBinSize + k*PhiBinSize;
-                    PhiH[l][k] = 0.5*PhiBinSize + l*PhiBinSize;
-
-                    if(j==1) outf1<<Form("%d  %d  %10.4f  %10.4f  %12.4e  %12.4e", l,k, PhiS[l][k], PhiH[l][k], Ncnt[l][k], Nstat[l][k])<<endl;
-                    if(j==2) outf2<<Form("%d  %d  %10.4f  %10.4f  %12.4e  %12.4e", l,k, PhiS[l][k], PhiH[l][k], Ncnt[l][k], Nstat[l][k])<<endl;
-                }
+            if(i!=t_bin || j!=Q2_bin){
+               cout<<Form("Something wrong?!  T=%d/%d,  Q=%d/%d", i, t_bin, j, Q2_bin)<<endl;
+            
             }
-            /*}}}*/
-            /*}}}*/
-            cout<<Form("----- Bin#%d: x=%5.4f, Q2=%5.3f, t=%5.4f, N=%f/%d ",i, h1x->GetMean(), h1Q2->GetMean(), h1t->GetMean(), double (N_out/time), int(N_raw))<<endl;
 
-            h1Q2->SetName(Form("h1Q2_t%d_Q%d", i+1, j));
-            h1x->SetName(Form("h1x_t%d_Q%d", i+1, j));
-            h1t->SetName(Form("h1t_t%d_Q%d", i+1, j));
-            h1W->SetName(Form("h1W_t%d_Q%d", i+1, j));
-            h1Ep->SetName(Form("h1Ep_t%d_Q%d", i+1, j));
-            h1R->SetName(Form("h1R_t%d_Q%d", i+1, j));
-            h1F->SetName(Form("h1F_t%d_Q%d", i+1, j));
-            h1TSA->SetName(Form("h1TSA_t%d_Q%d", i+1, j));
-            h1XS->SetName(Form("h1XS_t%d_Q%d", i+1, j));
-            h1PhiH->SetName(Form("h1PhiH_t%d_Q%d", i+1, j));
-            h1PhiS->SetName(Form("h1PhiS_t%d_Q%d", i+1, j));
-            h2Phi->SetName(Form("h2Phi_t%d_Q%d", i+1, j));
-            h2PhiAsym->SetName(Form("h2PhiAsym_t%d_Q%d", i+1, j));
-            outroot->cd(); 
-            h1Q2->Write();  h1x->Write(); h1W->Write(); h1Ep->Write(); 
-            h1t->Write();   h1R->Write(); h1F->Write(); h1TSA->Write(); h1XS->Write(); 
-            h2Phi->Write(); h2PhiAsym->Write(); h1PhiS->Write(); h1PhiH->Write();
+            outf.open(Form("./database/BIN_%s_dvmp_par_%s_%s_%d_%d.dat",bin_name.Data(), type_name.Data(), fit_pars.Data(),i,j));
+            outf<<Form("%4s %4s %10s %10s %10s %10s %10s %10s %10s %10s %10s %10s %10s %10s %10s %10s %10s %10s %10s %10s %10s %10s %10s %10s %10s",
+                    "#t", "#Q2", 
+                    "A1M1_AVG", "A_1M1", "dA_1M1", 
+                    "A0P1_AVG", "A_0P1", "dA_0P1", 
+                    "A2M1_AVG", "A_2M1", "dA_2M1", 
+                    "A3M1_AVG", "A_3M1", "dA_3M1", 
+                    "A1P1_AVG", "A_1P1", "dA_1P1",
+                    "Asym", "Astat",
+                    "t", "tp","xb", "Q2", "W", "Dilute"
+                    )
+                <<endl;
+
+            outf<<Form("%4d %4d %10.3e %10.3e %10.4e %10.3e %10.3e %10.4e %10.3e %10.3e %10.4e %10.3e %10.3e %10.4e %10.3e %10.3e %10.4e %10.4e %10.4e %10.4e %10.4e %10.4e %10.4e %10.4e %10.4e",
+                    i, j, 
+                    asym_1m1_avg, asym_1m1_fit, asym_1m1_err,
+                    asym_0p1_avg, asym_0p1_fit, asym_0p1_err,
+                    asym_2m1_avg, asym_2m1_fit, asym_2m1_err,
+                    asym_3m1_avg, asym_3m1_fit, asym_3m1_err,
+                    asym_1p1_avg, asym_1p1_fit, asym_1p1_err,
+                    Asym, Astat,
+                    t_avg, tp_avg, xb_avg, Q2_avg, W_avg, dilute_avg 
+                    )
+                <<endl;
+
+            outf <<Form("%6s %6s %12s %12s %12s %12s %12s %12s %12s %12s %12s %12s %12s %12s",
+                    "Phi", "PhiS",
+                    "N_U_avg", "N_D_avg", "Asym_avg","dAsym_avg",
+                    "N_U_fit", "N_D_fit", "Asym_fit","dAsym_fit",
+                    "Asym_cal","dAsym_cal",
+                    "GOOD_fit", "GOOD_cal"
+                    )<<endl;
+
+            /////////////////////////////
+            //Load Data from MC Rootfiles to bin on phi and phiS
+            /////////////////////////////
+            LoadData(i, j);
+            outf.close();
         }
-        file->Close();
     }
-    /*}}}*/
-    outf1.close();
-    outf2.close();
-    outroot->Close();
-
     return 0;
 }
+/*}}}*/
 
-Double_t max(Double_t a, Double_t b){/*{{{*/
-    if(a>b)
-        return a;
-    else
-        return b;
-}/*}}}*/
+/*LoadData{{{*/
+void LoadData( Int_t IT, Int_t IQ){
+    /*Define{{{*/
+    Double_t phi_h, phi_s, MP_res;
+    Double_t asym_1m1, asym_2m1, asym_3m1, asym_0p1, asym_1p1, sigma_uu;
+    Double_t weight, weight_uu, weight_ut;
+    Double_t weight_1m1,weight_2m1,weight_3m1,weight_0p1,weight_1p1;
+    Int_t Q2BIN;
+
+    Double_t weight_fit, weight_ut_fit;
+    Double_t weight_1m1_fit,weight_2m1_fit,weight_3m1_fit,weight_0p1_fit,weight_1p1_fit;
+
+    const double PhiH_BIN[13] = {0,30,60,90,120,150,180,210,240,270,300,330,360};
+    const double PhiS_BIN[13] = {0,30,60,90,120,150,180,210,240,270,300,330,360};
+    double Ncnt_U_avg[12][12], Ncnt_D_avg[12][12], Ncnt_U_fit[12][12], Ncnt_D_fit[12][12];
+    double Asym_avg[12][12], Asym_fit[12][12], dAsym_avg[12][12], dAsym_fit[12][12];
+    double Asym_cal[12][12], dAsym_cal[12][12];
+    for(int i=0;i<12;i++){
+        for(int j=0;j<12;j++){
+            Ncnt_U_avg[i][j]=0.0;   Ncnt_D_avg[i][j]=0.0;
+            Ncnt_U_fit[i][j]=0.0;   Ncnt_D_fit[i][j]=0.0;
+            Asym_avg[i][j] = 0.0;   dAsym_avg[i][j] = 0.0;
+            Asym_fit[i][j] = 0.0;   dAsym_fit[i][j] = 0.0;
+            Asym_cal[i][j] = 0.0;   dAsym_cal[i][j] = 0.0;
+        }
+    }/*}}}*/
+
+   /*Target Polarization is up{{{*/
+   TFile *fu = new TFile(Form("../rootfiles/%s_dvmp_up_t%d_%s.root",bin_name.Data(), IT, type_name.Data()));
+   TTree *Tu = (TTree*) gDirectory->Get("T");
+   Tu->SetBranchAddress("Phi_cor", &phi_h);/*{{{*/
+   Tu->SetBranchAddress("PhiS_cor", &phi_s);//should use the corrected quantity which accounts for fermi-motion etc.
+   Tu->SetBranchAddress("Q2BIN", &Q2BIN);
+
+   //Tu->SetBranchAddress("t_cor", &t);
+      Tu->SetBranchAddress("MP_res", &MP_res);
+   Tu->SetBranchAddress("weight", &weight);
+   Tu->SetBranchAddress("weight_uu", &weight_uu);
+   Tu->SetBranchAddress("weight_ut", &weight_ut);
+   Tu->SetBranchAddress("weight_1m1", &weight_1m1);
+   Tu->SetBranchAddress("weight_2m1", &weight_2m1);
+   Tu->SetBranchAddress("weight_3m1", &weight_3m1);
+   Tu->SetBranchAddress("weight_0p1", &weight_0p1);
+   Tu->SetBranchAddress("weight_1p1", &weight_1p1);
+  
+   Tu->SetBranchAddress("Asym_PhiMinusPhiS",  &asym_1m1);
+   Tu->SetBranchAddress("Asym_2PhiMinusPhiS", &asym_2m1);
+   Tu->SetBranchAddress("Asym_3PhiMinusPhiS", &asym_3m1);
+   Tu->SetBranchAddress("Asym_PhiS",          &asym_0p1);
+   Tu->SetBranchAddress("Asym_PhiPlusPhiS",   &asym_1p1);
+   Tu->SetBranchAddress("Sigma_UU", &sigma_uu);/*}}}*/
+   
+   Int_t Nu = Tu->GetEntries();
+   for(int i=0;i<Nu; i++){
+     Tu->GetEntry(i);
+     if(Q2BIN!=IQ && IQ!=0) continue; //choose the right Q2 bin
+
+     //last chance to apply whatever cuts here
+     if(MP_res>1.2) continue;
+   
+     if(isnan(weight_uu) || isinf(weight_uu)) weight_uu=0.0;
+     if(weight_uu<1e-12 && weight_uu>1e12) weight_uu=0.0;
+  
+     phi_h *= Deg2Rad;
+     phi_s *= Deg2Rad;
+    
+     /*From MC DATA{{{*/
+     weight_1m1 = weight_uu * (asym_1m1* sin(1.*phi_h - phi_s) );
+     weight_0p1 = weight_uu * (asym_0p1* sin(0.*phi_h + phi_s) );
+     weight_2m1 = weight_uu * (asym_2m1* sin(2.*phi_h - phi_s) );
+     weight_3m1 = weight_uu * (asym_3m1* sin(3.*phi_h - phi_s) );
+     weight_1p1 = weight_uu * (asym_1p1* sin(1.*phi_h + phi_s) );
+     
+     weight_ut = weight_1m1
+               + weight_0p1;
+     if(fit_pars=="fit5"){
+         weight_ut += weight_2m1;
+         weight_ut += weight_3m1;
+         weight_ut += weight_1p1;
+     }
+
+     weight_ut *= POL;
+     weight = weight_uu - weight_ut;/*}}}*/
+     
+     /*From Fit{{{*/
+     weight_1m1_fit = weight_uu * (asym_1m1_fit* sin(1.*phi_h - phi_s) );
+     weight_0p1_fit = weight_uu * (asym_0p1_fit* sin(0.*phi_h + phi_s) );
+     weight_2m1_fit = weight_uu * (asym_2m1_fit* sin(2.*phi_h - phi_s) );
+     weight_3m1_fit = weight_uu * (asym_3m1_fit* sin(3.*phi_h - phi_s) );
+     weight_1p1_fit = weight_uu * (asym_1p1_fit* sin(1.*phi_h + phi_s) );
+     
+     weight_ut_fit = weight_1m1_fit
+                   + weight_0p1_fit;
+     if(fit_pars=="fit5"){
+         weight_ut_fit += weight_2m1_fit;
+         weight_ut_fit += weight_3m1_fit;
+         weight_ut_fit += weight_1p1_fit;
+     }
+
+     weight_ut_fit *= POL;
+     weight_fit = weight_uu - weight_ut_fit;/*}}}*/
+
+     for(int i=0;i<12;i++){
+         for(int j=0;j<12;j++){
+             if( ( phi_h>PhiH_BIN[i]*Deg2Rad && phi_h<=PhiH_BIN[i+1]*Deg2Rad) && ( phi_s>PhiS_BIN[j] *Deg2Rad&& phi_s<=PhiS_BIN[j+1]*Deg2Rad)){
+                 Ncnt_U_avg[i][j] += weight;
+                 Ncnt_U_fit[i][j] += weight_fit;
+             }
+         }
+     }
+
+   }
+   fu->Close();
+   /*}}}*/
+
+   /*Target Polarization is down{{{*/
+   TFile *fd = new TFile(Form("../rootfiles/%s_dvmp_down_t%d_%s.root",bin_name.Data(), IT, type_name.Data()));
+   TTree *Td = (TTree*) gDirectory->Get("T");
+   Td->SetBranchAddress("Phi_cor", &phi_h);/*{{{*/
+   Td->SetBranchAddress("PhiS_cor", &phi_s);//should use the corrected quantity which accounts for fermi-motion etc.
+   Td->SetBranchAddress("Q2BIN", &Q2BIN);
+
+   Td->SetBranchAddress("MP_res", &MP_res);
+   Td->SetBranchAddress("weight", &weight);
+   Td->SetBranchAddress("weight_uu", &weight_uu);
+   Td->SetBranchAddress("weight_ut", &weight_ut);
+   Td->SetBranchAddress("weight_1m1", &weight_1m1);
+   Td->SetBranchAddress("weight_2m1", &weight_2m1);
+   Td->SetBranchAddress("weight_3m1", &weight_3m1);
+   Td->SetBranchAddress("weight_0p1", &weight_0p1);
+   Td->SetBranchAddress("weight_1p1", &weight_1p1);
+   Td->SetBranchAddress("Asym_PhiMinusPhiS",  &asym_1m1);
+   Td->SetBranchAddress("Asym_2PhiMinusPhiS", &asym_2m1);
+   Td->SetBranchAddress("Asym_3PhiMinusPhiS", &asym_3m1);
+   Td->SetBranchAddress("Asym_PhiS",          &asym_0p1);
+   Td->SetBranchAddress("Asym_PhiPlusPhiS",   &asym_1p1);
+   Td->SetBranchAddress("Sigma_UU", &sigma_uu);/*}}}*/
+   
+   Int_t Nd = Td->GetEntries();
+   for(int i=0;i<Nd; i++){
+     Td->GetEntry(i);
+     if(Q2BIN!=IQ && IQ!=0) continue; //choose the right Q2 bin
+     //last chance to apply whatever cuts here
+     if(MP_res>1.2) continue;
+    
+     //Note: In the generator Ahmed switch the sign of the polarization. 
+     //In this fit, I fix the absolute polarization values, and rotate the phi_S
+     //phi_s += 180.0; 
+     phi_h *= Deg2Rad; phi_s *= Deg2Rad;
+    
+     if(isnan(weight_uu) || isinf(weight_uu)) weight_uu=0.0;
+     if(weight_uu<1e-12 && weight_uu>1e12) weight_uu=0.0;
+     
+     /*From MC DATA{{{*/
+     weight_1m1 = weight_uu * (asym_1m1* sin(1.*phi_h - phi_s) );
+     weight_0p1 = weight_uu * (asym_0p1* sin(0.*phi_h + phi_s) );
+     weight_2m1 = weight_uu * (asym_2m1* sin(2.*phi_h - phi_s) );
+     weight_3m1 = weight_uu * (asym_3m1* sin(3.*phi_h - phi_s) );
+     weight_1p1 = weight_uu * (asym_1p1* sin(1.*phi_h + phi_s) );
+     
+     weight_ut = weight_1m1
+         + weight_0p1;
+     if(fit_pars=="fit5"){
+         weight_ut += weight_2m1;
+         weight_ut += weight_3m1;
+         weight_ut += weight_1p1;
+     }
+
+     weight_ut *= -1.*POL;
+     weight = weight_uu - weight_ut; //follow the HERMES thesis to put a minus sign here/*}}}*/
+
+     /*From Fit{{{*/
+     weight_1m1_fit = weight_uu * (asym_1m1_fit* sin(1.*phi_h - phi_s) );
+     weight_0p1_fit = weight_uu * (asym_0p1_fit* sin(0.*phi_h + phi_s) );
+     weight_2m1_fit = weight_uu * (asym_2m1_fit* sin(2.*phi_h - phi_s) );
+     weight_3m1_fit = weight_uu * (asym_3m1_fit* sin(3.*phi_h - phi_s) );
+     weight_1p1_fit = weight_uu * (asym_1p1_fit* sin(1.*phi_h + phi_s) );
+     
+     weight_ut_fit = weight_1m1_fit
+                   + weight_0p1_fit;
+     if(fit_pars=="fit5"){
+         weight_ut_fit += weight_2m1_fit;
+         weight_ut_fit += weight_3m1_fit;
+         weight_ut_fit += weight_1p1_fit;
+     }
+
+     weight_ut_fit *= POL;
+     weight_fit = weight_uu - weight_ut_fit;/*}}}*/
+
+     for(int i=0;i<12;i++){
+         for(int j=0;j<12;j++){
+             if( ( phi_h>PhiH_BIN[i]*Deg2Rad && phi_h<=PhiH_BIN[i+1]*Deg2Rad  ) && ( phi_s>PhiS_BIN[j] *Deg2Rad&& phi_s<=PhiS_BIN[j+1]*Deg2Rad)  ){
+                 Ncnt_D_avg[i][j] += weight;
+                 Ncnt_D_fit[i][j] += weight_fit;
+             }
+         }
+     }  
+  }
+   fd->Close();
+   /*}}}*/
+
+   double dNU = 0., dND=0.0;
+   double phi_h_temp = 0.0, phi_s_temp=0.0;
+   double GOOD_asym_fit[12][12],GOOD_asym_cal[12][12];
+
+   TH2F * h_avg = new TH2F("h_avg","", 12,0,360, 12,0,360);
+   TH2F * h_fit = new TH2F("h_fit","", 12,0,360, 12,0,360);
+   TH2F * h_cal = new TH2F("h_cal","", 12,0,360, 12,0,360);
+   TH2F * g_fit = new TH2F("g_fit","", 144,0,144, 144,-1,1);
+   TH2F * g_cal = new TH2F("g_cal","", 144,0,144, 144,-1,1);
+
+   for(int i=0;i<12;i++){
+         for(int j=0;j<12;j++){
+             //Asymmetries and error from the MC data/*{{{*/
+            Asym_avg[i][j] = (Ncnt_U_avg[i][j]-Ncnt_D_avg[i][j]) / (Ncnt_U_avg[i][j]+Ncnt_D_avg[i][j]);
+            dNU = sqrt( Ncnt_U_avg[i][j]);
+            if (dNU<1e-33) dNU = 1;
+            dND = sqrt( Ncnt_D_avg[i][j]);
+            if (dND<1e-33) dND = 1;
+            dAsym_avg[i][j] = sqrt( pow((2*dND*Ncnt_U_avg[i][j]), 2)+pow((2*dNU*Ncnt_D_avg[i][j]),2))/(Ncnt_U_avg[i][j]+Ncnt_D_avg[i][j]) ;/*}}}*/
+
+             //Asymmetries and error from the fitted values /*{{{*/
+            dNU = sqrt( Ncnt_U_fit[i][j]);
+            if (dNU<1e-33) dNU = 1;
+            dND = sqrt( Ncnt_D_fit[i][j]);
+            if (dND<1e-33) dND = 1;
+            Asym_fit[i][j] = (Ncnt_U_fit[i][j]-Ncnt_D_fit[i][j]) / (Ncnt_U_fit[i][j]+Ncnt_D_fit[i][j]);
+            dAsym_fit[i][j] = sqrt( pow((2*dND*Ncnt_U_fit[i][j]), 2)+pow((2*dNU*Ncnt_D_fit[i][j]),2))/(Ncnt_U_fit[i][j]+Ncnt_D_fit[i][j]) ;/*}}}*/
+             
+            //Asymmetries and error from page#84 of the HERMES thesis /*{{{*/
+            phi_h_temp = 0.5*(PhiH_BIN[i]*Deg2Rad+PhiH_BIN[i+1]*Deg2Rad);
+            phi_s_temp = 0.5*(PhiS_BIN[j]*Deg2Rad+PhiS_BIN[j+1]*Deg2Rad);
+
+            Asym_cal[i][j]=0.0;
+            Asym_cal[i][j]+= (asym_1m1_fit* sin(1.*phi_h_temp - phi_s_temp) );
+            Asym_cal[i][j]+= (asym_0p1_fit* sin(0.*phi_h_temp + phi_s_temp) );
+            Asym_cal[i][j]+= (asym_2m1_fit* sin(2.*phi_h_temp - phi_s_temp) );
+            Asym_cal[i][j]+= (asym_3m1_fit* sin(3.*phi_h_temp - phi_s_temp) );
+            Asym_cal[i][j]+= (asym_1p1_fit* sin(1.*phi_h_temp + phi_s_temp) );
+
+            dAsym_cal[i][j]=0.0;
+            dAsym_cal[i][j]+= pow(asym_1m1_err* sin(1.*phi_h_temp - phi_s_temp),2);
+            dAsym_cal[i][j]+= pow(asym_0p1_err* sin(0.*phi_h_temp + phi_s_temp),2);
+            dAsym_cal[i][j]+= pow(asym_2m1_err* sin(2.*phi_h_temp - phi_s_temp),2);
+            dAsym_cal[i][j]+= pow(asym_3m1_err* sin(3.*phi_h_temp - phi_s_temp),2);
+            dAsym_cal[i][j]+= pow(asym_1p1_err* sin(1.*phi_h_temp + phi_s_temp),2);
+            dAsym_cal[i][j]=sqrt(dAsym_cal[i][j]);/*}}}*/
+
+            //Goodness of the fit from page#84 of the HERMES thesis 
+            GOOD_asym_fit[i][j] = (Asym_avg[i][j] - Asym_fit[i][j])/sqrt( pow(dAsym_avg[i][j] ,2)+pow(dAsym_fit[i][j] ,2));
+            GOOD_asym_cal[i][j] = (Asym_avg[i][j] - Asym_cal[i][j])/sqrt( pow(dAsym_avg[i][j] ,2)+pow(dAsym_cal[i][j] ,2));
+
+            outf <<Form("%6.3f %6.3f %12.6e %12.6e %12.6e %12.6e %12.6e %12.6e %12.6e %12.6e %12.6e %12.6e %12.6e %12.6e",
+                    phi_h_temp*Rad2Deg, phi_s_temp*Rad2Deg,
+                    Ncnt_U_avg[i][j], Ncnt_D_avg[i][j], Asym_avg[i][j], dAsym_avg[i][j],
+                    Ncnt_U_fit[i][j], Ncnt_D_fit[i][j], Asym_fit[i][j], dAsym_fit[i][j],
+                    Asym_cal[i][j], dAsym_cal[i][j],
+                    GOOD_asym_fit[i][j], GOOD_asym_cal[i][j]
+                    )<<endl;
+
+            h_avg->Fill(phi_h_temp*Rad2Deg, phi_s_temp*Rad2Deg, Asym_avg[i][j] );
+            h_fit->Fill(phi_h_temp*Rad2Deg, phi_s_temp*Rad2Deg, Asym_fit[i][j] );
+            h_cal->Fill(phi_h_temp*Rad2Deg, phi_s_temp*Rad2Deg, Asym_cal[i][j] );
+            g_fit->Fill(i*j, GOOD_asym_fit[i][j] );
+            g_cal->Fill(i*j, GOOD_asym_cal[i][j] );
+         }
+   }
+
+   TFile *histo = new TFile(Form("./database/histo_%s_dvmp_par_%s_%s_%d_%d.root",bin_name.Data(), type_name.Data(), fit_pars.Data(),IT,IQ),"recreate");
+   histo->cd();
+   h_avg->Write(); h_fit->Write(); h_cal->Write();
+   g_fit->Write(); g_cal->Write();
+   histo->Close();
+
+   delete h_avg;
+   delete h_fit;
+   delete h_cal;
+   delete g_cal;
+   delete g_fit;
+}
+/*}}}*/
