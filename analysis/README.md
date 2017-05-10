@@ -10,7 +10,7 @@
 ```js
 ./skim
 ```
- * Step#3: in ./asym_extr/, Using Unbinned-Maximum-Likelihood with TMinuit fitting method to extract different asymmetries
+ * Step#3: in ./asym_extr/, Using Unbinned-Maximum-Likelihood with TMinuit fitting method to extract different asymmetries (Note: to fit successfully, in the polarization down configuration, we need to rotate the phiS (+PI) just like real experiment, instead of flipping the polarization sign)
 ```js
 ./FitMinuit
 ```
@@ -18,7 +18,7 @@
 ```js
 ./Missing_Mass
 ```
- * Step#5 (incomplete): in ./makebin/, Bin the MC data in each t or tp bin futher in (Phi, PhiS) bin. Using the python code to make some plottings of the projected asymmetries
+ * Step#5: in ./makebin/, Bin the MC data in each t or tp bin futher in (Phi, PhiS) bin, calculate the sum of asymmetries for comparision, and also calcualte the goodness of the fit to check the quality. Output both histograms and data files for plottings. (Note: for up quark, I flip the polarization sign for polarization-down instead of rotating phiS since we compare the same phiS values)
  ```js
     ./makebin
     notebook AsymFit_Binned.ipynb
@@ -76,4 +76,4 @@
  * It is a unbinned Maximin-Likelihood Minuit method
  
 ## Perform Binning on Phi and PhiS for plotting
-### The code "./makebin/makebin.C" does the job, still under developments
+### The code "./makebin/makebin.C" does the job
