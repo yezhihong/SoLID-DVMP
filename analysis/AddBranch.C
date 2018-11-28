@@ -70,7 +70,7 @@ TLorentzVector* GetMV(TLorentzVector* P_t,TLorentzVector* P_E0, TLorentzVector* 
 
 /*}}}*/
 
-int main(){
+int AddBranch(){
     //int main(){
     gStyle->SetOptStat(0);
     //const double Lumi = 1.0e36; // cm-2*s-1, for He3 nuclear not for nucleons
@@ -89,16 +89,19 @@ int main(){
     if(target_direction==1) targetname="up";
     if(target_direction==2) targetname="down";/*}}}*/
 
+
     //CLEO Acceptance
     SIDIS_Acceptance *accpt = new SIDIS_Acceptance();
 
     TString filename, new_filename;/*{{{*/
     TChain *t1 = new TChain("t1");
+
     
     //const int fileNO = 1000;
-    int fileNO = 999;
-    //for(int i=0;i<fileNO;i++){
-    for(int i=1;i<fileNO;i++){
+    int fileNO = 1;
+    /*
+    for(int i=0;i<fileNO;i++){
+    //for(int i=1;i<fileNO;i++){
         if(CASE==1){
             //if(target_direction==1) filename = Form("./RootFiles_Up_Simple/DEMP_Ee_11_Events_1000000_File_%d.root", i);
             if(target_direction==1) filename = Form("./RootFiles_Up_Simple/DEMP_Ee_11_Events_1000000_File_%d.root", i+1000);
@@ -128,6 +131,11 @@ int main(){
         cout<<"--- Reading in file = "<<filename.Data()<<"\r";
         t1->Add(filename.Data());
     }
+    */
+
+    cout << "Enter File name: "; cin>>filename;
+    t1->Add(filename.Data());
+
     int N_entries = t1->GetEntries();
     cout<<"--- Total Events = "<< N_entries<<endl;/*}}}*/
    
@@ -158,92 +166,92 @@ int main(){
 
     /*Branches{{{*/
     //Target Quantities/*{{{*/
-    t1->SetBranchAddress("Target_Theta_Col",                          &tgt_theta     );
-    t1->SetBranchAddress("Target_Phi_Col",                            &tgt_phi       );
-    t1->SetBranchAddress("Target_Energy_Col_GeV",                     &tgt_ene       );
-    t1->SetBranchAddress("Target_Mom_Col_GeV",                        &tgt_mom       );
-    t1->SetBranchAddress("Target_MomZ_Col_GeV",                       &tgt_pz        );
-    t1->SetBranchAddress("Target_MomX_Col_GeV",                       &tgt_px        );
-    t1->SetBranchAddress("Target_MomY_Col_GeV",                       &tgt_py        );/*}}}*/
+    t1->SetBranchAddress("VertTargNeut_theta",                          &tgt_theta     );
+    t1->SetBranchAddress("VertTargNeut_phi",                            &tgt_phi       );
+    t1->SetBranchAddress("VertTargNeut_E",                        &tgt_ene       );
+    t1->SetBranchAddress("VertTargNeut_P",                        &tgt_mom       );
+    t1->SetBranchAddress("VertTargNeut_Pz",                       &tgt_pz        );
+    t1->SetBranchAddress("VertTargNeut_Px",                       &tgt_px        );
+    t1->SetBranchAddress("VertTargNeut_Py",                       &tgt_py        );/*}}}*/
 
     //Beam Electron Quantities/*{{{*/
-    t1->SetBranchAddress("Electron_Theta_Col",                        &beam_theta      );
-    t1->SetBranchAddress("Electron_Phi_Col",                          &beam_phi        );
-    t1->SetBranchAddress("Electron_Energy_Col_GeV",                   &beam_ene        );
-    t1->SetBranchAddress("Electron_Mom_Col_GeV",                      &beam_mom        );
-    t1->SetBranchAddress("Electron_MomX_Col_GeV",                     &beam_px         );
-    t1->SetBranchAddress("Electron_MomY_Col_GeV",                     &beam_py         );
-    t1->SetBranchAddress("Electron_MomZ_Col_GeV",                     &beam_pz         );
-    t1->SetBranchAddress("Electron_Corrected_Theta_Col",              &beam_theta_cor );
-    t1->SetBranchAddress("Electron_Corrected_Phi_Col",                &beam_phi_cor   );
-    t1->SetBranchAddress("Electron_Corrected_Energy_Col_GeV",         &beam_ene_cor   );
-    t1->SetBranchAddress("Electron_Corrected_Mom_Col_GeV",            &beam_mom_cor   );
-    t1->SetBranchAddress("Electron_Corrected_MomX_Col_GeV",           &beam_px_cor    );
-    t1->SetBranchAddress("Electron_Corrected_MomY_Col_GeV",           &beam_py_cor    );
-    t1->SetBranchAddress("Electron_Corrected_MomZ_Col_GeV",           &beam_pz_cor    );/*}}}*/
+    t1->SetBranchAddress("LabBeamElec_theta",                        &beam_theta      );
+    t1->SetBranchAddress("LabBeamElec_phi",                          &beam_phi        );
+    t1->SetBranchAddress("LabBeamElec_E",                            &beam_ene        );
+    t1->SetBranchAddress("LabBeamElec_P",                      &beam_mom        );
+    t1->SetBranchAddress("LabBeamElec_Px",                     &beam_px         );
+    t1->SetBranchAddress("LabBeamElec_Py",                     &beam_py         );
+    t1->SetBranchAddress("LabBeamElec_Pz",                     &beam_pz         );
+    t1->SetBranchAddress("VertBeamElec_theta",              &beam_theta_cor );
+    t1->SetBranchAddress("VertBeamElec_phi",                &beam_phi_cor   );
+    t1->SetBranchAddress("VertBeamElec_E",         &beam_ene_cor   );
+    t1->SetBranchAddress("VertBeamElec_P",            &beam_mom_cor   );
+    t1->SetBranchAddress("VertBeamElec_Px",           &beam_px_cor    );
+    t1->SetBranchAddress("VertBeamElec_Py",           &beam_py_cor    );
+    t1->SetBranchAddress("VertBeamElec_Pz",           &beam_pz_cor    );/*}}}*/
 
     //Scattered Electron Quantities/*{{{*/
-    t1->SetBranchAddress("ScatElec_Theta_Col",                        &ele_theta     );
-    t1->SetBranchAddress("ScatElec_Phi_Col",                          &ele_phi       );
-    t1->SetBranchAddress("ScatElec_Energy_Col_GeV",                   &ele_ene       );
-    t1->SetBranchAddress("ScatElec_Mom_Col_GeV",                      &ele_mom       );
-    t1->SetBranchAddress("ScatElec_MomX_Col_GeV",                     &ele_px        );
-    t1->SetBranchAddress("ScatElec_MomY_Col_GeV",                     &ele_py        );
-    t1->SetBranchAddress("ScatElec_MomZ_Col_GeV",                     &ele_pz        );
-    t1->SetBranchAddress("ScatElec_Corrected_Theta_Col",              &ele_theta_cor);
-    t1->SetBranchAddress("ScatElec_Corrected_Phi_Col",                &ele_phi_cor  );
-    t1->SetBranchAddress("ScatElec_Corrected_Energy_Col_GeV",         &ele_ene_cor  );
-    t1->SetBranchAddress("ScatElec_Corrected_Mom_Col_GeV",            &ele_mom_cor  );
-    t1->SetBranchAddress("ScatElec_Corrected_MomX_Col_GeV",           &ele_px_cor   );
-    t1->SetBranchAddress("ScatElec_Corrected_MomY_Col_GeV",           &ele_py_cor   );
-    t1->SetBranchAddress("ScatElec_Corrected_MomZ_Col_GeV",           &ele_pz_cor   );/*}}}*/
+    t1->SetBranchAddress("VertScatElec_theta",                        &ele_theta     );
+    t1->SetBranchAddress("VertScatElec_phi",                          &ele_phi       );
+    t1->SetBranchAddress("VertScatElec_E",                            &ele_ene       );
+    t1->SetBranchAddress("VertScatElec_P",                            &ele_mom       );
+    t1->SetBranchAddress("VertScatElec_Px",                           &ele_px        );
+    t1->SetBranchAddress("VertScatElec_Py",                           &ele_py        );
+    t1->SetBranchAddress("VertScatElec_Pz",                           &ele_pz        );
+    t1->SetBranchAddress("LabScatElec_theta",                         &ele_theta_cor);
+    t1->SetBranchAddress("LabScatElec_phi",                           &ele_phi_cor  );
+    t1->SetBranchAddress("LabScatElec_E",                             &ele_ene_cor  );
+    t1->SetBranchAddress("LabScatElec_P",                             &ele_mom_cor  );
+    t1->SetBranchAddress("LabScatElec_Px",                            &ele_px_cor   );
+    t1->SetBranchAddress("LabScatElec_Py",                            &ele_py_cor   );
+    t1->SetBranchAddress("LabScatElec_Pz",                            &ele_pz_cor   );/*}}}*/
 
     //Pion- Quantities/*{{{*/
-    t1->SetBranchAddress("Pion_Theta_Col",                            &pim_theta     );
-    t1->SetBranchAddress("Pion_Phi_Col",                              &pim_phi       );
-    t1->SetBranchAddress("Pion_Energy_Col_GeV",                       &pim_ene       );
-    t1->SetBranchAddress("Pion_Mom_Col_GeV",                          &pim_mom       );
-    t1->SetBranchAddress("Pion_MomX_Col_GeV",                         &pim_px        );
-    t1->SetBranchAddress("Pion_MomY_Col_GeV",                         &pim_py        );
-    t1->SetBranchAddress("Pion_MomZ_Col_GeV",                         &pim_pz        );
-    t1->SetBranchAddress("Pion_Corrected_Theta_Col",                  &pim_theta_cor);
-    t1->SetBranchAddress("Pion_Corrected_Phi_Col",                    &pim_phi_cor  );
-    t1->SetBranchAddress("Pion_Corrected_Energy_Col_GeV",             &pim_ene_cor  );
-    t1->SetBranchAddress("Pion_Corrected_Mom_Col_GeV",                &pim_mom_cor  );
-    t1->SetBranchAddress("Pion_Corrected_MomX_Col_GeV",               &pim_px_cor   );
-    t1->SetBranchAddress("Pion_Corrected_MomY_Col_GeV",               &pim_py_cor   );
-    t1->SetBranchAddress("Pion_Corrected_MomZ_Col_GeV",               &pim_pz_cor   );/*}}}*/
+    t1->SetBranchAddress("VertProdPion_theta",                        &pim_theta     );
+    t1->SetBranchAddress("VertProdPion_phi",                          &pim_phi       );
+    t1->SetBranchAddress("VertProdPion_E",                            &pim_ene       );
+    t1->SetBranchAddress("VertProdPion_P",                            &pim_mom       );
+    t1->SetBranchAddress("VertProdPion_Px",                           &pim_px        );
+    t1->SetBranchAddress("VertProdPion_Py",                           &pim_py        );
+    t1->SetBranchAddress("VertProdPion_Pz",                           &pim_pz        );
+    t1->SetBranchAddress("LabProdPion_theta",                         &pim_theta_cor);
+    t1->SetBranchAddress("LabProdPion_phi",                           &pim_phi_cor  );
+    t1->SetBranchAddress("LabProdPion_E",                             &pim_ene_cor  );
+    t1->SetBranchAddress("LabProdPion_P",                             &pim_mom_cor  );
+    t1->SetBranchAddress("LabProdPion_Px",                            &pim_px_cor   );
+    t1->SetBranchAddress("LabProdPion_Py",                            &pim_py_cor   );
+    t1->SetBranchAddress("LabProdPion_Pz",                            &pim_pz_cor   );/*}}}*/
 
     //Recoil Proton Quantities/*{{{*/
-    t1->SetBranchAddress("RecoilProton_Theta_Col",                    &pro_theta          );
-    t1->SetBranchAddress("RecoilProton_Phi_Col",                      &pro_phi            );
-    t1->SetBranchAddress("RecoilProton_Energy_Col_GeV",               &pro_ene            );
-    t1->SetBranchAddress("RecoilProton_Mom_Col_GeV",                  &pro_mom            );
-    t1->SetBranchAddress("RecoilProton_MomX_Col_GeV",                 &pro_px             );
-    t1->SetBranchAddress("RecoilProton_MomY_Col_GeV",                 &pro_py             );
-    t1->SetBranchAddress("RecoilProton_MomZ_Col_GeV",                 &pro_pz             );
-    t1->SetBranchAddress("RecoilProton_Corrected_Theta_Col",          &pro_theta_cor     );
-    t1->SetBranchAddress("RecoilProton_Corrected_Phi_Col",            &pro_phi_cor       );
-    t1->SetBranchAddress("RecoilProton_Corrected_Energy_Col_GeV",     &pro_ene_cor       );
-    t1->SetBranchAddress("RecoilProton_Corrected_Mom_Col_GeV",        &pro_mom_cor       );
-    t1->SetBranchAddress("RecoilProton_Corrected_MomX_Col_GeV",       &pro_px_cor        );
-    t1->SetBranchAddress("RecoilProton_Corrected_MomY_Col_GeV",       &pro_py_cor        );
-    t1->SetBranchAddress("RecoilProton_Corrected_MomZ_Col_GeV",       &pro_pz_cor        );/*}}}*/
+    t1->SetBranchAddress("VertProdProt_theta",                        &pro_theta     );
+    t1->SetBranchAddress("VertProdProt_phi",                          &pro_phi       );
+    t1->SetBranchAddress("VertProdProt_E",                            &pro_ene       );
+    t1->SetBranchAddress("VertProdProt_P",                            &pro_mom       );
+    t1->SetBranchAddress("VertProdProt_Px",                           &pro_px        );
+    t1->SetBranchAddress("VertProdProt_Py",                           &pro_py        );
+    t1->SetBranchAddress("VertProdProt_Pz",                           &pro_pz        );
+    t1->SetBranchAddress("LabProdProt_theta",                         &pro_theta_cor);
+    t1->SetBranchAddress("LabProdProt_phi",                           &pro_phi_cor  );
+    t1->SetBranchAddress("LabProdProt_E",                             &pro_ene_cor  );
+    t1->SetBranchAddress("LabProdProt_P",                             &pro_mom_cor  );
+    t1->SetBranchAddress("LabProdProt_Px",                            &pro_px_cor   );
+    t1->SetBranchAddress("LabProdProt_Py",                            &pro_py_cor   );
+    t1->SetBranchAddress("LabProdProt_Pz",                            &pro_pz_cor   );/*}}}*/
 
-    t1->SetBranchAddress("Phi",                                       &Phi                 );/*{{{*/
-    t1->SetBranchAddress("PhiS",                                      &PhiS                );
-    t1->SetBranchAddress("Phi_Corrected",                             &Phi_cor            );
-    t1->SetBranchAddress("PhiS_Corrected",                            &PhiS_cor           );
-    t1->SetBranchAddress("Photon_Theta_Col",                          &Photon_Theta        );
-    t1->SetBranchAddress("Photon_Corrected_Theta_Col",                &Photon_Theta_cor        );
+    t1->SetBranchAddress("Vert_Phi",                                       &Phi                 );/*{{{*/
+    t1->SetBranchAddress("Vert_Phi_s",                                      &PhiS                );
+    t1->SetBranchAddress("Lab_Phi",                             &Phi_cor            );
+    t1->SetBranchAddress("Lab_Phi_s",                            &PhiS_cor           );
+    t1->SetBranchAddress("Vert_Theta",                          &Photon_Theta        );
+    t1->SetBranchAddress("Lab_Theta",                &Photon_Theta_cor        );
     //t1->SetBranchAddress("Factor_Col",                                &Photon_Factor       );
     /*}}}*/
 
     //Different XS Quantities/
     //In the lab frame/*{{{*/
-    t1->SetBranchAddress("ZASigma_Lab",                               &Sigma_Lab         );//Pleaes explain here
-    t1->SetBranchAddress("ZASigma_UU_Col",                            &Sigma_UU          );//Pleaes explain here
-    t1->SetBranchAddress("RorySigma_UT_Col",                          &Sigma_UT        );//Pleaes explain here
+    t1->SetBranchAddress("sigma",                               &Sigma_Lab         );//Pleaes explain here
+    t1->SetBranchAddress("sigma_uu",                            &Sigma_UU          );//Pleaes explain here
+    t1->SetBranchAddress("sigma_ut",                          &Sigma_UT        );//Pleaes explain here
 
     //XSs corresponding to different Asymmetries
     //dSigma_k_Sin(...) = kFactor * Sin(...) * fAsym_k * dSigma_UU, in lab frame
@@ -253,67 +261,72 @@ int main(){
     //t1->SetBranchAddress("Sig_3Phi_Minus_PhiS_Col",                      &Sigma_3PhiMinusPhiS);
     //t1->SetBranchAddress("Sig_Phi_Plus_PhiS_Col",                        &Sigma_PhiPlusPhiS  );
     //t1->SetBranchAddress("Sig_2Phi_Plus_PhiS_Col",                       &Sigma_2PhiPlusPhiS );
-    t1->SetBranchAddress("Term_Phi_S_Col",                                 &Sigma_PhiS           );
-    t1->SetBranchAddress("Term_PhiMinusPhi_S_Col",                       &Sigma_PhiMinusPhiS );
-    t1->SetBranchAddress("Term_2PhiMinusPhi_S_Col",                      &Sigma_2PhiMinusPhiS);
-    t1->SetBranchAddress("Term_3PhiMinusPhi_S_Col",                      &Sigma_3PhiMinusPhiS);
-    t1->SetBranchAddress("Term_PhiPlusPhi_S_Col",                        &Sigma_PhiPlusPhiS  );
-    t1->SetBranchAddress("Term_2PhiPlusPhi_S_Col",                       &Sigma_2PhiPlusPhiS );
+
+    // Sigmas below all get overwritten, values from generator are never used - Rory
+    // t1->SetBranchAddress("sigma_k1",                                 &Sigma_PhiS           );
+    // t1->SetBranchAddress("sigma_k0",                       &Sigma_PhiMinusPhiS );
+    // t1->SetBranchAddress("sigma_k2",                      &Sigma_2PhiMinusPhiS);
+    // t1->SetBranchAddress("sigma_k4",                      &Sigma_3PhiMinusPhiS);
+    // t1->SetBranchAddress("sigma_k3",                        &Sigma_PhiPlusPhiS  );
+    // t1->SetBranchAddress("sigma_k5",                       &Sigma_2PhiPlusPhiS );
 
     //6 Asymmetries, "_Col" means in the lab frame, w/o that means the rest frame
-    t1->SetBranchAddress("SSAsym",                                       &SSAsym           );
-    t1->SetBranchAddress("SineAsym",                                     &SineAsym           );
-    t1->SetBranchAddress("AsymPhi_S_Col",                                &Asym_PhiS           );
-    t1->SetBranchAddress("AsymPhiMinusPhi_S_Col",                        &Asym_PhiMinusPhiS   );
-    t1->SetBranchAddress("Asym2PhiMinusPhi_S_Col",                       &Asym_2PhiMinusPhiS  );/*}}}*/
-    t1->SetBranchAddress("Asym3PhiMinusPhi_S_Col",                       &Asym_3PhiMinusPhiS  );
-    t1->SetBranchAddress("AsymPhiMinusPhi_S_Col",                        &Asym_PhiMinusPhiS  );
-    t1->SetBranchAddress("AsymPhiPlusPhi_S_Col",                         &Asym_PhiPlusPhiS    );
-    t1->SetBranchAddress("Asym2PhiPlusPhi_S_Col",                        &Asym_2PhiPlusPhiS    );
+    // t1->SetBranchAddress("SSAsym",                                       &SSAsym           );
+    // t1->SetBranchAddress("SineAsym",                                     &SineAsym           );
+    // These are the A_UT terms - Rory
+    t1->SetBranchAddress("AutPhiS",                                &Asym_PhiS           );
+    t1->SetBranchAddress("AutPhiMinusPhiS",                        &Asym_PhiMinusPhiS   );
+    t1->SetBranchAddress("Aut2PhiMinusPhiS",                       &Asym_2PhiMinusPhiS  );/*}}}*/
+    t1->SetBranchAddress("Aut3PhiMinusPhiS",                       &Asym_3PhiMinusPhiS  );
+    t1->SetBranchAddress("AutPhiMinusPhiS",                        &Asym_PhiMinusPhiS  );
+    t1->SetBranchAddress("AutPhiPlusPhiS",                         &Asym_PhiPlusPhiS    );
+    t1->SetBranchAddress("Aut2PhiPlusPhiS",                        &Asym_2PhiPlusPhiS    );
 
     //LT XS in the rest frame/*{{{*/
-    t1->SetBranchAddress("ZASig_T",                                   &Sig_T             );//Pleaes explain here
-    t1->SetBranchAddress("ZASig_L",                                   &Sig_L             );//Pleaes explain here
-    t1->SetBranchAddress("ZASig_LT",                                  &Sig_LT            );//Pleaes explain here
-    t1->SetBranchAddress("ZASig_TT",                                  &Sig_TT            );/*}}}*/
+    t1->SetBranchAddress("sigma_t",                                   &Sig_T             );//Pleaes explain here
+    t1->SetBranchAddress("sigma_l",                                   &Sig_L             );//Pleaes explain here
+    t1->SetBranchAddress("sigma_lt",                                  &Sig_LT            );//Pleaes explain here
+    t1->SetBranchAddress("sigma_tt",                                  &Sig_TT            );/*}}}*/
 
     //Weights/*{{{*/
-    t1->SetBranchAddress("EventWeight",                               &EventWeight   );//if chaining more root files, weight=weight/N_file
+    t1->SetBranchAddress("weight",                               &EventWeight   );//if chaining more root files, weight=weight/N_file
     t1->SetBranchAddress("WilliamsWeight",                            &WilliamsWeight);//FSI weight
     t1->SetBranchAddress("DedrickWeight",                             &DedrickWeight );//FSI weight
     t1->SetBranchAddress("CatchenWeight",                             &CatchenWeight );//FSI weight  /*}}}*/
 
     //Other Quantities/*{{{*/
-    t1->SetBranchAddress("NRecorded",                                 &NRecorded            ); 
-    t1->SetBranchAddress("NGenerated",                                &NGenerated           );
+    // t1->SetBranchAddress("NRecorded",                                 &NRecorded            ); 
+    // t1->SetBranchAddress("NGenerated",                                &NGenerated           );
 
-    t1->SetBranchAddress("W_GeV",                                     &W                    );
-    t1->SetBranchAddress("Qsq_GeV",                                   &Qsq                  );
-    t1->SetBranchAddress("T_Para_GeV",                                &t_Para               );
-    t1->SetBranchAddress("T_GeV",                                     &t                    );
-    t1->SetBranchAddress("Epsilon",                                   &Epsilon              );
-    t1->SetBranchAddress("x",                                         &x                    );
-    t1->SetBranchAddress("y",                                         &y                    );
-    t1->SetBranchAddress("z",                                         &z                    );
+    t1->SetBranchAddress("Vert_w_GeV",                                     &W                    );
+    t1->SetBranchAddress("Vert_Qsq_GeV",                                   &Qsq                  );
+    t1->SetBranchAddress("Vert_t_para_GeV",                                &t_Para               );
+    t1->SetBranchAddress("Vert_t_GeV",                                     &t                    );
+    t1->SetBranchAddress("epsilon",                                   &Epsilon              );
+    t1->SetBranchAddress("Vert_x_B",                                         &x                    );
+    // Values y and z never used - Rory
+    // t1->SetBranchAddress("y",                                         &y                    );
+    // t1->SetBranchAddress("z",                                         &z                    );
 
-    t1->SetBranchAddress("T_Corrected_GeV",                           &t_cor               );
-    t1->SetBranchAddress("Qsq_Corrected_GeV",                         &Qsq_cor             );
-    t1->SetBranchAddress("W_Corrected_GeV",                           &W_cor               );
-    t1->SetBranchAddress("x_Corrected",                               &x_cor               );
-    t1->SetBranchAddress("y_Corrected",                               &y_cor               );
-    t1->SetBranchAddress("z_Corrected",                               &z_cor               );
+    t1->SetBranchAddress("Lab_t_GeV",                           &t_cor               );
+    t1->SetBranchAddress("Lab_Qsq_GeV",                         &Qsq_cor             );
+    t1->SetBranchAddress("Lab_w_GeV",                           &W_cor               );
+    t1->SetBranchAddress("Lab_x_B",                               &x_cor               );
+    // t1->SetBranchAddress("y_Corrected",                               &y_cor               );
+    // t1->SetBranchAddress("z_Corrected",                               &z_cor               );
 
-    t1->SetBranchAddress("Vertex_X",                                  &Vertex_X             );
-    t1->SetBranchAddress("Vertex_Y",                                  &Vertex_Y             );
-    t1->SetBranchAddress("Vertex_Z",                                  &Vertex_Z             );
-    t1->SetBranchAddress("Theta_Pion_Photon_Col",                     &Theta_Pion_Photon    );
+    t1->SetBranchAddress("Vertex_x",                                  &Vertex_X             );
+    t1->SetBranchAddress("Vertex_y",                                  &Vertex_Y             );
+    t1->SetBranchAddress("Vertex_z",                                  &Vertex_Z             );
+    // t1->SetBranchAddress("Theta_Pion_Photon_Col",                     &Theta_Pion_Photon    );
 
-    t1->SetBranchAddress("A",                                         &A_Factor              );
-    t1->SetBranchAddress("Flux_Factor_RF",                            &Flux_Factor_RF           );
-    t1->SetBranchAddress("Flux_Factor_Col",                           &Flux_Factor_Col       );
-    t1->SetBranchAddress("Jacobian_CM",                               &Jacobian_CM           );
-    t1->SetBranchAddress("Jacobian_CM_RF",                            &Jacobian_CM_RF        );
-    t1->SetBranchAddress("Jacobian_CM_Col",                           &Jacobian_CM_Col        );
+    // All seemingly unused
+    // t1->SetBranchAddress("A",                                         &A_Factor              );
+    // t1->SetBranchAddress("Flux_Factor_RF",                            &Flux_Factor_RF           );
+    // t1->SetBranchAddress("Flux_Factor_Col",                           &Flux_Factor_Col       );
+    // t1->SetBranchAddress("Jacobian_CM",                               &Jacobian_CM           );
+    // t1->SetBranchAddress("Jacobian_CM_RF",                            &Jacobian_CM_RF        );
+    // t1->SetBranchAddress("Jacobian_CM_Col",                           &Jacobian_CM_Col        );
     /*}}}*/
     /*}}}*/
     /*}}}*/
