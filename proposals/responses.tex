@@ -6,101 +6,228 @@ before final approval can be given.  The following list is compiled from the
 TAC, Theory, and SoLID review reports, reordered according to topic.  Our 
 response to each item is also given.
 
-\subsection{SoLID Acceptance Simulations}
+\subsection{SoLID Acceptance Simulations
+\label{sec:resp_gemc}}
 
-{\it The simulations for this measurement may benefit from tracking DEMP
-  events through the full SoLID GEANT4 simulation (GEMC), particularly for
-  kinematics with the lowest momentum protons (300~MeV/c).}
+{\it [TAC]\ The simulations for this measurement may benefit from tracking
+  DEMP events through the full SoLID GEANT4 simulation (GEMC), particularly for
+  kinematics with the lowest momentum protons (300~MeV/c).}\\[0.2ex]
 
-This has been done.  See Sec.
+GEMC is a GEANT4-based simulation framework designed mainly for CLAS12. SoLID has adopted this framework to do some preliminary studies but implementation of the realistic SoLID detector information is still underway.  
+To address this comment, we have
+used our generator in two different types of simulations.  The projected
+results in Secs.~\ref{sec:rates}, \ref{sec:asym} incorporate electron
+radiation, multiple scattering and ionization energy loss in the generator.
+Then for every detected particle in each event, we smeared the momenta and
+angles of the final state particle by the detector resolutions based on tracking study, 
+and then used the acceptance profiles
+obtained with the SoLID-SIDIS GEANT4 simulation.
 
-\subsection{Experimental Background}
+In the second study, the event generator generates the LUND-format file for
+the three outgoing particles, $e^-$, $\pi^-$, $p$. 
+We can store up to eight variables ($Q^2$, $-t$, $W$, etc.) in the header 
+lines of the LUND file.  Events are generated with 
+bremsstrahlung and multiple scattering for the incoming electron and
+Fermi motion of the target neutron. 
+Events are generated uniformly over the 40~cm length of
+the SIDIS $^3$He target and a $25 mm \times 25 mm$ raster size is
+assumed.  Particle acceptance is studied with the SoLID SIDIS 
+GEANT4 configuration, incorporating multiple scattering and energy loss, as
+well as the individual detector apertures via the GEANT4 framework.
+The GEMC flux tree is used to see if a particle hits a specific detector. 
 
-{\it The committee is convinced that the SIDIS background is likely not a
-  major problem.  However, an alternate approach (rather than SIDIS
+In this second study, a DEMP event is defined as the following `trigger':
+\begin{center}
+DEMP Event: =  $T^{e'}_{LA+FA}$ and $T^{\pi^{-}}_{FA}$  and $T^{p}_{LA+FA}$,
+\end{center}
+where
+\begin{itemize}
+\item  $T^{e'}_{LA+FA}$ is true if an electron hits the virtual planes of (LGC and
+HGC and EC-FA) or EC-LA,
+\item $T^{\pi^{-}}_{FA}$ is true if a pion hits the virtual planes of HGC and EC-FA and
+MRPC,
+\item $T^{p}_{LA+FA}$ is true if a proton hits the virtual planes of (MRPC and SPD-FA)
+or SPD-LA.
+\end{itemize}
+
+\begin{figure}[!ht]
+ \begin{center}
+      \includegraphics[width=0.65\textwidth]{./figures/demp_Wp-x.png}
+      \includegraphics[width=0.65\textwidth]{./figures/demp_W-x.png}
+   \caption{\footnotesize{{\em Top:} $W'$ vs. $x$ coverage, {\em Bottom:} $W$
+       vs. $x$ coverage of triple coincidence $e$+$\pi^-$+$p$ DEMP events as
+       simulated by GEMC.  A $W>$2~GeV cut was applied.}}
+  \label{fig:Wp_x}
+  \end{center}
+\end{figure}
+
+Fig.~\ref{fig:p_theta} shows the acceptances for all three particles when an
+event passes these DEMP event triple-coincidence conditions.  As expected, the
+results resemble those obtained in the first study, with the low
+momentum proton acceptance now being more accurately modeled. 
+Because the DEMP process has very low physics rate, and meanwhile, it takes huge amount of computer time  to accumulate enough statistics, some regions may have stronger statistical fluctuation effect. However, the experimental requirement of detecting protons is more relax compared with the detection of electrons and pions, simply because we only reply on the Time-of-Flight information to separate protons from other positive particles. We will perform more carefully study of reconstructing low momentum protons but we believe the SoLID detector systems will have good coverage of detecting protons.
+
+It is important to note that the angles plotted in Fig.~\ref{fig:p_theta} are not in the
+detector frame, but correspond to the reaction vertex location within
+the simulated target volume for that event.  This causes the gap between the FA
+and LA angular acceptances to be largely blurred out, as well as a slight
+enlargement of the accepted angular range.  Similarly, the plotted momenta
+are the emitted particle values, not the detected values, corresponding to what
+would be obtained in the data analysis after correcting for energy loss.  In 
+comparison to the first study, this difference in plotting variables causes the 
+lower range of the detected proton momentum to appear to have shifted upward
+slightly, to 300-350~MeV/c.  However, the actual difference is very small and
+the overall triple-coincidence rate and accepted $t$-range are only marginally
+affected.
+
+Figs.~\ref{fig:kin_cor}, \ref{fig:Q2_t_bin} also are the result of GEMC
+simulations.  Finally, because there were some oral questions about the $W'$
+acceptance (invariant mass of the hadronic system without the detected
+$\pi^-$), we show both the $W$ and $W'$ coverage versus $x$ in
+Fig.~\ref{fig:Wp_x}.  As expected for an exclusive reaction, this quantity is
+sharply peaked at the mass of the recoil proton, with a small tail due to
+nuclear effects.  In contrast, the SIDIS events are distributed over a broad
+range $1.5<W'<3.5$ GeV \cite{solid:e12-10-006}.
+
+We would like to stress that the SoLID GEMC simulation tool is still under massive development and the detector designs are still needed to be finalized. Together with other approved physics programs on SoLID, we plan to perform more careful study when the SoLID detector designs are completed and the full simulation software is available.
+
+\subsection{Experimental Background
+\label{sec:resp_bkd}}
+
+{\it [SoLID]\ The committee is convinced that the SIDIS background is likely
+  not a major problem.  However, an alternate approach (rather than SIDIS
   fragmentation functions) could be used.  The primary background channel under
-  study is $^3$He$(e,e'\pi^-)pp$ with the two undetected protons as
-  spectators.  The continuum background that can leak under the quasi-exclusive
-  peak can be of the form $e+n\rightarrow e'+\pi^-+\Delta^+$ with the
-  $\Delta^+$ decaying to $p+\pi^0$.}\\[0.2ex]
+  study is $^3$He$(e,e'\pi^-)pp$ with the two undetected protons as spectators.
+  The continuum background that can leak under the quasi-exclusive peak can be
+  of the form $e+n\rightarrow e'+\pi^-+\Delta^+$ with the $\Delta^+$ decaying
+  to $p+\pi^0$.}\\[0.2ex]
 
-{\it The authors may want, however, to expand on possible contamination arising
-  from $\Delta^{++}$ production on bound protons, and subsequent decay into
-  $\pi^+$ and $p$.}\\
+{\it [Theory]\ The authors may want, however, to expand on possible
+  contamination arising from $\Delta^{++}$ production on bound protons, and
+  subsequent decay into $\pi^+$ and $p$.}\\
 We take this comment to mean the $e+p\rightarrow e'+\pi^-+\Delta^{++}$
 background reaction, as otherwise there is no $\pi^-$ in the final state to
 satisfy the offline event finder.\\[0.2ex]
 
-Neither $\pi^-\Delta$ final state is expected to be a substantial issue.  We
-have investigated and compared the kinematics of the $\pi^-n$ and $\pi^-\Delta$
-final states.  The missing momentum of the $\pi^-\Delta$ state is about
-500~MeV/c higher than the $\pi^-n$ final state, very similar to the difference
-between the DEMP and SIDIS distributions in Fig.~\ref{missing_mom}.  The 1
-GeV/c missing momentum cut will eliminate about 50\% of the $\pi^-\Delta$
-events.  In addition, the $\pi^-\Delta$ final state is centered about 300 MeV
-higher in missing mass than the $\pi^-n$ state, and will be further suppressed
-by a cut of approximately $M_{miss}<$1.05~GeV.  We estimate the $\pi^-\Delta$
-contamination remaining after the application of both cuts to be very similar
-to that already shown in Fig.~\ref{missing_mass}.
+Neither $\pi^-\Delta$ final state is expected to be a substantial source of
+contamination.  We have investigated and compared the kinematics of the
+$\pi^-n$ and $\pi^-\Delta$ final states.  The missing momentum of the
+$\pi^-\Delta$ state is about 500~MeV/c higher than the $\pi^-n$ final state,
+very similar to the difference between the DEMP and SIDIS distributions in
+Fig.~\ref{fig:missing_mom}.  A cut at 1.2~GeV/c missing momentum cut will 
+discriminate against
+%eliminate about 50\% of the
+$\pi^-\Delta$ events.  In addition, the $\pi^-\Delta$ final state is centered
+about 300 MeV higher in missing mass than the $\pi^-n$ state, and will be
+further suppressed by a cut of approximately $M_{miss}<$1.05~GeV.  We estimate
+the $\pi^-\Delta$ contamination remaining after the application of both cuts to
+be very similar to that already shown in Fig.~\ref{fig:missing_mass}.
 
 \subsection{Resolution and Energy Loss}
 
-{\it The effects of Fermi-smearing, detector resolution, ionization energy
-  loss and bremsstrahlung need to be clarified.  Although they seem to all be
-  included in Figs.~15 and 16, it was not clear which curves included which
-  effects.}
+{\it [SoLID]\ The effects of Fermi-smearing, detector resolution, ionization
+  energy loss and bremsstrahlung need to be clarified.  Although they seem to
+  all be included in Figs.~15 and 16, it was not clear which curves included
+  which effects.}\\[0.2ex]
 
-This has been clarified.  See Sec.
+We have revised the text to make this more clear.  All of the results shown
+incorporate all these effects.
 
 \subsection{Projected Uncertainties}
 
-{\it The extraction of the term $|\sigma^y_{TT}+2\epsilon\sigma^y_L|$ in
-  Eqn.~8 from the other $\sin\beta$ and $\cos\beta$ terms requires good
+{\it [SoLID]\ The extraction of the term $|\sigma^y_{TT}+2\epsilon\sigma^y_L|$
+  in Eqn.~8 from the other $\sin\beta$ and $\cos\beta$ terms requires good
   knowledge of the $\beta$-acceptance in each $t$-bin.  This should be shown,
-  in addition to the acceptance plots of Fig.~12.}
+  in addition to the acceptance plots of Fig.~12.}\\[0.2ex]
 
-This has been done.  See Sec.
+We have put much more effort into understanding the $(\phi,\phi_S)$ coverage of
+each $t$-bin, and we hope the proposal more clearly addresses both
+the goals of the experiment and the potential limitations.  As presented in
+Sec.~\ref{sec:asym}, we have used the same unbinned maximum likelihood (UML)
+analysis that was used by the HERMES Collaboration in the analysis of their
+experimental data.  It is clear that the large azimuthal acceptance and high
+luminosity capabilities of the SoLID detector makes it very well suited to this
+measurement, and there should be no major obstacles to cleanly identify the
+desired $\sin(\phi-\phi_S)$ and $\sin(\phi_S)$ asymmetries.
+
+The two limitations we face are the following:
+\begin{itemize}
+\item{the effect of $^3$He Fermi momentum.  This is discussed more fully in
+  Sec.~\ref{sec:resp_fermi}.}
+\item{we are unlikely to extract definitive values for the more rapidly varying
+  $\sin(2\phi-\phi_{S})$, $\sin(2\phi+\phi_{S})$, $\sin(3\phi-\phi_{S})$
+  asymmetries after all statistical and systematic uncertainties are included.
+  However, we have shown that this should not adversely affect the main physics
+  goals of our measurement.}
+\end{itemize}
+
+We are confident that we can obtain a significant physics result should this
+proposal be accepted.  and can help justify funding for the SoLID project as
+one of its flagship measurements.
 \\[0.2ex]
 
-{\it The collaboration should attempt to quantify the projected precision of
-  the measured spin-dependent cross section.  Although the asymmetry may have a
-  smaller error bar, the spin-dependent cross section difference has a simpler
-  interpretation.  Measuring the spin-dependent cross section is also
-  consistent with the opening sentence of Appendix A.}
+{\it [SoLID]\ The collaboration should attempt to quantify the projected
+  precision of the measured spin-dependent cross section.  Although the
+  asymmetry may have a smaller error bar, the spin-dependent cross section
+  difference has a simpler interpretation.}\\[0.2ex]
 
-We agree that the extraction of these absolute cross sections would be very
-useful in terms of theoretical interpreation, but this is a very difficult
-question to answer at this early stage, given that SoLID is not designed for
-absolute cross section measurements.  To be conservative, this proposal only
-relies on the extraction of the azimuthal asymmetry components from the target
-up-down polarization difference, where many systematic uncertainties cancel.
-This can be done reliably, even if the systematic uncertainties are otherwise
-too large for reliable absolute cross section measurements.
+One of the biggest advantages of DEMP measurements with transversely polarized
+target is that the asymmetries can suffer many fewer higher twist effects than
+the cross sections.  As shown in Fig.~\ref{fig:belitsky_atpi}, higher twist
+corrections, which are expected to be significant in Jefferson Lab kinematics,
+likely cancel in the formation of the single spin asymmetry, leading to a
+precocious scaling of $A_L^{\perp}$ at moderate $Q^2$ \cite{Fr99, belitsky}.
+This is one of the reasons for the intense theoretical interest in these
+measurements.
 
-The quantitative estimate of detector efficiency and acceptance correction
-uncertainties, absolute kinematic offsets, etc. requires dramatically more
-study and a possible optimization of the SoLID detector system.  After this
-proposal is accepted, we can continue our studies to see if this is a viable
-option for the SoLID Collaboration.
+Thus, while the extraction of the absolute spin-dependent cross sections will
+undoubtedly be helpful for confirming the theoretical interpretation of our
+results, they will be dominated by the higher twist effects.  It is difficult
+to quantify the expected precision at this early stage, given that SoLID is not
+designed for absolute cross section measurements.  To be conservative, this
+proposal only relies on the extraction of the azimuthal asymmetry components
+from the target up-down polarization difference, where many systematic
+uncertainties cancel.  This can be done reliably, even if the systematic
+uncertainties are otherwise too large for reliable absolute cross section
+measurements.  The quantitative estimate of detector efficiency and acceptance
+correction uncertainties, absolute kinematic offsets, etc. requires
+dramatically more study and a possible optimization of the SoLID detector
+system.
 
-\subsection{Fermi Momentum Effects}
+Ultimately, the measurement presented in this proposal is important preparatory
+work for future measurements at the EIC, where the higher twist contributions
+should be smaller.  The Electron-Ion Collider is optimized for transverse
+single spin asymmetry measurements such as these, and the ability to have both
+polarized $^3$He and proton beams will allow $A_{UT}^{sin(\phi-\phi_s)}$ to be
+directly compared for the $\vec{n}(e,e'\pi^-)p$ and $\vec{p}(e,e'\pi^+)n$
+reactions, without target dilution, over a broad kinematic range.  In the
+meantime, the proposed measurement with SoLID is our best short-term
+opportunity to considerably advance over the pioneering HERMES data.
 
-{\it Fermi-momentum is not just a kinematic effect.  It also affects the DEMP
-  amplitude.  The $^3$He momentum distribution $\rho(p)$ is plotted in Fig.~10
-  (Appendix~A).  The weighted distribution $p^2\rho(p)$ peaks at
+\begin{figure}[hbt!]
+\begin{center}
+(a) \includegraphics[height=6cm]{./figures/t_simple_fit5.png}\\
+(b)\includegraphics[height=6cm]{./figures/t_fermi_fit5.png}\\
+(c)\includegraphics[height=6cm]{./figures/t_mult_nofermi_fit5.png}\\
+\end{center}
+\caption{\label{fig:asym_nofermi}{Projected values and uncertainties of the two
+    dominant single-spin asymmetry modulations, $\sin(\phi-\phi_S)$ (left) and
+    $\sin(\phi_S)$ (right) for the a) {\it simple}, b) {\it fermi} and c) {\it
+      mult\_nofermi} cases, as discussed in the text.}}
+\end{figure}
+
+\subsection{Fermi Momentum Effects
+\label{sec:resp_fermi}}
+
+{\it [SoLID]\ Fermi-momentum is not just a kinematic effect.  It also affects
+  the DEMP amplitude.  The $^3$He momentum distribution $\rho(p)$ is plotted in
+  Fig.~10 (Appendix~A).  The weighted distribution $p^2\rho(p)$ peaks at
   $p_n\approx$60~MeV/c.  This means that the effective $x_B$ is smeared by
   $\approx p_n/M\approx$6\%.  The significance of this effect should be
   discussed.  Also, if the proton momentum resolution is good enough, it will
-  be possible to correct for this effct, event-by-event.}
+  be possible to correct for this effct, event-by-event.}\\[0.2ex]
 
-We agree that if the proton momentum resolution is sufficiently good, it will
-be possible to correct for Fermi momentum on an event-by-event basis.  We are
-familiar with this technique from our work with the A2 Collaboration at Mainz,
-for example.  However, for the purposes of this proposal we take the
-less optimistic view that the proton resolution is likely not good enough.
-\\[0.2ex]
-
-{\it The authors may want to switch off $^3$He Fermi motion in their
+{\it [Theory]\ The authors may want to switch off $^3$He Fermi motion in their
   simulations and determine how large and in which kinematics they see a
   difference.  Having evidence of non-negligible nuclear effects at an early
   stage would encourage theorists to extend now their calculations from
@@ -109,20 +236,63 @@ less optimistic view that the proton resolution is likely not good enough.
   on the possible corrections in addition to Fermi motion, such as from binding
   and nucleon off-shell effects, as well as corrections beyond the impulse
   approximation from rescattering or final state interactions of the detected
-  proton.}
+  proton.}\\[0.2ex]
 
-This has now been done, see Sec.
+We agree that if the proton momentum resolution is sufficiently good, it will
+be possible to correct for Fermi momentum on an event-by-event basis.  We are
+familiar with this technique from our work with the A2 Collaboration at Mainz,
+for example.  For the purposes of this proposal we take the more pessimistic
+view that the proton resolution is likely not good enough to make this
+correction, even though the removal of the Fermi momentum affect would simplify
+the physics interpretation of our data and further increase its likely physics
+impact.
+
+To get a better estimate of the impact of Fermi momentum, we have run the
+generator in a variety of configurations and repeated the analysis of
+Sec.~\ref{sec:asym}.  These configurations were:
+\begin{itemize}
+\item{{\it simple:} All Fermi momentum, multiple scattering, energy loss effects
+  turned off.}
+\item{{\it fermi:} Same as {\it simple} except that Fermi momentum is turned
+  on.  This allows the Fermi momentum effect to be isolated separate from other
+  effects.}
+\item{{\it mult:} All Fermi momentum, multiple scattering, energy loss effects
+  turned on.  This is the default configuration, presented in
+  Fig.~\ref{fig:asym1_t}.}
+\item{{\it mult\_nofermi:} Same as {\it simple} except that Fermi momentum is
+  turned off.  This allows the anticipated effect of correcting Fermi momentum
+  event-by-event should the recoil proton momentum resolution be sufficiently
+  good to be modeled.}
+\end{itemize}
+
+While all five modulations were fit in each case, only the two of physics
+interest are shown in Fig.~\ref{fig:asym_nofermi}.  It is clearly seen in panel
+a) that the agreement between input and output values is very good when all
+Fermi momentum, scattering and energy loss effects are turned off.  This
+validates our UML procedure.  The effect of Fermi momentum can be seen by
+comparing panels b) and a), or alternately Fig~\ref{fig:asym1_t} with panel c).
+Their effects are similar, giving rise to a deviation to the
+$\sin(\phi-\phi_S)$ asymmetry of about -0.02, and a deviation to the
+$\sin(\phi_S)$ asymmetry of about -0.04.  Panel c) clearly shows that if we are
+able to correct the data for Fermi momentum on an event-by-event basis, it is
+in principle possible to remove most of this effect on the asymmetries, even
+though there is multiple scattering, scattering resolution, and other smearing
+effects.
+
+We hope this estimate of Fermi-momentum effects at an early stage will
+encourage theorists to extend their calculations for a timely and correct
+utilization of our proposed data, as suggested in the Theory review comment.
 
 \subsection{Dialog with Theorists}
 
-{\it There are a number of important theory issues raised by this proposal.
-  These probably cannot be fully resolved before re-submission, but it will be
-  important to have a clear dialog with relevant theorists (and
+{\it [SoLID]\ There are a number of important theory issues raised by this
+  proposal.  These probably cannot be fully resolved before re-submission, but
+  it will be important to have a clear dialog with relevant theorists (and
   experimentalists) in place...  Both Goloskokov and Kroll, and Liutti and
   Goldstein, have published estimates of $\sigma_T$, based on transversity GPDs
   and a twist-3 helicity-flip pion distribution amplitude.  One or the other of
   these theory groups should be engaged in a discussion of both the
-  $|\sigma^y_L|$ and $|\sigma^y_{TT}|$ terms.}
+  $|\sigma^y_L|$ and $|\sigma^y_{TT}|$ terms.}\\[0.2ex]
 
 We have been in communication with Goloskokov and Kroll on the physics
 objectives of this proposal for some years, and they provided helpful comments
@@ -131,28 +301,33 @@ proposal, Goloskokov and Kroll generously provided new asymmetry calculations,
 based on their best estimates of $\sigma_T$, $\sigma_{TT}$ for SoLID
 kinematics.  We are confident that approval of this proposal will raise the
 interest of other theorists to the physics potential of our measurements, and
-we will have dialog with them.
-\\[0.2ex]
+we will have dialog with them.\\[0.2ex]
 
-{\it The QCD factorization theorem implies color transparency for the final
-  state $\pi^-$ in this proposal.  Thus the $^3$He$(e,e'\pi^-)$ final state 
-  interactions (FSI) are identical with $^3$He$(e,e'p)$, just with a more exotic
-  scattering amplitude.  It is not practical to obtain full FSI calculations
-  before resubmission, but a dialog should be started both with the groups
-  doing FSI calculations, and the groups doing Deep Virtual calculations on
-  light nuclei.  Empirically, it will be useful to determine if the FSI `peak'
-  lies within the $^3$He$(e,e'\pi^-p)pp$ acceptance of this proposal.}
+{\it [SoLID]\ The QCD factorization theorem implies color transparency for the
+  final state $\pi^-$ in this proposal.  Thus the $^3$He$(e,e'\pi^-)$ final
+  state interactions (FSI) are identical with $^3$He$(e,e'p)$, just with a more
+  exotic scattering amplitude.  It is not practical to obtain full FSI
+  calculations before resubmission, but a dialog should be started both with
+  the groups doing FSI calculations, and the groups doing Deep Virtual
+  calculations on light nuclei.  Empirically, it will be useful to determine if
+  the FSI `peak' lies within the $^3$He$(e,e'\pi^-p)pp$ acceptance of this
+  proposal.}\\[0.2ex]
 
-As discussed in Sec.~\ref{sec:fsi} of the Appendix, we have made some estimates
-of FSI effects, based on an empirical parameterization of $\pi N$ cross
-sections.  Our estimates indicate that most FSI events are scattered outside
-the triple coincidence acceptance, and are effectively removed by our analysis
-cuts.
-
-Elaborate, based on our findings.
+We have made some estimates of FSI effects, based on the empirical
+parameterization of $\pi N$ differential cross sections discussed in
+Sec.~\ref{sec:fsi} of the Appendix.  The results of our study indicate that the
+FSI `peak' does not lie within the acceptance of this proposal and that FSI
+effects are expected to be small.  Based on the $\pi N$ differential cross
+sections and the fact that there are only two proton spectators in the final
+state, we anticipate only about 1\% of events will suffer FSI interactions.
+The FSI fraction is weakly dependent on $Q^2$, rising to about 1.2\% for events
+with $Q^2>$5 GeV$^2$ in our study.  Of these, a large fraction of the FSI
+events are scattered outside the triple coincidence acceptance, reducing the
+FSI fraction to $\sim 0.4\%$.  This wil be further reduced by analysis cuts
+such as $P_{miss}<1.2$ GeV/c.
 
 Over the longer term, we will consult with theoretical groups for a more
-quantitative estimate of FSI effects.  For example, Del Dotto, Kaptari, Pace,
+definitive study of FSI effects.  For example, Del Dotto, Kaptari, Pace,
 Salme and Scopetta recently published a study of FSI effects in SIDIS from a
 transversely polarized $^3$He target \cite{dotto} in SBS, SoLID and EIC
 kinematics.  The SIDIS final state has more outgoing particles than DEMP, so

@@ -1,5 +1,6 @@
 \section{Monte Carlo model of Deep Exclusive $\pi^{-}$ Production from the
-  Neutron in $^{3}$He }
+  Neutron in $^{3}$He 
+\label{sec:generator}}
 
 The Monte Carlo studies needed for this proposal require a reaction
 model for an experimentally unexplored region of kinematics, at higher
@@ -31,8 +32,8 @@ equal to $W$ and $\epsilon$ is the polarization of the virtual photon.
 where $\theta_{e}$ is the scattering angle of scattered electron.
 
 The two-fold differential cross section $\frac{d{^2} \sigma}{d\Omega_{\pi}}$ in
-the lab frame can be expressed in terms of the invariant cross section in
-centre of mass frame of the photon and nucleon,
+the lab frame can be expressed in terms of the invariant cross section
+in centre of mass frame of the photon and nucleon,
 \begin{equation}
   \frac{d^2 \sigma}{d\Omega_\pi}= J \frac{d^2 \sigma}{dt d\phi},
 \end{equation}
@@ -122,7 +123,7 @@ Vrancx-Ryckebusch (VR) model \cite{vr}.  This is a Regge model with a
 parametrization of the deep inelastic scattering amplitude added to improve the
 description of $\sigma_{T}$.  The description of $\sigma_{L}$ in the model is
 constrained by a fit to the Hall C $p(e,e'\pi^+)n$ data from
-Ref.~\cite{gmhuber}.  The model provides a good description of exclusive
+Ref.~\cite{Fpi2}.  The model provides a good description of exclusive
 charged pion electroproduction above the resonance region.  It has been checked
 for reliability against the Hall B and C data listed above, for $W>2$ GeV,
 $Q^2$ from 0.35 to 4.98 GeV$^2$.  The model is believed to be reliable for
@@ -130,8 +131,8 @@ $-t\leq$0.5 GeV$^2$, but it overshoots the data for $-t>$0.5 GeV$^2$.
 
 \begin{figure}[!hbt]
     \centering
-    \includegraphics[width=6.0in,height=2.4in]{./figures/pimsigma_qsq.pdf}
-%    \includegraphics[width=6.0in,height=3.0in]{./figures/01.eps}
+    \includegraphics[width=0.85\textwidth]{./figures/pimsigma_qsq17.png}
+%    \includegraphics[width=0.85\textwidth]{./figures/pimsigma_qsq.pdf}
     \caption{ A comparison of last six points of table $v$ of \cite{gmhuber-2},
       the VR model, and our parametrization values vs. $Q^{2}$ for $\pi^{-}$
       electroproduction. Experimental data are shown in blue circles, VR model
@@ -144,8 +145,8 @@ $-t\leq$0.5 GeV$^2$, but it overshoots the data for $-t>$0.5 GeV$^2$.
 
 \begin{figure}[!hbt]
     \centering
-\    \includegraphics[width=6.0in,height=2.4in]{./figures/pimFit.pdf}
-%    \includegraphics[width=5.0in,height=2.4in]{./figures/02.eps}
+    \includegraphics[width=0.85\textwidth]{./figures/pimsigma_t17.png}
+%    \includegraphics[width=0.85\textwidth]{./figures/pimFit.pdf}
     \caption{ A comparison of parametrized $\sigma_{L,T,LT,TT}$ and VR model
     values at $Q^2$ = 4.421 GeV$^2$ and $W = 3.0$ GeV.  Black points are VR
     model values and blue line is parametrized $\sigma_{L,T,LT,TT}$ given by
@@ -161,7 +162,7 @@ For exclusive DEMP in SoLID, the kinematic region of interest for
 parametrization of $\sigma_{L,T,LT,TT}$ is $Q^2$ from 4.0 GeV to 7.5 GeV$^2$,
 $-t$ from 0 GeV$^2$ to 1.0 GeV$^2$, and we set $W=3.0$ GeV. After the
 parametrization of $\sigma_{L,T,LT,TT}$ for $-t$ and $Q^2$, we used the same
-$W$ dependence given by \cite{gmhuber}, which is $(W^2-M^2)^{-2}$ where $M$ is
+$W$ dependence given by \cite{Fpi2}, which is $(W^2-M^2)^{-2}$ where $M$ is
 the proton mass.  Our parametrization of all four cross sections is given in
 equations $\ref{equation:l-fit}$ to $\ref{equation:tt-fit}$.
 
@@ -195,16 +196,12 @@ parametrization is checked by plotting the parametrization functions of
 $\sigma_{L,T,LT,TT}$ versus the existing data and the VR model are shown in 
 Figs. \ref{fig:expvrfit}, \ref{fig:sigall}.
 
-{\bf There is no statement made that the cross section is calculated in the
-  neutron rest frame from the `vertex' kinematic quantities, and then
-  transformed to the lab frame.}
-
 \subsection{Parametrization of six Single-Spin Asymmetries
 \label{sec:asymparametrizations}}
 
 \begin{figure}[!hbt]
     \centering
-    \includegraphics[width=6.0in]{./figures/AsymPlots.pdf}
+    \includegraphics[width=0.85\textwidth]{./figures/AsymPlots.pdf}
     \caption{Parametrization of the five single spin asymmetries
       $A_{UT}^{\sin(\mu\phi+\lambda\phi_s)_k}$ vs. $t'$ used in the event
       generator for this proposal.  The points are the calculations by
@@ -262,7 +259,7 @@ interpolation of the nearest values.
 
 \begin{figure}[!hbt]
     \centering
-    \includegraphics[width=4.0in,height=2.5in]{./figures/Fermi.pdf}
+    \includegraphics[height=7cm]{./figures/Fermi.pdf}
 %    \includegraphics[width=4.0in,height=2.5in]{04.eps}
     \caption{Fermi momentum spectral function of a target nucleon in $^3$He
       generated according to the Argonne potential of Ref \cite{fermipaper}.
