@@ -13,18 +13,20 @@ GLIBS  = $(shell $(ROOTSYS)/bin/root-config --glibs)
 
 CFLAGS += -Wall
 INCLUDE := -I${ROOTSYS}/include
-RTLIBS := -L${ROOTSYS}/lib -lCore -lRooFit -lRooFitCore -lMinuit
+RTLIBS := -L${ROOTSYS}/lib -lCore -lMinuit
 all: $(PROGRAM)
 
 FFLAGS = -C -g -m64 -fbounds-check -finit-local-zero -fno-automatic
 
 
 $(PROGRAM): $(PROGRAM).o 
-	clang++ -o $(PROGRAM) $(PROGRAM).o $(CFLAGS) $(RTLIBS) $(LIBS) $(GLIBS)
+	#clang++ -o $(PROGRAM) $(PROGRAM).o $(CFLAGS) $(RTLIBS) $(LIBS) $(GLIBS)
+	g++ -o $(PROGRAM) $(PROGRAM).o $(CFLAGS) $(RTLIBS) $(LIBS) $(GLIBS)
 
 
 $(PROGRAM).o: $(PROGRAM).C
-	clang++ $(CFLAGS) -c -o $(PROGRAM).o $(PROGRAM).C  ${INCLUDE}
+	#clang++ $(CFLAGS) -c -o $(PROGRAM).o $(PROGRAM).C  ${INCLUDE}
+	g++ $(CFLAGS) -c -o $(PROGRAM).o $(PROGRAM).C  ${INCLUDE}
 
 clean:
 #	rm -f *.o ${GFORTRAN_OBJ}
